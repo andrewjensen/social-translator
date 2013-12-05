@@ -1,0 +1,82 @@
+/***********************************
+ * MIXINS */
+
+.rounded (@radius: 5px) {
+	-webkit-border-radius: @radius;
+	   -moz-border-radius: @radius;
+	     -o-border-radius: @radius;
+	        border-radius: @radius;
+}
+
+.round-image {
+	.rounded(999px);
+}
+
+.unstyled-list {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+
+/***********************************
+ * MAJOR BLOCK-LEVEL ELEMENTS */
+
+
+section.box {
+	max-width: 40rem;
+	margin: 0 auto;
+
+	padding: 1rem;
+	background-color: @bg-darker;
+}
+
+
+
+/***********************************
+ * SMALL REPEATING ELEMENTS */
+
+
+
+.quote {
+
+	:before, :after {
+		font-family: @font-family-quote-marks;
+		font-size: 28px;
+		line-height: 0;
+	}
+	:before {
+		content: "\201C";	/* Left double quote mark */
+	}
+	:after {
+		content: "\201D";	/* Right double quote mark */
+	}
+}
+
+
+@color-tag:	#444444;
+@bg-tag:	#f0f0f0;
+.tag {
+	padding: 2px;
+	background-color: @bg-tag;
+	border: 1px solid #cccccc;
+	.rounded(3px);
+}
+.tag.tag-language {
+	background-color: darken(@bg-tag, 10%);
+}
+
+
+.profile {
+
+	a:link, a:visited {
+		color: @color-link-dark;
+		text-decoration: none;
+	}
+
+	img {
+		display: block;
+		width: 100%;
+		.round-image;
+	}
+}

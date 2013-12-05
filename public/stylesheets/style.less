@@ -1,14 +1,33 @@
-/* VARIABLES */
+/***********************************
+ * VARIABLES */
 
-@font-size-body: 14px;
+/* Fonts */
 
-/* LAYOUT */
+@font-family-body:			'Helvetica Neue', Helvetica, Arial, sans-serif;
+@font-family-quote-marks:	'palatino', 'times new roman', 'times', 'serif';
 
-body {
-  padding: 50px;
-  font: @font-size-body "Lucida Grande", Helvetica, Arial, sans-serif;
-}
+@font-size-body:	14px;
+@font-size-smaller:	12px;
+@font-size-mini:	10px;
 
-a {
-  color: #00B7FF;
-}
+@height-footer: 8rem;
+
+
+/* Colors */
+
+@bg-body:			#ffffff;
+@bg-darker:			#7AC4F5;
+
+@color-link:		#0000ff;
+@color-link-dark:	#444444;
+
+@color-divider:		#cccccc;
+
+/***********************************
+ * INCLUDES */
+
+@import '_layout.less';
+@import '_typography.less';
+@import '_classes.less';
+@import '_newsfeed.less';
+
