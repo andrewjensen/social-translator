@@ -1,6 +1,7 @@
 /***********************************
  * VARIABLES */
 /* Fonts */
+/* Sizing */
 /* Colors */
 /***********************************
  * INCLUDES */
@@ -109,7 +110,7 @@ section.box {
  * SMALL REPEATING ELEMENTS */
 .quote :before,
 .quote :after {
-  font-family: 'palatino', 'times new roman', 'times', 'serif';
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 28px;
   line-height: 0;
 }
@@ -129,6 +130,7 @@ section.box {
   -moz-border-radius: 3px;
   -o-border-radius: 3px;
   border-radius: 3px;
+  line-height: 2em;
 }
 .tag.tag-language {
   background-color: #d7d7d7;
@@ -148,10 +150,10 @@ section.box {
 }
 .feed-story {
   padding: 2rem 0;
-  border-bottom: 1px solid #cccccc;
+  border-bottom: 1px solid #e0e0e0;
 }
 .feed-story:first-child {
-  border-top: 1px solid #cccccc;
+  border-top: 1px solid #e0e0e0;
 }
 .feed-story .profile {
   text-align: center;
@@ -171,4 +173,30 @@ section.box {
 }
 .feed-story .stats .badge {
   font-size: 12px;
+}
+section.profile-full .profiles img {
+  display: inline-block;
+  width: 2.5rem;
+  margin-right: 0.25rem;
+}
+section.profile-full h3 .badge {
+  font-size: 15px;
+  /* TODO: change */
+  vertical-align: middle;
+}
+.profile-header {
+  /* background-color: @bg-panel; */
+}
+.profile-header .stats {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.profile-section {
+  margin: 0 0 2rem;
+  padding: 0 0 1rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+.profile-section:last-child {
+  border-bottom: none;
 }

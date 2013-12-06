@@ -1,28 +1,12 @@
 <% include header.ejs %>
 
 <div class="container">
-
+	
 	<h1>Hello My Friend!</h1>
 
 	<p>Welcome to <%= title %>! It's good to be here.</p>
-
-	<section id="box-login" class="box">
-		<h3>Create an Account</h3>
-
-		<form>
-			<div class="row">
-				<div class="col-md-6">
-					<input class="form-control input-block-level" type="email" id="create-email" name="create-email" placeholder="Email Address" />
-					<input class="form-control input-block-level" type="password" id="create-password" name="create-password" placeholder="Password" />
-					<a href="#" class="btn btn-primary btn-block">Sign Up</a>
-				</div>
-				<div class="col-md-6">
-					<a href="#" class="btn btn-primary btn-block">Login with Facebook</a>
-					<a href="#" class="btn btn-primary btn-block">Login with Google</a>
-				</div>
-			</div>
-		</form>
-	</section>
+	
+	<% // include login.ejs %>
 
 	<% include newsfeed.ejs %>
 

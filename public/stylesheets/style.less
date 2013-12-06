@@ -4,11 +4,15 @@
 /* Fonts */
 
 @font-family-body:			'Helvetica Neue', Helvetica, Arial, sans-serif;
-@font-family-quote-marks:	'palatino', 'times new roman', 'times', 'serif';
+@font-family-quote-marks:	@font-family-body;
+// @font-family-quote-marks:	'palatino', 'times new roman', 'times', 'serif';
 
 @font-size-body:	14px;
 @font-size-smaller:	12px;
 @font-size-mini:	10px;
+
+
+/* Sizing */
 
 @height-footer: 8rem;
 
@@ -17,11 +21,12 @@
 
 @bg-body:			#ffffff;
 @bg-darker:			#7AC4F5;
+@bg-panel:			lighten(@bg-darker, 20%);
 
 @color-link:		#0000ff;
 @color-link-dark:	#444444;
 
-@color-divider:		#cccccc;
+@color-divider:		#e0e0e0;
 
 /***********************************
  * INCLUDES */
@@ -29,5 +34,6 @@
 @import '_layout.less';
 @import '_typography.less';
 @import '_classes.less';
-@import '_newsfeed.less';
 
+@import '_newsfeed.less';
+@import '_profile.less';
