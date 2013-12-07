@@ -3,6 +3,7 @@
 /* Fonts */
 /* Sizing */
 /* Colors */
+/* Effects */
 /***********************************
  * INCLUDES */
 html,
@@ -23,9 +24,18 @@ header {
   background-color: #7ac4f5;
 }
 header h1 {
-  font-size: 3rem;
+  font-size: 1.5rem;
   line-height: 3rem;
   margin: 0;
+}
+header h1 a:link,
+header h1 a:visited {
+  color: #0b293d;
+}
+header h1 a:hover,
+header h1 a:active {
+  text-decoration: none;
+  color: #1b6393;
 }
 header nav {
   text-align: right;
@@ -74,6 +84,7 @@ footer {
 html {
   font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
   line-height: 1.5;
+  color: #000000;
 }
 h1,
 h2,
@@ -81,9 +92,10 @@ h3,
 h4,
 h5,
 h6 {
+  margin: 0 0 1rem;
   font-weight: 200;
   line-height: 1.0;
-  margin: 0 0 1rem;
+  color: #0b293d;
 }
 /***********************************
  * MIXINS */
@@ -92,6 +104,7 @@ h6 {
   -moz-border-radius: 999px;
   -o-border-radius: 999px;
   border-radius: 999px;
+  background-clip: padding-box;
 }
 .unstyled-list {
   list-style-type: none;
@@ -130,6 +143,7 @@ section.box {
   -moz-border-radius: 3px;
   -o-border-radius: 3px;
   border-radius: 3px;
+  background-clip: padding-box;
   line-height: 2em;
 }
 .tag.tag-language {
@@ -147,6 +161,10 @@ section.box {
   -moz-border-radius: 999px;
   -o-border-radius: 999px;
   border-radius: 999px;
+  background-clip: padding-box;
+}
+.profile.subtle img {
+  opacity: 0.7;
 }
 .feed-story {
   padding: 2rem 0;
@@ -199,4 +217,38 @@ section.profile-full h3 .badge {
 }
 .profile-section:last-child {
   border-bottom: none;
+}
+.profile-story {
+  padding: 1rem;
+  background-color: #d9eefc;
+}
+.profile-story:first-child {
+  -webkit-border-top-right-radius: 8px;
+  -moz-border-radius-topright: 8px;
+  border-top-right-radius: 8px;
+  -webkit-border-top-left-radius: 8px;
+  -moz-border-radius-topleft: 8px;
+  border-top-left-radius: 8px;
+  background-clip: padding-box;
+}
+.profile-stories-more {
+  text-align: center;
+  font-size: 24px;
+}
+.profile-stories-more a:link,
+.profile-stories-more a:visited {
+  display: block;
+  text-decoration: none;
+  background-color: #d9eefc;
+  -webkit-border-bottom-right-radius: 8px;
+  -moz-border-radius-bottomright: 8px;
+  border-bottom-right-radius: 8px;
+  -webkit-border-bottom-left-radius: 8px;
+  -moz-border-radius-bottomleft: 8px;
+  border-bottom-left-radius: 8px;
+  background-clip: padding-box;
+}
+.profile-stories-more a:hover,
+.profile-stories-more a:active {
+  background-color: #cbe8fb;
 }

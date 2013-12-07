@@ -19,9 +19,17 @@ header {
 	background-color: @bg-darker;
 
 	h1 {
-		font-size: 3rem;
+		font-size: 1.5rem;
 		line-height: 3rem;
 		margin: 0;
+
+		a:link, a:visited {
+			color: @color-headers;
+		}
+		a:hover, a:active {
+			text-decoration: none;
+			color: lighten(@color-headers, 20%);
+		}
 	}
 
 	nav {

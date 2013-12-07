@@ -14,6 +14,7 @@ module.exports = function(app) {
 	app.get('/user/:username', users.profilePage);
 	app.get('/question/:questionID', questions.translationPage);
 
+	app.get('/profile/', users.loggedInProfilePage);
 
 	//Define API routes...
 

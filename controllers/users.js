@@ -22,6 +22,13 @@ exports.profilePage = function(req, res) {
 
 }
 
+exports.loggedInProfilePage = function(req, res) {
+	
+	//TODO: implement
+
+	res.send("TODO: implement the profile page!");
+
+}
 
 
 /***********************************
