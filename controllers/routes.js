@@ -5,18 +5,23 @@ module.exports = function(app) {
 
 	var home		= require('./home.js');
 	var users		= require('./users.js');
-
 	var questions	= require('./questions.js');
 	var answers		= require('./answers.js');
 
 	//Define routes for HTML...
+
 	app.get('/', home.index);
 	app.get('/user/:username', users.profilePage);
 	app.get('/question/:questionID', questions.translationPage);
 
 
 	//Define API routes...
+
+	app.get('/api/users/', users.list);
+	app.get('/api/users/:username', users.getByUsername);
+
 	app.get('/api/questions/', questions.list);
+
 	app.get('/api/answers/', answers.list);
 
 	
