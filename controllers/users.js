@@ -1,27 +1,65 @@
-//Load models
-var Question	= require('../models/question.js');
+//Load model
+var Users = require('../models/user.js');
 
 
+/***********************************
+ * Pages */
 
 exports.profilePage = function(req, res) {
 	var username = req.params.username;
 
-	//TODO: plug into the MongoDB for this
-	var user = {
-		fullName	: username + ' Smith'
-	};
+	Users.findOne({username: username}, function(err, user) {
 
-	var pageData = {
-		title		: 'Profile | Social Translator',
-		user		: user
-	};
-	res.render('profile', pageData);
+		if (err)
+			res.send(err);	//TODO: handle error better
+		
+		var pageData = {
+			title		: 'Profile | Social Translator',
+			user		: user
+		};
+		res.render('profile', pageData);
+	});
+
+}
+
+exports.loggedInProfilePage = function(req, res) {
+	
+	//TODO: implement
+
+	res.send("TODO: implement the profile page!");
+
 }
 
 
+/***********************************
+ * API Calls */
 
+/**
+ * Get a user by their username.
+ */
+exports.getByUsername = function(req, res) {
+	var username = req.params.username;
 
-// TODO: remove this old function
+	Users.findOne({username: username}, function(err, user) {
+
+		if (err)
+			res.send(err);
+
+		res.json(user);
+	});
+}
+
+/**
+ * List all users.
+ */
 exports.list = function(req, res) {
-	res.send("respond with a resource");
+
+	Users.find(function(err, users) {
+
+		if (err)
+			res.send(err)
+
+		res.json(users);
+	});
+
 };

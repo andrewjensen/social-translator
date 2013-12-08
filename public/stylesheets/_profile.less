@@ -36,3 +36,31 @@ section.profile-full {
 		border-bottom: none;
 	}
 }
+
+.profile-stories {
+
+}
+
+.profile-story {
+	padding: 1rem;
+	background-color: @bg-panel;
+
+	&:first-child {
+		.border-radius(@border-radius-panel, 0, 0, @border-radius-panel);
+	}
+}
+
+.profile-stories-more {
+	text-align: center;
+	font-size: @font-size-body + 10px;
+	
+	a:link, a:visited {
+		display: block;
+		text-decoration: none;
+		background-color: @bg-panel;
+		.border-radius(0, @border-radius-panel, @border-radius-panel, 0);
+	}
+	a:hover, a:active {
+		background-color: darken(@bg-panel, 3%);
+	}
+}

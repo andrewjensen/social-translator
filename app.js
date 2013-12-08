@@ -50,17 +50,9 @@ mongoose.connect(config.database.url);
 require('./controllers/routes.js')(app);
 
 
-var Question	= require('./models/question.js');
-var Answer		= require('./models/answer.js');
-var User		= require('./models/user.js');
-
-Question.findOne({text : "Hello World"}, function(err, questions) {
-
-	if (err)
-		console.log("Error:"+err);
-	else
-		console.log(questions);
-});
+// var Question	= require('./models/question.js');
+// var Answer		= require('./models/answer.js');
+// var User		= require('./models/user.js');
 
 
 
