@@ -253,3 +253,33 @@ section.profile-full h3 .badge {
 .profile-stories-more a:active {
   background-color: #cbe8fb;
 }
+.profile img {
+  float: right;
+  margin-left: 1rem;
+  width: auto;
+  height: 3rem;
+}
+.context {
+  float: left;
+  width: 100%;
+}
+.context p {
+  min-height: 4em;
+  max-width: 30em;
+  margin: 0 auto;
+  text-align: center;
+}
+.comments {
+  float: left;
+  width: 50%;
+}
+.asker {
+  float: left;
+  width: auto;
+  height: 3rem;
+}
+.answerer {
+  float: right;
+  width: auto;
+  height: 3rem;
+}
