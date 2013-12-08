@@ -167,6 +167,28 @@ section.box {
 .profile.subtle img {
   opacity: 0.7;
 }
+.badge {
+  background-color: #4baff1;
+}
+.searchbar {
+  text-align: center;
+  font-size: 16px;
+}
+.searchbar input[type="text"] {
+  display: inline-block;
+  max-width: 20rem;
+  font-size: 16px;
+}
+.searchbar select {
+  display: inline-block;
+  max-width: 10rem;
+  font-size: 16px;
+}
+.searchbar span {
+  display: inline-block;
+  vertical-align: middle;
+  padding: 0 0.5rem;
+}
 .feed-story {
   padding: 2rem 0;
   border-bottom: 1px solid #e0e0e0;
@@ -231,6 +253,9 @@ section.profile-full h3 .badge {
   -moz-border-radius-topleft: 8px;
   border-top-left-radius: 8px;
   background-clip: padding-box;
+}
+.profile-story .answer {
+  text-align: right;
 }
 .profile-stories-more {
   text-align: center;
