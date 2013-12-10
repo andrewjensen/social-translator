@@ -1,9 +1,8 @@
 //Load model
-//TODO: rename the models to singular!
 var User = require('../models/user.js');
-var Tags = require('../models/tag.js');
-var Questions = require('../models/question.js');
-var Answers = require('../models/answer.js');
+var Tag = require('../models/tag.js');
+var Question = require('../models/question.js');
+var Answer = require('../models/answer.js');
 
 /***********************************
  * Public Pages */
@@ -21,17 +20,17 @@ exports.profilePage = function(req, res) {
 		async.parallel(
 		{
 			tags : function(callback){
-				Tags.find({}, function(err, docs){
+				Tag.find({}, function(err, docs){
 					callback(null, docs);
 				});
 			},
 			questions : function(callback){
-				Questions.find({}, function(err, docs){
+				Question.find({}, function(err, docs){
 					callback(null, docs);
 				});
 			},
 			answers : function(callback){
-				Answers.find({}, function(err, docs){
+				Answer.find({}, function(err, docs){
 					callback(null, docs)
 				});
 			}
