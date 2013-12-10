@@ -7,6 +7,7 @@ module.exports = function(app) {
 	var users		= require('./users.js');
 	var questions	= require('./questions.js');
 	var answers		= require('./answers.js');
+	var tags        = require('./tags.js');
 
 	//Define routes for HTML...
 
@@ -24,6 +25,7 @@ module.exports = function(app) {
 	app.get('/api/questions/', questions.list);
 
 	app.get('/api/answers/', answers.list);
+	app.get('/api/tags/', tags.list);
 
 	
 	//Old leftovers...
