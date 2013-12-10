@@ -14,13 +14,11 @@ exports.profilePage = function(req, res) {
 
 		if (err)
 			res.send(err);	//TODO: handle error better
-		//if (user != null)
-			//var tags = Tags.find().where('_id').in(user.followingTags);
-		
+		var async = require('../util/async.js');
 		async.parallel(
 		{
 			tags : function(callback){
-				Tag.find({}, function(err, docs){
+				Tag.find({_id: { $in : user.followingTags}}, function(err, docs){
 					callback(null, docs);
 				});
 			},
@@ -31,7 +29,17 @@ exports.profilePage = function(req, res) {
 			},
 			answers : function(callback){
 				Answer.find({}, function(err, docs){
-					callback(null, docs)
+					callback(null, docs);
+				});
+			},
+			following : function(callback){
+				User.find({_id: { $in : user.followingUsers}}, function(err, docs){
+					callback(null, docs);
+				});
+			},
+			followers : function(callback){
+				User.find({_id: { $in : user.followers}}, function(err, docs){
+					callback(null, docs);
 				});
 			}
 		}, 
@@ -40,12 +48,15 @@ exports.profilePage = function(req, res) {
 			if (err)
 				res.send(err);
 			console.log(results.tags.length);
+			console.log(results.tags.length + ' ' + results.questions.length + ' ' + results.answers.length);
 			var pageData = {
 				title		: 'Profile | Social Translator',
 				user		: user,
 				tags		: results.tags,
 				questions   : results.questions,
-				answers     : results.answers
+				answers     : results.answers,
+				following   : results.following,
+				followers   : results.followers
 			};
 			res.render('profile', pageData);
 		});

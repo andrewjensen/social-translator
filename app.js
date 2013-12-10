@@ -21,6 +21,12 @@ var config = require('./config.json');
 require('./passport.js')(passport, config);
 
 /**
+ * Load other Useful Libraries
+ */
+
+var async = require('./util/async.js');
+
+/**
  * Start the Express application.
  */
 var app = express();
