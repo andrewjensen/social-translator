@@ -1,0 +1,16 @@
+{
+	"sessionSecretKey":	"!gu174r5!",
+
+	"database": {
+		"url" : "mongodb://localhost:27017"
+	},
+	
+	"auth": {
+		"facebook": {
+			"clientID":		"227276364116207",
+			"clientSecret":	"94f415107431290794903135dbdbb28a",
+			"callbackURL":	"http://localhost:3000/auth/facebook/callback"
+		}
+	}
+	
+}

@@ -155,6 +155,7 @@ section.box {
   text-decoration: none;
 }
 .profile img {
+  box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.2);
   display: block;
   width: 100%;
   -webkit-border-radius: 999px;
@@ -165,6 +166,28 @@ section.box {
 }
 .profile.subtle img {
   opacity: 0.7;
+}
+.badge {
+  background-color: #4baff1;
+}
+.searchbar {
+  text-align: center;
+  font-size: 16px;
+}
+.searchbar input[type="text"] {
+  display: inline-block;
+  max-width: 20rem;
+  font-size: 16px;
+}
+.searchbar select {
+  display: inline-block;
+  max-width: 10rem;
+  font-size: 16px;
+}
+.searchbar span {
+  display: inline-block;
+  vertical-align: middle;
+  padding: 0 0.5rem;
 }
 .feed-story {
   padding: 2rem 0;
@@ -231,6 +254,9 @@ section.profile-full h3 .badge {
   border-top-left-radius: 8px;
   background-clip: padding-box;
 }
+.profile-story .answer {
+  text-align: right;
+}
 .profile-stories-more {
   text-align: center;
   font-size: 24px;
@@ -251,4 +277,34 @@ section.profile-full h3 .badge {
 .profile-stories-more a:hover,
 .profile-stories-more a:active {
   background-color: #cbe8fb;
+}
+.profile img {
+  float: right;
+  margin-left: 1rem;
+  width: auto;
+  height: 3rem;
+}
+.context {
+  float: left;
+  width: 100%;
+}
+.context p {
+  min-height: 4em;
+  max-width: 30em;
+  margin: 0 auto;
+  text-align: center;
+}
+.comments {
+  float: left;
+  width: 50%;
+}
+.asker {
+  float: left;
+  width: auto;
+  height: 3rem;
+}
+.answerer {
+  float: right;
+  width: auto;
+  height: 3rem;
 }

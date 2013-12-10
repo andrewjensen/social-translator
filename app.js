@@ -6,11 +6,19 @@ var express		= require('express');
 var mongoose	= require('mongoose');
 var http		= require('http');
 var path		= require('path');
+var passport	= require('passport');
 
 /**
  * Load application-specific settings and models.
+ * TODO: load in a custom production config file if exists.
  */
-var config = require('./config.js');
+var config = require('./config.json');
+
+
+/**
+ * Configure Passport for authentication.
+ */
+require('./passport.js')(passport, config);
 
 /**
  * Start the Express application.
@@ -25,8 +33,10 @@ app.use(express.logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(express.methodOverride());
-app.use(express.cookieParser('your secret here'));
+app.use(express.cookieParser(config.sessionSecretKey));
 app.use(express.session());
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(app.router);
 app.use(require('less-middleware')({ src: path.join(__dirname, 'public') }));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -47,7 +57,7 @@ mongoose.connect(config.database.url);
 /**
  * Define routes.
  */
-require('./controllers/routes.js')(app);
+require('./controllers/routes.js')(app, passport);
 
 
 // var Question	= require('./models/question.js');

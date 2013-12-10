@@ -1,5 +1,7 @@
+<% include header.ejs %>
+
 <section id="box-login" class="box">
-	<h3>Create an Account</h3>
+	<h3>Login or Register</h3>
 
 	<form>
 		<div class="row">
@@ -9,9 +11,11 @@
 				<a href="#" class="btn btn-primary btn-block">Sign Up</a>
 			</div>
 			<div class="col-md-6">
-				<a href="#" class="btn btn-primary btn-block">Login with Facebook</a>
+				<a href="/auth/facebook/" class="btn btn-primary btn-block">Login with Facebook</a>
 				<a href="#" class="btn btn-primary btn-block">Login with Google</a>
 			</div>
 		</div>
 	</form>
 </section>
+
+<% include footer.ejs %>

@@ -7,6 +7,7 @@
 
 	<div class="profile-header profile-section">
 		
+
 		<div class="row">
 
 			<div class="col-md-2">
@@ -17,19 +18,19 @@
 
 			<div class="col-md-6">
 
-				<h1><%= user.firstName + " " + user.lastName %></h1>
+				<h1><%= user.facebook.name %></h1>
 				<ul class="stats">
-					<li><span class="badge"><%=user.questions.length%></span> Questions Asked</li>
-					<li><span class="badge"><%=user.answers.length%></span> Translations Proposed</li>
-					<li><span class="badge"><%=user.followingTags.length%></span> Following Tags</li>
-					<li><span class="badge"><%=user.followingUsers.length%></span> Following People</li>
-					<li><span class="badge"><%=user.followers.length%></span> Followers</li>
+					<li><span class="badge">21</span> Questions Asked</li>
+					<li><span class="badge">34</span> Translations Proposed</li>
+					<li><span class="badge">5</span> Following Tags</li>
+					<li><span class="badge">4</span> Following People</li>
+					<li><span class="badge">2</span> Followers</li>
 				</ul>
 			</div>
 
 			<div class="col-md-4">
 				<div class="score-card">
-					<h3>Score: <%=user.score%> </h3>
+					<h3>Score: 25</h3>
 				</div>
 			</div>
 
@@ -49,7 +50,7 @@
 			</div>
 
 			<div class="profile-questions profile-section">
-				<h3>Questions Asked <span class="badge"><%=user.questions.length%></span></h3>
+				<h3>Questions Asked <span class="badge">21</span></h3>
 
 				<div class="profile-stories">
 
@@ -58,12 +59,12 @@
 							<div class="profile col-md-1">
 								<img src="/images/profile-default.jpg" alt="Andy Jay" />
 							</div>
-							<div class="quote col-md-11">
+							<div class="quote question col-md-11">
 								<p>Hey there, friend!</p>
 							</div>
 						</div>
 						<div class="row">
-							<div class="quote col-md-11">
+							<div class="quote answer col-md-11">
 								<p>Hola, amigo!</p>
 							</div>
 							<div class="profile subtle col-md-1">
@@ -77,12 +78,12 @@
 							<div class="profile col-md-1">
 								<img src="/images/profile-default.jpg" alt="Andy Jay" />
 							</div>
-							<div class="quote col-md-11">
+							<div class="quote question col-md-11">
 								<p>What time is it?</p>
 							</div>
 						</div>
 						<div class="row">
-							<div class="quote col-md-11">
+							<div class="quote answer col-md-11">
 								<p>ton ni kii mong?</p>
 							</div>
 							<div class="profile subtle col-md-1">
@@ -99,7 +100,53 @@
 			</div>
 
 			<div class="profile-answers profile-section">
-				<h3>Translations Proposed <span class="badge"><%=user.answers.length%></span></h3>
+				<h3>Translations Proposed <span class="badge">34</span></h3>
+				
+				<div class="profile-stories">
+
+					<div class="profile-story">
+						<div class="row">
+							<div class="profile col-md-1">
+								<img src="/images/profile-default.jpg" alt="Andy Jay" />
+							</div>
+							<div class="quote question col-md-11">
+								<p>Hey there, friend!</p>
+							</div>
+						</div>
+						<div class="row">
+							<div class="quote answer col-md-11">
+								<p>Hola, amigo!</p>
+							</div>
+							<div class="profile subtle col-md-1">
+								<img src="/images/profile-default.jpg" alt="Andy Jay" />
+							</div>
+						</div>
+					</div>
+
+					<div class="profile-story">
+						<div class="row">
+							<div class="profile col-md-1">
+								<img src="/images/profile-default.jpg" alt="Andy Jay" />
+							</div>
+							<div class="quote question col-md-11">
+								<p>What time is it?</p>
+							</div>
+						</div>
+						<div class="row">
+							<div class="quote answer col-md-11">
+								<p>ton ni kii mong?</p>
+							</div>
+							<div class="profile subtle col-md-1">
+								<img src="/images/profile-default.jpg" alt="Andy Jay" />
+							</div>
+						</div>
+					</div>
+
+				</div>
+			
+				<div class="profile-stories-more">
+					<a href="#">...</a>
+				</div>
 			</div>
 
 		</div>
@@ -107,14 +154,11 @@
 		<div class="col-md-4">
 
 			<div class="profile-following-tags profile-section">
-				<h3>Following Tags <span class="badge"><%=user.followingTags.length%></span></h3>
+				<h3>Following Tags <span class="badge">5</span></h3>
 
 				<div class="tags">
-					<% for (var i=0; i < tags.length; i++) {%>
-						<span class="tag tag-language"><%= user.followingTags[i] %></span>
-					<% } %>
 					<span class="tag tag-language">English</span>
-					<span class="tag tag-language">Reformed Egyptian</span><br />
+					<span class="tag tag-language">Reformed Egyptian</span>
 					<span class="tag">Cooking</span>
 					<span class="tag">Graphic Design</span>
 					<span class="tag">Programming</span>
@@ -122,7 +166,7 @@
 			</div>
 
 			<div class="profile-following-people profile-section">
-				<h3>Following People <span class="badge"><%=user.followingUsers.length%></span></h3>
+				<h3>Following People <span class="badge">4</span></h3>
 
 				<div class="profiles">
 					<a href="#" class="profile"><img src="/images/profile-default.jpg" alt="Andy Jay" /></a>
@@ -133,7 +177,7 @@
 			</div>
 
 			<div class="profile-followers profile-section">
-				<h3>Followers <span class="badge"><%=user.followers.length%></span></h3>
+				<h3>Followers <span class="badge">2</span></h3>
 
 				<div class="profiles">
 					<a href="#" class="profile"><img src="/images/profile-default.jpg" alt="Andy Jay" /></a>

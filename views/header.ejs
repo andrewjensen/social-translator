@@ -1,7 +1,9 @@
 <!doctype html>
-<html>
+<html ng-app>
 	<head>
 		<title><%= title %></title>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.4/angular.min.js"></script>
 
 		<link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap.min.css" />
 		<link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap-theme.min.css" />
@@ -22,13 +24,18 @@
 
 						<div class="col-md-6">
 							<nav>
-								<div class="profile">
-									<a href="/profile/">
-										<img src="/images/profile-default.jpg" alt="Profile image" />
-										<span>Andy Jay</span>
-									</a>
-								</div>
-								
+								<% if (typeof(user) != 'undefined') { %>
+
+									<div class="profile">
+										<a href="/profile/">
+											<img src="/images/profile-default.jpg" alt="Profile image" />
+											<span>Andy Jay</span>
+										</a>
+									</div>
+
+								<% } else { %>
+									<a href="/login/">Login or register</a>
+								<% } %>
 							</nav>
 						</div>
 
