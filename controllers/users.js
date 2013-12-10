@@ -1,16 +1,17 @@
 //Load model
-var Users = require('../models/user.js');
+//TODO: rename the models to singular!
+var User = require('../models/user.js');
 var Tags = require('../models/tag.js');
 var Questions = require('../models/question.js');
 var Answers = require('../models/answer.js');
 
 /***********************************
- * Pages */
+ * Public Pages */
 
 exports.profilePage = function(req, res) {
-	var username = req.params.username;
+	var userId = req.params.userId;
 
-	Users.findOne({username: username}, function(err, user) {
+	User.findOne({_id: userId}, function(err, user) {
 
 		if (err)
 			res.send(err);	//TODO: handle error better
@@ -51,14 +52,41 @@ exports.profilePage = function(req, res) {
 		});
 	});
 
-}
+};
 
 exports.loggedInProfilePage = function(req, res) {
 	
-	//TODO: implement
+	if (req.isAuthenticated()) {
+		var pageData = {
+			title		: 'Profile | Social Translator',
+			user		: req.user
+		};
+		res.render('profile', pageData);
+	} else {
+		res.redirect('/login/');
+	}
+};
 
-	res.send("TODO: implement the profile page!");
+/***********************************
+ * Pages for authentication */
 
+exports.loginPage = function(req, res) {
+
+	var pageData = {
+		title		: 'Login or register | Social Translator'
+	};
+	res.render('login', pageData);
+};
+
+exports.doLogin = function(req, res) {
+	passport.authenticate('local', {
+		successRedirect : "/",
+		failureRedirect : "/login",
+	});
+};
+
+exports.facebookAuthCallback = function(req, res) {
+	res.redirect('/');	//Redirect home to the news feed.
 }
 
 
@@ -68,24 +96,39 @@ exports.loggedInProfilePage = function(req, res) {
 /**
  * Get a user by their username.
  */
-exports.getByUsername = function(req, res) {
-	var username = req.params.username;
+exports.getById = function(req, res) {
+	var userId = req.params.userId;
 
-	Users.findOne({username: username}, function(err, user) {
+	User.findOne({_id: userId}, function(err, user) {
 
 		if (err)
 			res.send(err);
 
 		res.json(user);
 	});
-}
+};
+
+/**
+ * Get a user by their username.
+ */
+exports.getByUsername = function(req, res) {
+	var username = req.params.username;
+
+	User.findOne({username: username}, function(err, user) {
+
+		if (err)
+			res.send(err);
+
+		res.json(user);
+	});
+};
 
 /**
  * List all users.
  */
 exports.list = function(req, res) {
 
-	Users.find(function(err, users) {
+	User.find(function(err, users) {
 
 		if (err)
 			res.send(err)
