@@ -170,6 +170,39 @@ section.box {
 .badge {
   background-color: #4baff1;
 }
+.the-feed.ng-enter,
+.the-feed.ng-leave,
+.the-feed.ng-move {
+  -webkit-transition: 0.5s linear all;
+  -moz-transition: 0.5s linear all;
+  -o-transition: 0.5s linear all;
+  transition: 0.5s linear all;
+}
+.the-feed.ng-enter,
+.the-feed.ng-move {
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
+}
+.the-feed.ng-move.ng-move-active,
+.the-feed.ng-enter.ng-enter-active {
+  opacity: 1;
+  height: 120px;
+}
+.the-feed.ng-leave {
+  opacity: 1;
+  overflow: hidden;
+}
+.the-feed.ng-leave.ng-leave-active {
+  opacity: 0;
+  height: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.feed-container {
+  text-align: center;
+  background: whiteSmoke;
+}
 .searchbar {
   text-align: center;
   font-size: 16px;

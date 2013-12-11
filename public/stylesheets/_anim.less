@@ -1,0 +1,112 @@
+.the-feed.ng-enter,
+.the-feed.ng-leave,
+.the-feed.ng-move {
+  -webkit-transition: 0.5s linear all;
+  -moz-transition: 0.5s linear all;
+  -o-transition: 0.5s linear all;
+  transition: 0.5s linear all;
+}
+ 
+.the-feed.ng-enter,
+.the-feed.ng-move {
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
+}
+ 
+.the-feed.ng-move.ng-move-active,
+.the-feed.ng-enter.ng-enter-active {
+  opacity: 1;
+  height: 120px;
+}
+ 
+.the-feed.ng-leave {
+  opacity: 1;
+  overflow: hidden;
+}
+ 
+.the-feed.ng-leave.ng-leave-active {
+  opacity: 0;
+  height: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+// .the-feed.animate-enter, 
+// .the-feed.animate-leave
+// { 
+//     -webkit-transition: 300ms cubic-bezier(0.420, 0.000, 1.000, 1.000) all;
+//     -moz-transition: 300ms cubic-bezier(0.420, 0.000, 1.000, 1.000) all;
+//     -ms-transition: 300ms cubic-bezier(0.420, 0.000, 1.000, 1.000) all;
+//     -o-transition: 300ms cubic-bezier(0.420, 0.000, 1.000, 1.000) all;
+//     transition: 300ms cubic-bezier(0.420, 0.000, 1.000, 1.000) all;
+// } 
+ 
+// .the-feed.animate-enter {
+//     top: 100%;
+// }
+// .the-feed.animate-enter.animate-enter-active {
+//     top: 0;
+// }
+ 
+// .the-feed.animate-leave {
+//     top: 0;
+// }
+// .the-feed.animate-leave.animate-leave-active{
+//     top: -100%;
+// }
+
+
+// .feed-container {
+//   position: relative;
+// }
+ 
+// .the-feed.ng-enter, .the-feed.ng-leave {
+//   -webkit-transition: 300ms cubic-bezier(0.420, 0.000, 1.000, 1.000) all;
+//   -moz-transition: 300ms cubic-bezier(0.420, 0.000, 1.000, 1.000) all;
+//   -ms-transition: 300ms cubic-bezier(0.420, 0.000, 1.000, 1.000) all;
+//   -o-transition: 300ms cubic-bezier(0.420, 0.000, 1.000, 1.000) all;
+//   transition: 300ms cubic-bezier(0.420, 0.000, 1.000, 1.000) all;
+// }
+ 
+// .the-feed.ng-enter {
+//   top: 100%;
+// }
+
+// .the-feed.ng-enter-active {
+//   top: 0;
+// }
+ 
+// .the-feed.ng-leave {
+//   top: 0;
+// }
+
+// .the-feed.ng-leave-active {
+//   top: -100%;
+// }
+ 
+// @keyframes fade-in {
+//   from { opacity: 0; }
+//   to { opacity: 1; }
+// }
+// @-moz-keyframes fade-in {
+//   from { opacity: 0; }
+//   to { opacity: 1; }
+// }
+// @-webkit-keyframes fade-in {
+//   from { opacity: 0; }
+//   to { opacity: 1; }
+// }
+ 
+// @keyframes fade-out {
+//   from { opacity: 1; }
+//   to { opacity: 0; }
+// }
+// @-moz-keyframes fade-out {
+//   from { opacity: 1; }
+//   to { opacity: 0; }
+// }
+// @-webkit-keyframes fade-out {
+//   from { opacity: 1; }
+//   to { opacity: 0; }
+// }

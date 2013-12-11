@@ -10,8 +10,9 @@ module.exports = function(app, passport) {
 	var tags        = require('./tags.js');
 
 	//Define routes for HTML...
-
 	app.get('/', home.index);
+	app.get('/feed', home.getFeedTemplate);
+
 	app.get('/user/:userId', users.profilePage);
 	app.get('/question/:questionID', questions.translationPage);
 	app.get('/login/', users.loginPage);
@@ -43,7 +44,8 @@ module.exports = function(app, passport) {
 	app.get('/api/questions/', questions.list);
 
 	app.get('/api/answers/', answers.list);
-	app.get('/api/tags/', tags.list);
+
+	app.get('/api/feed/:type/:condition', home.getFeed);
 
 	
 	//Old leftovers...
