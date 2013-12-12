@@ -1,15 +1,57 @@
-<% include header.ejs %>
+<!doctype html>
+<html ng-app = "translationApp">
+<head>
+<% include head.ejs %>
+</head>
 
-<div class="container">
-	
-	<% include searchbar.ejs %>
+<body>
 
+<div id="wrapper">
 
-	<div class="feed-container">
-		<div ng-view class="the-feed">
-			//THIS IS WHERE EVERYTHING GOES
+	<header>
+		<div class="container">
+			<div class="row">
+
+				<div class="col-md-6">
+					<h1 id="site-header"><a href="/">Social Translator</a></h1>
+				</div>
+
+				<div class="col-md-6">
+					<nav>
+						<% if (typeof(user) != 'undefined') { %>
+
+							<div class="profile">
+								<a href="/profile/">
+									<img src="/images/profile-default.jpg" alt="Profile image" />
+									<span>Andy Jay</span>
+								</a>
+							</div>
+
+						<% } else { %>
+							<a href="/login/">Login or register</a>
+						<% } %>
+					</nav>
+				</div>
+
+			</div>
 		</div>
-	</div>
-</div>
+	</header>
 
-<% include footer.ejs %>
+	<div id="main">
+
+		<% include searchbar.ejs %>
+
+		<div ng-view class="the-feed">
+			<!-- THIS IS WHERE EVERYTHING GOES -->
+		</div>
+
+	</div><!-- end #main -->
+
+	<footer>
+	</footer>
+
+</div><!-- end #wrapper -->
+
+
+</body>
+</html>
