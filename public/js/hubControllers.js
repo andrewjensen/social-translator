@@ -1,9 +1,15 @@
 var hubControllers = angular.module('hubControllers', []);
 
-/**
-*	Search 
-*/
-hubControllers.controller('QsListCtrl', ['$scope', '$http', '$routeParams',
+/** Login */
+hubControllers.controller('LoginCtrl', ['$scope', '$http', 
+
+	function ($scope, $http) {
+		//TODO: write the api and conect it
+	}]
+);
+
+/** Search */
+hubControllers.controller('SearchCtrl', ['$scope', '$http', '$routeParams',
 
 	function ($scope, $http, $routeParams) {
 		var phrase = $routeParams.phrase;
@@ -18,9 +24,8 @@ hubControllers.controller('QsListCtrl', ['$scope', '$http', '$routeParams',
 	}]
 );
 
-/**
-*	News Feed
-*/
+
+/**	News Feed */
 hubControllers.controller('NewsFeedCtrl', ['$scope', '$http', '$routeParams',
 
 	function ($scope, $http, $routeParams) {
@@ -37,28 +42,29 @@ hubControllers.controller('NewsFeedCtrl', ['$scope', '$http', '$routeParams',
 	}]
 );
 
-/**
-*	Create a new phrase to translate
-*/
+
+/**	Profile Page */
+hubControllers.controller('ProfileCtrl', ['$scope', '$http', '$routeParams',
+
+	function ($scope, $http, $routeParams) {
+		//TODO: write the api and conect it
+	}]
+);
+
+
+/** Translation Page */
+hubControllers.controller('TranslationCtrl', ['$scope', '$http', 
+
+	function ($scope, $http) {
+		//TODO: write the api and conect it
+	}]
+);
+
+
+/**	Create question Page */
 hubControllers.controller('CreateQuestionCtrl', ['$scope', '$http', 
 
 	function ($scope, $http) {
 		//TODO: write the api and conect it
-		$http.get('/api/questions/').success(function(data) {
-			$scope.questions = data;
-		});
-	}]
-);
-
-/**
-*	Profile Page
-*/
-hubControllers.controller('GetProfileCtrl', ['$scope', '$http', '$routeParams',
-
-	function ($scope, $http, $routeParams) {
-		//TODO: write the api and conect it
-		// $http.get('/api/questions/').success(function(data) {
-		// 	$scope.questions = data;
-		// });
 	}]
 );

@@ -1,7 +1,3 @@
-/**
-*	js for Search Results, News Feed, and Creating a New Question
-*/
-
 function search() {
 	var searchPhrase = $("#searchbar-question").val();
 	window.location.href = '#/search/' + searchPhrase;
@@ -9,32 +5,46 @@ function search() {
 
 var translationApp = angular.module('translationApp', [
   'ngRoute',
-  'hubAnimations',
+  'ngAnimate',
   'hubControllers'
 ]);
 
-//api/questions/query
-//api/qusetions/newsfeed/username
-
 translationApp.config(['$routeProvider', function ($routeProvider, $routeParams) {
 	$routeProvider.
-	//search
+	//	login
+	when('/login', {
+		templateUrl: '/template/login.ejs',
+        controller: 'LoginCtrl'
+	}).
+	//	search
 	when('/search/:phrase', {
 		templateUrl: '/template/story-container.ejs',
-        controller: 'QsListCtrl'
+        controller: 'SearchCtrl'
 	}).
-	//newsfeed
+	//	newsfeed
 	when('/newsfeed/:userid', {
 		templateUrl: '/template/story-container.ejs',
         controller: 'NewsFeedCtrl'
 	}).
+	//	profile
 	when(
-		'/user/:userid', {
-			templateUrl: '/user/52a6546d0d6869237b34c7f8',
-			controller: ''
-		}	
-	).
-	//homepage
+		'/profile/:userid', {
+			templateUrl: '/template/profile.ejs',
+			controller: 'ProfileCtrl'
+	}).
+	//	translation
+	when(
+		'/translation/:questionid', {
+		templateUrl: '/template/translation.ejs',
+		controller: 'TranslationCtrl'
+	}).
+	//	create question
+	when(
+		'/create', {
+		templateUrl: '/template/create.ejs',
+		controller: 'CreateQuestionCtrl'
+	}).
+	//	homepage
 	otherwise ({
 		redirectTo: '/'
 	});
