@@ -20,12 +20,12 @@ translationApp.config(['$routeProvider', function ($routeProvider, $routeParams)
 	$routeProvider.
 	//search
 	when('/search/:phrase', {
-		templateUrl: '/feed',
+		templateUrl: '/template/feed.ejs',
         controller: 'QsListCtrl'
 	}).
 	//newsfeed
 	when('/newsfeed/:userid', {
-		templateUrl: '/feed',
+		templateUrl: '/template/feed.ejs',
         controller: 'NewsFeedCtrl'
 	}).
 	when(

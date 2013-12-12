@@ -13,10 +13,12 @@ module.exports = function(app, passport) {
 	app.get('/', home.index);
 	app.get('/feed', home.getFeedTemplate);
 
-	app.get('/user/:userId', users.profilePage);
-	app.get('/question/:questionID', questions.translationPage);
-	app.get('/login/', users.loginPage);
-	app.get('/profile/', users.loggedInProfilePage);
+
+	//Moved all of the views these use to template folder
+	// app.get('/user/:userId', users.profilePage);
+	// app.get('/question/:questionID', questions.translationPage);
+	// app.get('/login/', users.loginPage);
+	// app.get('/profile/', users.loggedInProfilePage);
 
 
 	//Define routes for passing authentication data...
