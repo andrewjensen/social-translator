@@ -1,8 +1,95 @@
-//Load model
-var User = require('../models/user.js');
-var Tag = require('../models/tag.js');
+var Answer	= require('../models/answer.js');
 var Question = require('../models/question.js');
-var Answer = require('../models/answer.js');
+var Tag = require('../models/tag.js');
+var User = require('../models/user.js');
+
+var async = require('../util/async.js');
+
+/**FROM answers.js*/
+//Load model
+
+
+/**
+ * List all answers.
+ * TODO: change to something more useful
+ */
+exports.answerlist = function(req, res) {
+
+	Answer.find(function(err, answers) {
+
+		if (err)
+			res.send(err)
+
+		res.json(answers); // return all answers in JSON format
+	});
+
+};
+
+/**FROM questions.js */
+//Load model
+
+
+exports.translationPage = function(req, res) {
+
+	var questionID = req.params.questionID;
+
+	console.log('questionID: ' + questionID);
+	
+	Question.findOne({_id: questionID}, function(err, question) {
+		if (err)
+			res.send(err);	//TODO: handle error better
+		console.log('hello world');
+		console.log(question);
+
+		var pageData = {
+			title		: 'Question | Social Translator',
+			question	: question
+		};
+		res.render('question', pageData);
+
+	});
+
+};
+
+/**
+ * List all questions.
+ * TODO: change to something more useful
+ */
+exports.questionlist = function(req, res) {
+
+	Question.find(function(err, questions) {
+
+		if (err)
+			res.send(err)
+
+		res.json(questions);
+	});
+
+};
+
+
+/** FROM tags.js */
+//Load model
+
+
+/**
+ * List all tags.
+ * TODO: Change to something useful.
+ */
+ exports.taglist = function(req, res) {
+
+ 	Tag.find(function(err, tags) {
+
+ 		if (err)
+ 			res.send(err)
+
+ 		res.json(tags); // return all tags in JSON format
+ 	});
+ };
+
+/** FROM users.js */
+//Load model
+
 
 /***********************************
  * Public Pages */
@@ -14,7 +101,7 @@ exports.profilePage = function(req, res) {
 
 		if (err)
 			res.send(err);	//TODO: handle error better
-		var async = require('../util/async.js');
+		
 		async.parallel(
 		{
 			tags : function(callback){
@@ -99,10 +186,6 @@ exports.facebookAuthCallback = function(req, res) {
 	res.redirect('/');	//Redirect home to the news feed.
 }
 
-
-/***********************************
- * API Calls */
-
 /**
  * Get a user by their username.
  */
@@ -136,7 +219,7 @@ exports.getByUsername = function(req, res) {
 /**
  * List all users.
  */
-exports.list = function(req, res) {
+exports.userlist = function(req, res) {
 
 	User.find(function(err, users) {
 
@@ -147,3 +230,51 @@ exports.list = function(req, res) {
 	});
 
 };
+
+/**
+ *	Returns the questions and top rate question for News Feed and Search Results
+ */
+exports.getFeed = function(req, res) {
+	var type = req.params.type;
+	var condition = req.params.condition;
+
+	console.log('Type: ' + type);
+
+	//TODO probably some sort of scrubbing of the condition;
+
+	//get all of the questions and answers that:
+	if (type == 'news')
+	{
+		//belong in users news feed
+		//TODO implement this
+		User.findOne({_id: condition}, function(err, user) {
+
+			if (err)
+				res.send(err);	//TODO: handle error better
+			console.log(user);
+
+			res.json(user);
+		});
+	}
+	else if (type == 'search')
+	{
+		console.log('Searching for: ' + condition);
+
+		//TODO write better search
+		var regex = new RegExp( condition+'?', "i");
+		Question.find({ text: regex}, function(err, questions) {
+			if (err)
+				res.send(err)
+			console.log(questions);
+			res.json(questions);
+		});
+
+		// Question.find(function(err, questions) {
+
+		// 	if (err)
+		// 		res.send(err)
+
+		// 	res.json(questions);
+		// });
+	}	
+}

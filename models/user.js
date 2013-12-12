@@ -51,6 +51,14 @@ userSchema.statics.findOrCreateFaceBookUser = function(profile, done) {
 		}
 	});	
 }
+/**
+userSchema.statics.getBasicInfo = function(user, done) {
+	console.log("DEBUG: getBasicInfo (user)");
+	this.find({'_id': { $in : }}, function(err, user) {
 
+
+	});
+}
+*/
 
 module.exports = mongoose.model('users', userSchema);
