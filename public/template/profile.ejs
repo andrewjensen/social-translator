@@ -3,11 +3,12 @@
 
 <section class="profile-full">
 
-
-	<% if (user.facebook.name != null)
-			var displayName = user.facebook.name;
-		else
-			var displayName = user.firstName + " " + user.lastName;%>
+	<% 
+	//if (user.facebook.name != null)
+	// 		var displayName = user.facebook.name;
+	// 	else
+	// 		var displayName = user.firstName + " " + user.lastName;
+	%>
 	<div class="profile-header profile-section">
 		
 
@@ -20,19 +21,19 @@
 			</div>
 
 			<div class="col-md-6">
-				<h1><%= displayName %></h1>
+				<h1> {{ user.displayName }} </h1>
 				<ul class="stats">
-					<li><span class="badge"><%= user.questions.length %></span> Questions Asked</li>
-					<li><span class="badge"><%= user.answers.length %></span> Translations Proposed</li>
-					<li><span class="badge"><%= user.followingTags.length %></span> Following Tags</li>
-					<li><span class="badge"><%= user.followingUsers.length %></span> Following People</li>
-					<li><span class="badge"><%= user.followers.length %></span> Followers</li>
+					<li><span class="badge"> {{ user.questions.length }} 	</span> Questions Asked</li>
+					<li><span class="badge"> {{ user.answers.length }} 		</span> Translations Proposed</li>
+					<li><span class="badge"> {{ user.followingTags.length }}</span> Following Tags</li>
+					<li><span class="badge"> {{ user.followingUsers.length}}</span> Following People</li>
+					<li><span class="badge"> {{ user.followers.length }}	</span> Followers</li>
 				</ul>
 			</div>
 
 			<div class="col-md-4">
 				<div class="score-card">
-					<h3>Score: <%= user.score %></h3>
+					<h3>Score: {{ user.score }}</h3>
 				</div>
 			</div>
 
@@ -48,11 +49,11 @@
 			<div class="profile-bio profile-section">
 				<h3>Bio</h3>
 
-				<p><%= user.bio %></p>
+				<p> {{ user.bio }} </p>
 			</div>
 
 			<div class="profile-questions profile-section">
-				<h3>Questions Asked <span class="badge"><%= user.questions.length %></span></h3>
+				<h3>Questions Asked <span class="badge">{{ user.questions.length }}</span></h3>
 
 				<div class="profile-stories">
 
@@ -102,7 +103,7 @@
 			</div>
 
 			<div class="profile-answers profile-section">
-				<h3>Translations Proposed <span class="badge"><%= user.answers.length %></span></h3>
+				<h3>Translations Proposed <span class="badge">{{ user.answers.length }}</span></h3>
 				
 				<div class="profile-stories">
 
@@ -156,12 +157,14 @@
 		<div class="col-md-4">
 
 			<div class="profile-following-tags profile-section">
-				<h3>Following Tags <span class="badge"><%= user.followingTags.length %></span></h3>
+				<h3>Following Tags <span class="badge">{{ user.followingTags.length }} </span></h3>
 
 				<div class="tags">
-					<% for (var i = 0; i < tags.length; i++) {
+					<% 
+					for (var i = 0; i < tags.length; i++) {
 						var classTag = "tag"
-						if (tags[i].isLanguage) {classTag += " tag-language"}%>
+						if (tags[i].isLanguage) {classTag += " tag-language"}
+					%>
 						<span class="<%= classTag %>"><%= tags[i].text %></span>
 					<% } %>
 				</div>
@@ -197,4 +200,4 @@
 
 
 </div>
-<% include footer.ejs %>
+<% //include footer.ejs %>

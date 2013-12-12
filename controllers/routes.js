@@ -11,8 +11,6 @@ module.exports = function(app, passport) {
 
 	//Define routes for HTML...
 	app.get('/', home.index);
-	app.get('/feed', home.getFeedTemplate);
-
 
 	//Moved all of the views these use to template folder
 	// app.get('/user/:userId', users.profilePage);

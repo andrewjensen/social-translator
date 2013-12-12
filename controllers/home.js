@@ -14,7 +14,7 @@ exports.index = function(req, res) {
 	if (req.isAuthenticated()) {
 		res.render('newsfeed', { title: 'Social Translator', user: req.user });
 	} else {
-		res.render('home', { title: 'Social Translator'});
+		res.render('index', { title: 'Social Translator'});
 	}
 };
 
