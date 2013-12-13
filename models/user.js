@@ -2,7 +2,7 @@
  * User model
  */
 var mongoose = require('mongoose');
-var ObjectId = mongoose.ObjectId;
+var ObjectId = mongoose.Schema.Types.ObjectId;
 var hash = require('../util/hash.js');
 
 var userSchema = new mongoose.Schema({
@@ -12,14 +12,15 @@ var userSchema = new mongoose.Schema({
 	username		: String,
 	salt			: String,
 	hash			: String,
-	nativeLanguage	: {type: String, default: ""},
+	nativeLanguage	: {type: ObjectId, ref: 'languages'},
 	bio				: {type: String, default: ""},
 	score			: {type: Number, default: 0},
-	followers		: [ObjectId],
-	followingUsers	: [ObjectId],
-	followingTags	: [ObjectId],
-	questions		: [ObjectId],
-	answers			: [ObjectId],
+	followers		: [{type: ObjectId, ref: 'users'}],
+	followingUsers	: [{type: ObjectId, ref: 'users'}],
+	followingTags	: [{type: ObjectId, ref: 'tags'}],
+	languages       : [{type: ObjectId, ref: 'languages'}],
+	questions		: [{type: ObjectId, ref: 'questions'}],
+	answers			: [{type: ObjectId, ref: 'answers'}],
 	facebook		: {
 		id		: String,
 		email	: String,
@@ -51,14 +52,5 @@ userSchema.statics.findOrCreateFaceBookUser = function(profile, done) {
 		}
 	});	
 }
-/**
-userSchema.statics.getBasicInfo = function(user, done) {
-	console.log("DEBUG: getBasicInfo (user)");
-	this.find({'_id': { $in : }}, function(err, user) {
-
-
-	});
-}
-*/
 
 module.exports = mongoose.model('users', userSchema);

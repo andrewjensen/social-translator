@@ -5,8 +5,7 @@
 var mongoose = require('mongoose');
 
 var tagSchema = new mongoose.Schema({
-	isLanguage  : Boolean,
-	text        : String
+	name         : String
 });
 
 module.exports = mongoose.model('tags', tagSchema);

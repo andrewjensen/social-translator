@@ -2,12 +2,26 @@ var Answer	= require('../models/answer.js');
 var Question = require('../models/question.js');
 var Tag = require('../models/tag.js');
 var User = require('../models/user.js');
+var Language = require('../models/language.js');
 
-var async = require('../util/async.js');
+/** Language Calls */
+exports.languagelist = function(req, res) {
 
-/**FROM answers.js*/
-//Load model
+	Language.find(function(err, languages) {
 
+		if (err)
+			res.send(err);
+		res.json(languages);
+	});
+};
+
+exports.searchPage = function(req, res) {
+
+
+};
+
+
+/** FROM answers.js */
 
 /**
  * List all answers.
@@ -19,36 +33,36 @@ exports.answerlist = function(req, res) {
 
 		if (err)
 			res.send(err)
-
 		res.json(answers); // return all answers in JSON format
 	});
-
 };
 
 /**FROM questions.js */
 //Load model
 
-
 exports.translationPage = function(req, res) {
 
 	var questionID = req.params.questionID;
-
-	console.log('questionID: ' + questionID);
 	
-	Question.findOne({_id: questionID}, function(err, question) {
-		if (err)
-			res.send(err);	//TODO: handle error better
-		console.log('hello world');
-		console.log(question);
+	Question.findOne({_id: questionID})
+			.populate('language', '_id name')
+			.populate('tags')
+			.populate('answers')
+			.exec(function(err, question) {
+				if (err)
+					res.send(err);	//TODO: handle error better
 
-		var pageData = {
-			title		: 'Question | Social Translator',
-			question	: question
-		};
-		res.render('question', pageData);
-
-	});
-
+				// Get all users where their questions.id is the current question id OR
+				// if ANY of their answers are contained in the page's answers 
+				User.find({$or: [{questions : question._id}, {answers: {$all: question.answers._id}}]}, ['username'], function(err, users) {
+					var pageData = {
+						title		: 'Question | Social translator',
+						question    : question,
+						users 		: users
+					};
+					res.json(pageData);
+				});
+			});
 };
 
 /**
@@ -64,7 +78,6 @@ exports.questionlist = function(req, res) {
 
 		res.json(questions);
 	});
-
 };
 
 
@@ -95,60 +108,27 @@ exports.questionlist = function(req, res) {
  * Public Pages */
 
 exports.profilePage = function(req, res) {
-	var userId = req.params.userId;
+	var userID = req.params.userID;
 
-	User.findOne({_id: userId}, function(err, user) {
-
-		if (err)
-			res.send(err);	//TODO: handle error better
-		
-		async.parallel(
-		{
-			tags : function(callback){
-				Tag.find({_id: { $in : user.followingTags}}, function(err, docs){
-					callback(null, docs);
-				});
-			},
-			questions : function(callback){
-				Question.find({}, function(err, docs){
-					callback(null, docs);
-				});
-			},
-			answers : function(callback){
-				Answer.find({}, function(err, docs){
-					callback(null, docs);
-				});
-			},
-			following : function(callback){
-				User.find({_id: { $in : user.followingUsers}}, function(err, docs){
-					callback(null, docs);
-				});
-			},
-			followers : function(callback){
-				User.find({_id: { $in : user.followers}}, function(err, docs){
-					callback(null, docs);
-				});
-			}
-		}, 
-		function(err, results){
+	User.findOne({_id: userID})
+		.populate('followers', '_id username')
+		.populate('followingUsers', '_id username')
+		.populate('followingTags')
+		.populate('languages')
+		.populate('nativeLanguage', 'name')
+		.populate('questions')
+		.populate('answers')
+		.exec(function(err, user) {
 
 			if (err)
-				res.send(err);
-			console.log(results.tags.length);
-			console.log(results.tags.length + ' ' + results.questions.length + ' ' + results.answers.length);
+				res.send(err);	//TODO: handle error better
+
 			var pageData = {
 				title		: 'Profile | Social Translator',
-				user		: user,
-				tags		: results.tags,
-				questions   : results.questions,
-				answers     : results.answers,
-				following   : results.following,
-				followers   : results.followers
+				user		: user
 			};
-			res.render('profile', pageData);
+			res.json(pageData);
 		});
-	});
-
 };
 
 exports.loggedInProfilePage = function(req, res) {
@@ -159,7 +139,8 @@ exports.loggedInProfilePage = function(req, res) {
 			user		: req.user
 		};
 		res.render('profile', pageData);
-	} else {
+	} 
+	else {
 		res.redirect('/login/');
 	}
 };
@@ -189,10 +170,10 @@ exports.facebookAuthCallback = function(req, res) {
 /**
  * Get a user by their username.
  */
-exports.getById = function(req, res) {
-	var userId = req.params.userId;
+exports.getByID = function(req, res) {
+	var userID = req.params.userID;
 
-	User.findOne({_id: userId}, function(err, user) {
+	User.findOne({_id: userID}, function(err, user) {
 
 		if (err)
 			res.send(err);
@@ -221,14 +202,14 @@ exports.getByUsername = function(req, res) {
  */
 exports.userlist = function(req, res) {
 
-	User.find(function(err, users) {
+	User.find()
+	.exec(function(err, users) {
 
 		if (err)
 			res.send(err)
 
 		res.json(users);
 	});
-
 };
 
 /**
@@ -277,4 +258,4 @@ exports.getStories = function(req, res) {
 		// 	res.json(questions);
 		// });
 	}	
-}
+};
