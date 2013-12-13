@@ -1,3 +1,9 @@
 angular.module('components', [])
 
-	.directive(
+	.directive('story', function () {
+		// body...
+		return {
+			restrict: 'E',
+      		templateUrl: '/template/story.ejs'
+	    };
+	});
