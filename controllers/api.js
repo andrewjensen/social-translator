@@ -234,7 +234,7 @@ exports.userlist = function(req, res) {
 /**
  *	Returns the questions and top rate question for News Feed and Search Results
  */
-exports.getFeed = function(req, res) {
+exports.getStories = function(req, res) {
 	var type = req.params.type;
 	var condition = req.params.condition;
 

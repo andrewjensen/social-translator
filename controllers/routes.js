@@ -32,5 +32,5 @@ module.exports = function(app, passport) {
 	app.get('/api/users/:userId', api.getById);
 	app.get('/api/questions/', api.questionlist);
 	app.get('/api/answers/', api.answerlist);
-	app.get('/api/feed/:type/:condition', api.getFeed);
+	app.get('/api/feed/:type/:condition', api.getStories);
 };

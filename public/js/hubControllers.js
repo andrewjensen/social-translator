@@ -5,6 +5,13 @@ hubControllers.controller('LoginCtrl', ['$scope', '$http',
 
 	function ($scope, $http) {
 		//TODO: write the api and conect it
+	$http.get('')
+			.success(function(data) {
+
+			});
+			// .error(function(data) {
+				
+			// });
 	}]
 );
 
@@ -14,10 +21,11 @@ hubControllers.controller('SearchCtrl', ['$scope', '$http', '$routeParams',
 	function ($scope, $http, $routeParams) {
 		var phrase = $routeParams.phrase;
 
-		$http.get('/api/feed/search/' + phrase).success(function(data) {
-			$scope.questions = data;
-			$scope.page = {title : "Results"};
-		});
+		$http.get('/api/feed/search/' + phrase)
+			.success(function(data) {
+				$scope.questions = data;
+				$scope.page = {title : "Results"};
+			});
 
 		//TODO use this effectively or get rid of it
 		$scope.orderProp = 'text';
@@ -32,10 +40,11 @@ hubControllers.controller('NewsFeedCtrl', ['$scope', '$http', '$routeParams',
 		var userid = $routeParams.userid;
 
 		//TODO: write the api and conect it
-		$http.get('/api/feed/news/' + userid).success(function(data) {
-			$scope.user = data;
-			$scope.page = {title : "News Feed"};
-		});
+		$http.get('/api/feed/news/' + userid)
+			.success(function(data) {
+				$scope.user = data;
+				$scope.page = {title : "News Feed"};
+			});
 
 		//TODO use this effectively or get rid of it
 		$scope.orderProp = 'text';
@@ -48,6 +57,13 @@ hubControllers.controller('ProfileCtrl', ['$scope', '$http', '$routeParams',
 
 	function ($scope, $http, $routeParams) {
 		//TODO: write the api and conect it
+		$http.get('')
+			.success(function(data) {
+
+			});
+			// .error(function(data) {
+				
+			// });
 	}]
 );
 
@@ -57,6 +73,13 @@ hubControllers.controller('TranslationCtrl', ['$scope', '$http',
 
 	function ($scope, $http) {
 		//TODO: write the api and conect it
+		$http.get('')
+			.success(function(data) {
+
+			});
+			// .error(function(data) {
+				
+			// });
 	}]
 );
 
@@ -66,5 +89,12 @@ hubControllers.controller('CreateQuestionCtrl', ['$scope', '$http',
 
 	function ($scope, $http) {
 		//TODO: write the api and conect it
+		$http.get('')
+			.success(function(data) {
+
+			});
+			// .error(function(data) {
+				
+			// });
 	}]
 );

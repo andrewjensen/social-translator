@@ -6,6 +6,7 @@ function search() {
 var translationApp = angular.module('translationApp', [
   'ngRoute',
   'ngAnimate',
+  'components',
   'hubControllers'
 ]);
 
