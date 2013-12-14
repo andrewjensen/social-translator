@@ -249,7 +249,7 @@ exports.userlist = function(req, res) {
 };
 
 /** POST requests for the User */
-/*
+
 exports.addFollower = function(req, res) {
 
 	var followerID = req.body.followerID;
@@ -275,7 +275,7 @@ exports.removeFollower = function(req, res) {
 	});
 
 };
-*/
+
 
 /**
  *	Returns the questions and top rate question for News Feed and Search Results

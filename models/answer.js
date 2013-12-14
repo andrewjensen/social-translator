@@ -10,6 +10,7 @@ var answerSchema = new mongoose.Schema({
 	supplementary	: String,
 	upvotes			: Number,
 	downvotes		: Number,
+	score			: Number,
 	timestamp   	: Number,
 	comments 	    : [{
 		text        : String,

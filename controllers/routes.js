@@ -45,6 +45,6 @@ module.exports = function(app, passport) {
 	app.post('/api/question/create', api.createQuestion);
 
 	// Update methods for profile page
-	//app.post('/api/profile/addFollower', api.addFollower);
-	//app.post('/api/profile/removeFollower', api.removeFollower);
+	app.post('/api/profile/addFollower', api.addFollower);
+	app.post('/api/profile/removeFollower', api.removeFollower);
 };

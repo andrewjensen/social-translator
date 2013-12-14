@@ -14,7 +14,7 @@ var questionSchema = new mongoose.Schema({
 	toLanguage  : {type: ObjectId, ref: 'languages'},
 	answers     : [{type: ObjectId, ref: 'answers'}],
 	topAnswer	: {type: ObjectId, ref: 'answers', default: null},
-	score		: {type: String, default: "0"},
+	score		: {type: Number, default: 0},
 	comments    : [{
 		text      : String,
 		timestamp : Number,
