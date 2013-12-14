@@ -10,15 +10,13 @@ var passport	= require('passport');
 
 /**
  * Load application-specific settings and models.
- * TODO: load in a custom production config file if exists.
  */
 var config = require('./config.json');
-
 
 /**
  * Configure Passport for authentication.
  */
-require('./passport.js')(passport, config);
+require('./util/passport.js')(passport, config);
 
 /**
  * Load other Useful Libraries
@@ -31,7 +29,8 @@ var async = require('./util/async.js');
  */
 var app = express();
 
-app.set('port', process.env.PORT || 3000);
+// app.set('port', process.env.PORT || 3000);
+app.set('port', config.port);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(express.favicon());
