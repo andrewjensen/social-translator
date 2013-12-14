@@ -1,31 +1,38 @@
 <!-- This could probably be used for both the NewsFeed and for Search Results -->
+<section class="profile-full">
 
-<div>
-	<h2>{{page.title}}</h2>
-</div>
+	<div class="container">
+		<div>
+			<h2>{{page.title}}</h2>
+		</div>
 
 
-Key Words: <input ng-model="query">
+		Key Words: <input ng-model="query">
 
-<select ng-model="orderProp">
-	<option value="text">		question</option>
-	<option value="context">	Context </option>
-	<!-- <option value="timestamp">	Date	</option>
-	<option value="username">	User 	</option> -->
-</select>
- 
-<div>
-	<p>{{user.username}}</p>
-</div>
+		<select ng-model="orderProp">
+			<option value="text">		question</option>
+			<option value="context">	Context </option>
+			<!-- <option value="timestamp">	Date	</option>
+			<option value="username">	User 	</option> -->
+		</select>
+		 
+		<div>
+			<p>{{user.username}}</p>
+		</div>
 
-<div>
-	  <div ng-repeat="question in questions | filter:query | orderBy:orderProp">
-	    
-	  	<story></story>
-	  	
-	  </div>
-</div>
+		<div>
+			  <div ng-repeat="story in stories | filter:query | orderBy:orderProp">
+			    
+			  	<story></story>
 
+			  </div>
+		</div>
+
+
+	</div>
+
+
+</section>
 <!-- <div class="container">
 
 <section id="news-feed">

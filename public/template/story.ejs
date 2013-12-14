@@ -1,46 +1,72 @@
-<div class="feed-story">
+<div class="profile-story">
+	<!-- ASKER -->
 	<div class="row">
-
+		<!-- Profile -->
 		<div class="profile col-md-1">
-			<a href="/user/52a3fdc8db7c753092000001/">
-				<img src="/images/profile-default.jpg" alt="Profile Picture" />
-				<span class="profile-name">User Name<!-- {{Andrew Jensen}} --></span>
-			</a>
+			<profile-pic></profile-pic>
 		</div>
 
-		<div class="col-md-6">
+		<a href="#">
+			<!-- Question Asked -->
+			<div class="question col-md-7">
+
+				<div class="quote">
+					<p>{{story.text}}</p>
+				</div>
+				
+			<!-- Tags -->
+				<tag></tag>
+				<!-- <div class="tags">
+						<span class="tag tag-language">Latin</span> to
+						<span class="tag tag-language">English</span> |
+						<span class="tag">Introductions</span>
+						<span class="tag">T-Shirts</span>
+				</div> -->
+			</div>
+
+			<!-- Badges -->
+			<div class="col-md-4">
+				<ul class="stats">
+					<li><span class="badge">10</span> Score</li>
+					<li><span class="badge">7</span> Proposed Translations</li>
+					<li><span class="badge">3</span> Comments</li>
+				</ul>
+			</div>
+		</a>
+
+	</div>
+
+	<!-- ANSWER -->
+	<div class="row">
+		
+		<div class="answer col-md-8">
+
+		<!-- Translation -->
 			<div class="quote">
-				<p>{{question.text}}</p>
-			</div>
-			
-			<div class="context">
-				<p>{{question.context}}</p>
+				<p>{{story.translation}}</p>
 			</div>
 
+		<!-- Tags -->
 			<div class="tags">
-				<span class="tag tag-language">Latin</span> to
-				<span class="tag tag-language">English</span> |
-				<span class="tag">Introductions</span>
-				<span class="tag">T-Shirts</span>
+					<span class="tag tag-language">Latin</span> to
+					<span class="tag tag-language">English</span> |
+					<span class="tag">Introductions</span>
+					<span class="tag">T-Shirts</span>
 			</div>
 		</div>
 
-		<div class="col-md-5">
+		<!-- Badges -->
+		<div class="col-md-3">
 			<ul class="stats">
 				<li><span class="badge">10</span> Score</li>
 				<li><span class="badge">7</span> Proposed Translations</li>
 				<li><span class="badge">3</span> Comments</li>
 			</ul>
 		</div>
-	</div>
 
-	<!-- ANSWER -->
-<!-- 	<div class="row">
-		<div class="profile col-md-5">
-			<a href="/user/52a3fdc8db7c753092000001/">
-				<img src="/images/profile-default.jpg" alt="Profile Picture" />
-				<span class="profile-name">User Name {{Andrew Jensen}} </span>
-			</a>
+		<!-- Profile -->
+		<div class="profile subtle col-md-1">
+			<profile-pic></profile-pic>
 		</div>
-	</div> -->
+	</div>
 </div>

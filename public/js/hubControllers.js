@@ -23,9 +23,12 @@ hubControllers.controller('SearchCtrl', ['$scope', '$http', '$routeParams',
 
 		$http.get('/api/feed/search/' + phrase)
 			.success(function(data) {
-				$scope.questions = data;
+				$scope.stories = data;
 				$scope.page = {title : "Results"};
 			});
+			// .error(function(data) {
+				
+			// });
 
 		//TODO use this effectively or get rid of it
 		$scope.orderProp = 'text';
@@ -45,6 +48,9 @@ hubControllers.controller('NewsFeedCtrl', ['$scope', '$http', '$routeParams',
 				$scope.user = data;
 				$scope.page = {title : "News Feed"};
 			});
+			// .error(function(data) {
+				
+			// });
 
 		//TODO use this effectively or get rid of it
 		$scope.orderProp = 'text';
@@ -56,10 +62,12 @@ hubControllers.controller('NewsFeedCtrl', ['$scope', '$http', '$routeParams',
 hubControllers.controller('ProfileCtrl', ['$scope', '$http', '$routeParams',
 
 	function ($scope, $http, $routeParams) {
+		var userid = $routeParams.userid;
 		//TODO: write the api and conect it
-		$http.get('')
+		$http.get('api/profile/' + userid)
 			.success(function(data) {
-
+				$scope.user = data.user;
+				//$scope.followers = data.user.followers;
 			});
 			// .error(function(data) {
 				
@@ -69,11 +77,12 @@ hubControllers.controller('ProfileCtrl', ['$scope', '$http', '$routeParams',
 
 
 /** Translation Page */
-hubControllers.controller('TranslationCtrl', ['$scope', '$http', 
+hubControllers.controller('TranslationCtrl', ['$scope', '$http', '$routeParams',
 
-	function ($scope, $http) {
+	function ($scope, $http, $routeParams) {
+		var questionid = $routeParams.questionid;
 		//TODO: write the api and conect it
-		$http.get('')
+		$http.get('/api/question/' + questionid)
 			.success(function(data) {
 
 			});
@@ -85,7 +94,7 @@ hubControllers.controller('TranslationCtrl', ['$scope', '$http',
 
 
 /**	Create question Page */
-hubControllers.controller('CreateQuestionCtrl', ['$scope', '$http', 
+hubControllers.controller('CreateQuestionCtrl', ['$scope', '$http',
 
 	function ($scope, $http) {
 		//TODO: write the api and conect it
