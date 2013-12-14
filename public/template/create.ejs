@@ -4,13 +4,22 @@
 
 		<h1>Ask how to say:</h1>
 
-		<input type="text" id="searchbar-question" name="searchbar-question" class="form-control" value="" placeholder="" />
+		<form>
 
-		Context
-		<input type="text" id="searchbar-question" name="searchbar-question" class="form-control" value="" placeholder="" />
+			<input type="text" id="searchbar-question" name="searchbar-question" class="form-control" value="" placeholder="" ng-model="formData.text"/>
 
-		Tags: 
-		...
+			Context
+			<input type="text" id="searchbar-question" name="searchbar-question" class="form-control" value="" placeholder="" ng-model="formData.context"/>
+
+			Tags: 
+			...
+
+			<div>
+
+				<button type="submit" class="btn btn-primary" ng-click="createQuestion()">Add</button>
+
+			</div>
+		</form>
 
 	</div>
 

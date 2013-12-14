@@ -105,5 +105,15 @@ hubControllers.controller('CreateQuestionCtrl', ['$scope', '$http',
 			// .error(function(data) {
 				
 			// });
+
+		$scope.createQuestion = function() {
+			$http.post('api/question/create', $scope.formData)
+			.success(function(data){
+				//TODO HAVE SOME SORT OF MESSAGE HERE
+			});
+			// .error(function(data) {
+				
+			// });
+	    }
 	}]
 );
