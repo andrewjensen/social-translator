@@ -9,6 +9,7 @@ var questionSchema = new mongoose.Schema({
 	text	    : String,
 	context	    : String,
 	timestamp   : String,
+	topAnswer	: {type: ObjectId, ref: 'answers', default: null},
 	tags		: [{type: ObjectId, ref: 'tags'}],
 	language    : {type: ObjectId, ref: 'languages'},
 	comments    : [commentSchema],
