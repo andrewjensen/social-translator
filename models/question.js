@@ -4,17 +4,22 @@
 var mongoose = require('mongoose');
 var ObjectId = mongoose.Schema.Types.ObjectId;
 
-var commentSchema = new mongoose.Schema({ text: String, timestamp: String, userID: {type: ObjectId, ref: 'users'} }, { noId: true });
 var questionSchema = new mongoose.Schema({
+	author      : {type: ObjectId, ref: 'users'},
 	text	    : String,
 	context	    : String,
-	timestamp   : String,
-	topAnswer	: {type: ObjectId, ref: 'answers', default: null},
+	timestamp   : Number,
 	tags		: [{type: ObjectId, ref: 'tags'}],
-	language    : {type: ObjectId, ref: 'languages'},
-	comments    : [commentSchema],
+	fromLanguage: {type: ObjectId, ref: 'languages'},
+	toLanguage  : {type: ObjectId, ref: 'languages'},
 	answers     : [{type: ObjectId, ref: 'answers'}],
-	score		: String
+	topAnswer	: {type: ObjectId, ref: 'answers', default: null},
+	score		: {type: String, default: "0"},
+	comments    : [{
+		text      : String,
+		timestamp : Number,
+		userID    : {type: ObjectId, ref: 'users'}
+	}]
 });
 
 module.exports = mongoose.model('questions', questionSchema);

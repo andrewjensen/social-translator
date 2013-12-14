@@ -20,7 +20,6 @@ exports.searchPage = function(req, res) {
 
 };
 
-
 /** FROM answers.js */
 
 /**
@@ -40,29 +39,66 @@ exports.answerlist = function(req, res) {
 /**FROM questions.js */
 //Load model
 
+// Load the translation page (with all populated values for a single question)
 exports.translationPage = function(req, res) {
 
 	var questionID = req.params.questionID;
 	
 	Question.findOne({_id: questionID})
-			.populate('language', '_id name')
-			.populate('tags')
-			.populate('answers')
-			.exec(function(err, question) {
-				if (err)
-					res.send(err);	//TODO: handle error better
+		.populate('language', '_id name')
+		.populate('tags')
+		.populate('answers')
+		.populate('author', '_id username')
+		.exec(function(err, question) {
+			if (err)
+				res.send(err);	//TODO: handle error better
 
-				// Get all users where their questions.id is the current question id OR
-				// if ANY of their answers are contained in the page's answers 
-				User.find({$or: [{questions : question._id}, {answers: {$all: question.answers._id}}]}, ['username'], function(err, users) {
+			var options = {
+				path: 'answers.comments.userID',
+				model: 'users',
+				select: '_id username'
+			};
+			Question.populate(question, options, function (err, question1){
+
+				var newoptions = {
+					path: 'answers.author',
+					model: 'users',
+					select: '_id username'
+				}
+				Question.populate(question1, newoptions, function(err, question2){
 					var pageData = {
-						title		: 'Question | Social translator',
-						question    : question,
-						users 		: users
+					title		: 'Question | Social translator',
+					question    : question2
 					};
 					res.json(pageData);
 				});
 			});
+		});
+};
+
+exports.createQuestion = function(req, res) {
+	console.log('GOT HERE: ', req.body.text);
+	Question.create({
+		author 		: req.body.author,
+		text   		: req.body.text,
+		context		: req.body.context,
+		timestamp   : Math.round(new Date().getTime() / 1000),
+		tags        : req.body.tags,
+		fromLanguage: req.body.fromLanguage,
+		toLanguage  : req.body.toLanguage
+	}, function(err, question){
+
+		if (err)
+		{
+			console.log('ERROR in creating question: ', err);
+			res.send(err);
+		}
+		else
+		{
+			console.log('SUCCESS in creating question: ');
+			res.send('200');
+		}
+	});
 };
 
 /**
@@ -211,6 +247,35 @@ exports.userlist = function(req, res) {
 		res.json(users);
 	});
 };
+
+/** POST requests for the User */
+/*
+exports.addFollower = function(req, res) {
+
+	var followerID = req.body.followerID;
+	var userFollowedID = req.body.userFollowedID;
+	User.update({_id: followerID}, {
+		{$push: {followingUsers : userFollowedID}}
+	});
+	User.update({_id: userFollowedID}, {
+		{$push: {followers: followerID}}
+	});
+
+};
+
+exports.removeFollower = function(req, res) {
+
+	var followingUserID = ;
+	var followedUserID = ;
+		User.update({_id: followerID}, {
+		{$pull: {'followingUsers' : userFollowedID}}
+	});
+	User.update({_id: userFollowedID}, {
+		{$pull: {'followers' : followerID}}
+	});
+
+};
+*/
 
 /**
  *	Returns the questions and top rate question for News Feed and Search Results

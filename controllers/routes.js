@@ -27,7 +27,7 @@ module.exports = function(app, passport) {
 
 	/** API CALLS */
 
-		// Basic, get-all for a model
+	// Basic, get-all for a model
 	app.get('/api/tags/', api.taglist);
 	app.get('/api/users/', api.userlist);
 	app.get('/api/questions/', api.questionlist);
@@ -37,7 +37,14 @@ module.exports = function(app, passport) {
 	app.get('/api/users/:userID', api.getByID);
 	app.get('/api/feed/:type/:condition', api.getStories);
 
-		// API's for each page
+	// GET API's for each page
 	app.get('/api/profile/:userID', api.profilePage);
 	app.get('/api/question/:questionID', api.translationPage);
+
+	// POST API's for each page
+	app.post('/api/question/create', api.createQuestion);
+
+	// Update methods for profile page
+	//app.post('/api/profile/addFollower', api.addFollower);
+	//app.post('/api/profile/removeFollower', api.removeFollower);
 };
