@@ -40,6 +40,8 @@ module.exports = function(app, passport) {
 	// GET API's for each page
 	app.get('/api/profile/:userID', api.profilePage);
 	app.get('/api/question/:questionID', api.translationPage);
+	app.get('/api/search/:phrase', api.searchPage);
+	app.get('/api/newsfeed/:userID', api.newsfeedPage);
 
 	// POST API's for each page
 	app.post('/api/question/create', api.createQuestion);
@@ -47,6 +49,11 @@ module.exports = function(app, passport) {
 	// Update methods for profile page
 	//app.post('/api/profile/addFollower', api.addFollower);
 	//app.post('/api/profile/removeFollower', api.removeFollower);
+
+	//Type is a string containing "question" or "answer"
+	//id is the id number of the given question/answer
+	//app.post('/api/comment/:type/:id', api.createComment);
+	//app.post('/api/comment/:type/:id', api.createComment);
 
 
 	//TODO: REMOVE THESE TEST METHODS

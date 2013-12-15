@@ -17,8 +17,8 @@ var Story = {
 	 * Create a Story object using a Question object and a
 	 * related Answer object.
 	 */
-	create : function(question, answer) {
 
+	create : function(question, answer) {
 		console.log("Story.create()");
 
 		//Create basic info about the question.
@@ -78,6 +78,9 @@ var Story = {
 
 				// console.log("Here is my question:");
 				// console.log(question);
+
+				console.log('question: ', question);
+				console.log('question.topAnswer: ', question.topAnswer);
 
 				callback(null, Story.create(question, question.topAnswer));
 			}

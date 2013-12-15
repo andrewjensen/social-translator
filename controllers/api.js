@@ -3,6 +3,7 @@ var Question = require('../models/question.js');
 var Tag = require('../models/tag.js');
 var User = require('../models/user.js');
 var Language = require('../models/language.js');
+var Story = require('../models/story.js');
 
 /** Language Calls */
 exports.languagelist = function(req, res) {
@@ -16,6 +17,18 @@ exports.languagelist = function(req, res) {
 };
 
 exports.searchPage = function(req, res) {
+
+
+};
+
+exports.newsfeedPage = function(req, res) {
+
+
+};
+
+/** Create a comment */
+
+exports.createComment = function(req, res) {
 
 
 };
@@ -95,6 +108,8 @@ exports.createQuestion = function(req, res) {
 		}
 		else
 		{
+			User.update({_id : question.author}, {$push: {questions: question._id}});
+
 			console.log('SUCCESS in creating question: ');
 			res.send('200');
 		}
@@ -151,17 +166,31 @@ exports.profilePage = function(req, res) {
 		.populate('followingUsers', '_id username')
 		.populate('followingTags')
 		.populate('languages')
-		.populate('nativeLanguage', 'name')
-		.populate('questions')
-		.populate('answers')
+		.populate('nativeLanguage')
 		.exec(function(err, user) {
 
 			if (err)
 				res.send(err);	//TODO: handle error better
 
+			var questionStories = [];
+			for (var i = 0; i < user.questions.length; i++)
+			{
+				questionStories.push(Story.createFromQuestionId(user.questions[i]));
+				console.log('question: ', user.questions[i]);
+			}
+
+			var answerStories = [];
+			for (var i = 0; i < user.answers.length; i++)
+			{
+				answerStories.push(Story.createFromAnswerId(user.answers[i]));
+				console.log('answer: ', user.answers[i]);
+			}
+
 			var pageData = {
-				title		: 'Profile | Social Translator',
-				user		: user
+				title			: 'Profile | Social Translator',
+				user			: user,
+				questionStories	: questionStories,
+				answerStories	: answerStories
 			};
 			res.json(pageData);
 		});
