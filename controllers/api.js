@@ -195,7 +195,7 @@ exports.loginPage = function(req, res) {
 exports.doLogin = function(req, res) {
 	passport.authenticate('local', {
 		successRedirect : "/",
-		failureRedirect : "/login",
+		failureRedirect : "/#/login",
 	});
 };
 

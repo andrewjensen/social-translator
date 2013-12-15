@@ -47,4 +47,29 @@ module.exports = function(app, passport) {
 	// Update methods for profile page
 	//app.post('/api/profile/addFollower', api.addFollower);
 	//app.post('/api/profile/removeFollower', api.removeFollower);
+
+
+	//TODO: REMOVE THESE TEST METHODS
+	
+	app.get('/api/story/fromQuestion/:questionId', function(req, res) {
+
+		var Story = require('../models/story.js');
+		Story.createFromQuestionId(req.params.questionId, function(err, story) {
+			if (err)
+				res.send(err);
+
+			res.json(story);
+		});
+	});
+	app.get('/api/story/fromAnswer/:answerId', function(req, res) {
+
+		var Story = require('../models/story.js');
+		Story.createFromAnswerId(req.params.answerId, function(err, story) {
+			if (err)
+				res.send(err);
+
+			res.json(story);
+		});
+	});
+
 };
