@@ -11,9 +11,12 @@ angular.module('components', [])
 		// body...
 		return {
 			restrict: 'E',
+      		controller: function($scope, $element){
+				$scope.story._id;
+			},
       		template: 
       			'<a href="#/profile/{{user._id}}" class="profile">' + 
-				'<img src="/images/{{user.username}}.jpg">' +
+				'<img src="/images/profile-default.jpg">' +
 				'</a>',
       		replace: true
 	    };
@@ -27,4 +30,17 @@ angular.module('components', [])
 				'</div>',
 			replace: true
 		};
+	})
+	.directive('userComment', function() {
+		return {
+			restrict: 'E',
+			template: 
+			'<div class="row">' + 
+				'<profile-pic class="col-md-1"></profile-pic>' +
+				'<div class="col-md-6">' +
+				'<input type="text" class="form-control" value="" placeholder="Write a comment..."/>' +
+				'</div>' + 
+			'</div>',
+			replace: true
+		}
 	});
