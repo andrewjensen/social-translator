@@ -21,6 +21,8 @@ var Story = {
 	create : function(question, answer) {
 		console.log("Story.create()");
 
+		/** TODO, handle the answer being null (in case the question has no answers) */
+
 		//Create basic info about the question.
 
 		var storyQuestion = {

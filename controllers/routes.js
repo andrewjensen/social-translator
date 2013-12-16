@@ -40,21 +40,24 @@ module.exports = function(app, passport) {
 	// GET API's for each page
 	app.get('/api/profile/:userID', api.profilePage);
 	app.get('/api/question/:questionID', api.translationPage);
-	app.get('/api/search/:phrase', api.searchPage);
+	app.get('/api/search/', api.searchPage);
 	app.get('/api/newsfeed/:userID', api.newsfeedPage);
 
 	// POST API's for each page
 	app.post('/api/question/create', api.createQuestion);
 
 	// Update methods for profile page
-	//app.post('/api/profile/addFollower', api.addFollower);
-	//app.post('/api/profile/removeFollower', api.removeFollower);
+	app.post('/api/profile/addFollower', api.addFollower);
+	app.post('/api/profile/removeFollower', api.removeFollower);
+	app.post('/api/profile/updateBio', api.updateBio);
+	app.post('/api/profile/addTag', api.addTag);
+	app.post('/api/profile/removeTag', api.removeTag);
+	app.post('/api/profile/addLanguage', api.addLanguage);
+	app.post('/api/profile/removeLanguage', api.removeLanguage);
 
 	//Type is a string containing "question" or "answer"
 	//id is the id number of the given question/answer
-	//app.post('/api/comment/:type/:id', api.createComment);
-	//app.post('/api/comment/:type/:id', api.createComment);
-
+	app.post('/api/comment/:type/:id', api.createComment);
 
 	//TODO: REMOVE THESE TEST METHODS
 	

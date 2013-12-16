@@ -18,17 +18,20 @@ exports.languagelist = function(req, res) {
 
 exports.searchPage = function(req, res) {
 
+	var phrase = req.body.phrase;
+	var fromLanguage = req.body.fromLanguage;
+	var toLanguage = req.body.toLanguage;
 
+	// TODO, change to getting the questions with the top-scored answers that match the text
+	Question.Find({text: new RegExp('^'+phrase+'$', "i")}, function(err, questions) {
+
+
+	});
 };
 
+// TODO, populate the newsfeedpage for a given user using timestamps
+// (I don't know what the newsfeed page uses)
 exports.newsfeedPage = function(req, res) {
-
-
-};
-
-/** Create a comment */
-
-exports.createComment = function(req, res) {
 
 
 };
@@ -64,7 +67,7 @@ exports.translationPage = function(req, res) {
 		.populate('author', '_id username')
 		.exec(function(err, question) {
 			if (err)
-				res.send(err);	//TODO: handle error better
+				res.send(err);
 
 			var options = {
 				path: 'answers.comments.userID',
@@ -73,6 +76,9 @@ exports.translationPage = function(req, res) {
 			};
 			Question.populate(question, options, function (err, question1){
 
+				if (err)
+					res.send(err);
+
 				var newoptions = {
 					path: 'answers.author',
 					model: 'users',
@@ -80,8 +86,8 @@ exports.translationPage = function(req, res) {
 				}
 				Question.populate(question1, newoptions, function(err, question2){
 					var pageData = {
-					title		: 'Question | Social translator',
-					question    : question2
+						title		: 'Question | Social translator',
+						question    : question2
 					};
 					res.json(pageData);
 				});
@@ -98,21 +104,86 @@ exports.createQuestion = function(req, res) {
 		timestamp   : Math.round(new Date().getTime() / 1000),
 		tags        : req.body.tags,
 		fromLanguage: req.body.fromLanguage,
-		toLanguage  : req.body.toLanguage
+		toLanguage  : req.body.toLanguage,
+		answers 	: [],
+		topAnswer	: null,
+		score  		: 0,
+		comments  	: []
 	}, function(err, question){
 
 		if (err)
-		{
-			console.log('ERROR in creating question: ', err);
 			res.send(err);
-		}
-		else
-		{
-			User.update({_id : question.author}, {$push: {questions: question._id}});
 
-			console.log('SUCCESS in creating question: ');
+		console.log('SUCCESS in creating question');
+		User.update({_id : question.author}, 
+		{$push: 
+			{questions: question._id}
+		}, 
+		function(err, questionID){
+			if (err)
+			{
+				console.log('ERROR in updating User by adding their questionID');
+				res.send(err);
+			}
+			res.json(question);
+		});
+	});
+};
+
+exports.createAnswer = function(req, res) {
+
+	Answer.create({
+		author			: req.body.author,
+		question		: req.body.questionID,
+		translation 	: req.body.translation,
+		supplementary	: req.body.supplementary,
+		upvotes			: 0,
+		downvotes		: 0,
+		score 			: 0,
+		timestamp		: Math.round(new Date().getTime() / 1000),
+		comments		: []
+	}, function(err, answer) {
+
+		if (err)
+			res.send(err);
+		User.update({_id : answer.author},
+			{$push: {answers: answer._id}
+		});
+		Question.update({_id : answer.question}, 
+			{$push: {answers: answer._id}
+		});
+		res.json(answer);
+	});
+}
+
+/** Create a comment */
+
+exports.createComment = function(req, res) {
+
+	var type = req.params.type;
+	var parentID = req.params.id;
+	var ParentType;
+	if (type == "question")
+		ParentType = Question;
+	else if (type == "answer")
+		ParentType = Answer;
+
+	ParentType.update({_id : parentID}, 
+		{$push: 
+			{comments: {
+				text		: req.body.text,
+				timestamp	: Math.round(new Date().getTime() / 1000),
+				userID 		: req.body.userID
+				}
+			}
+		}, function(err, comment){
+
+			if (err)
+			{
+				console.log('ERROR in creating comment: ' + err);
+				res.send(err);
+			}
 			res.send('200');
-		}
 	});
 };
 
@@ -172,16 +243,21 @@ exports.profilePage = function(req, res) {
 			if (err)
 				res.send(err);	//TODO: handle error better
 
+			// Get stories for only the last three questions and answers
 			var questionStories = [];
-			for (var i = 0; i < user.questions.length; i++)
+			for (var i = user.questions.length - 3; i < user.questions.length; i++)
 			{
+				if (i < 0)
+					continue;
 				questionStories.push(Story.createFromQuestionId(user.questions[i]));
 				console.log('question: ', user.questions[i]);
 			}
 
 			var answerStories = [];
-			for (var i = 0; i < user.answers.length; i++)
+			for (var i = user.answers.length - 3; i < user.answers.length; i++)
 			{
+				if (i < 0)
+					continue;
 				answerStories.push(Story.createFromAnswerId(user.answers[i]));
 				console.log('answer: ', user.answers[i]);
 			}
@@ -278,33 +354,111 @@ exports.userlist = function(req, res) {
 };
 
 /** POST requests for the User */
-/*
+// When the current logged in user (followerID) decides to follow someone else
 exports.addFollower = function(req, res) {
 
 	var followerID = req.body.followerID;
 	var userFollowedID = req.body.userFollowedID;
+	
 	User.update({_id: followerID}, {
-		{$push: {followingUsers : userFollowedID}}
+		$push: {followingUsers : userFollowedID}
 	});
 	User.update({_id: userFollowedID}, {
-		{$push: {followers: followerID}}
+		$push: {followers: followerID}
 	});
 
 };
 
+// When the current logged in user (followerID) unfollowers someone else
 exports.removeFollower = function(req, res) {
 
-	var followingUserID = ;
-	var followedUserID = ;
-		User.update({_id: followerID}, {
-		{$pull: {'followingUsers' : userFollowedID}}
+	var followerID = req.body.followerID;
+	var userFollowedID = req.body.userFollowedID;
+	
+	User.update({_id: followerID}, {
+		$pull: {followingUsers : userFollowedID}
 	});
 	User.update({_id: userFollowedID}, {
-		{$pull: {'followers' : followerID}}
+		$pull: {followers : followerID}
 	});
-
 };
-*/
+
+// Update the bio section for the current user
+exports.updateBio = function(req, res) {
+
+	var userID = req.body.userID;
+	var text = req.body.text;
+
+	User.update({_id: userID}, {
+		bio: text
+	}, 
+	function(err, user) {
+
+		if (err)
+			res.send(err);
+		res.send('200');
+	});
+};
+
+exports.addTag = function(req, res) {
+
+	var userID = req.body.userID;
+	var tagID = req.body.tagID;
+
+	User.update({_id: userID}, {
+		$push: {followingTags : tagID}
+	},
+	function(err, user) {
+		if (err)
+			res.send(err);
+		res.send('200');
+	});
+}
+
+exports.removeTag = function(req, res) {
+
+	var userID = req.body.userID;
+	var tagID = req.body.tagID;
+
+	User.update({_id: userID}, {
+		$pull: {followingTags: tagID}
+	},
+	function(err, user) {
+		if (err)
+			res.send(err);
+		res.send('200');
+	});
+};
+
+// Adds the given language to the given user
+exports.addLanguage = function(req, res) {
+
+	var userID = req.body.userID;
+	var languageID = req.body.languageID;
+	User.update({_id: userID}, {
+		$push: {languages: languageID}
+	},
+	function(err, user) {
+		if (err)
+			res.send(err);
+		res.send('200');
+	});
+};
+
+// Removes the given language from the given user
+exports.removeLanguage = function(req, res) {
+
+	var userID = req.body.userID;
+	var languageID = req.body.languageID;
+	User.update({_id: userID}, {
+		$pull: {languages: languageID}
+	},
+	function(err, user) {
+		if (err)
+			res.send(err);
+		res.send('200');
+	});
+};
 
 /**
  *	Returns the questions and top rate question for News Feed and Search Results
