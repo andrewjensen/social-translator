@@ -6,9 +6,8 @@ var ObjectId = mongoose.Schema.Types.ObjectId;
 var hash = require('../util/hash.js');
 
 var userSchema = new mongoose.Schema({
-	firstName		: String,
-	lastName		: String,
-	email			: String,
+	name			: {type: String, default: ""},
+	email			: {type: String, default: ""},
 	photoUrl		: {type: String, default: null},
 	nativeLanguage	: {type: ObjectId, ref: 'languages', default: null},
 	bio				: {type: String, default: ""},
@@ -16,13 +15,11 @@ var userSchema = new mongoose.Schema({
 	followers		: [{type: ObjectId, ref: 'users'}],
 	followingUsers	: [{type: ObjectId, ref: 'users'}],
 	followingTags	: [{type: ObjectId, ref: 'tags'}],
-	languages       : [{type: ObjectId, ref: 'languages'}],
+	languages		: [{type: ObjectId, ref: 'languages'}],
 	questions		: [{type: ObjectId, ref: 'questions'}],
 	answers			: [{type: ObjectId, ref: 'answers'}],
 	facebook		: {
-		id		: String,
-		email	: String,
-		name	: String
+		id	: {type: Number, default: null}
 	}
 });
 
@@ -39,10 +36,8 @@ userSchema.statics.findOrCreateFaceBookUser = function(profile, done) {
 				email		: profile.emails[0].value,
 				name		: profile.displayName,
 				photoUrl	: profile.photos[0].value,
-				facebook : {
-					id:    profile.id,
-					email: profile.emails[0].value,
-					name:  profile.displayName
+				facebook	: {
+					id : profile.id
 				}
 			}, function(err, user) {
 				if(err) throw err;
