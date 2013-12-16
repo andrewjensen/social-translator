@@ -3,36 +3,38 @@
 	<div class="row">
 		<!-- Profile -->
 		<div class="profile col-md-1">
-			<profile-pic></profile-pic>
+			<profile-pic type="question"></profile-pic>
 		</div>
 
-		<a href="#">
-			<!-- Question Asked -->
-			<div class="question col-md-7">
+		<div >
+			<a href="#/translation/{{story.question._id}}">
+				<!-- Question Asked -->
+				<div class="question col-md-7">
 
-				<div class="quote">
-					<p>{{story.text}}</p>
+					<div class="quote">
+						<p>{{story.text}}</p>
+					</div>
+					
+				<!-- Tags -->
+					<tag></tag>
+					<!-- <div class="tags">
+							<span class="tag tag-language">Latin</span> to
+							<span class="tag tag-language">English</span> |
+							<span class="tag">Introductions</span>
+							<span class="tag">T-Shirts</span>
+					</div> -->
 				</div>
-				
-			<!-- Tags -->
-				<tag></tag>
-				<!-- <div class="tags">
-						<span class="tag tag-language">Latin</span> to
-						<span class="tag tag-language">English</span> |
-						<span class="tag">Introductions</span>
-						<span class="tag">T-Shirts</span>
-				</div> -->
-			</div>
 
-			<!-- Badges -->
-			<div class="col-md-4">
-				<ul class="stats">
-					<li><span class="badge">10</span> Score</li>
-					<li><span class="badge">7</span> Proposed Translations</li>
-					<li><span class="badge">3</span> Comments</li>
-				</ul>
-			</div>
-		</a>
+				<!-- Badges -->
+				<div class="col-md-4">
+					<ul class="stats">
+						<li><span class="badge">10</span> Score</li>
+						<li><span class="badge">7</span> Proposed Translations</li>
+						<li><span class="badge">3</span> Comments</li>
+					</ul>
+				</div>
+			</a>
+		</div>
 
 	</div>
 

@@ -84,7 +84,7 @@ hubControllers.controller('TranslationCtrl', ['$scope', '$http', '$routeParams',
 		//TODO: write the api and conect it
 		$http.get('/api/question/' + questionid)
 			.success(function(data) {
-
+				$scope.question = data.question;
 			});
 			// .error(function(data) {
 				
@@ -109,10 +109,10 @@ hubControllers.controller('CreateQuestionCtrl', ['$scope', '$http',
 		$scope.createQuestion = function() {
 			$http.post('api/question/create', $scope.formData)
 			.success(function(data){
-				//TODO HAVE SOME SORT OF MESSAGE HERE
+				//Redirect them to the translation page
 			});
 			// .error(function(data) {
-				
+				//It did not save sorry
 			// });
 	    }
 	}]

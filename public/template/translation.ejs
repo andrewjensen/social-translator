@@ -1,78 +1,127 @@
-<div class="container">
-	<h2>Question ID: <%= question._id %></h2>
-
-	<div class="question">
-		How do you say...
-		<div class="quote">
-			<h1><%= question.text %></h1>
-		</div>
-	</div>
-
-	<div class="user left">
-			<a href="#">
-				<span class="timestamp">10 Minutes Ago</span>
-				<img src="/images/profile-default.jpg">
-				<span class="username"> Andrew Jensen </span>
-			</a>
-		</div>
-
-	<div class="question-context">
-		
-
-		
-		<p><%= question.context %></p>
+<section class="profile-full">
+	<div class="container">
 
 
-		<div class="tags">
-			<span class="tag tag-language">Latin</span> to
-			<span class="tag tag-language">English</span> |
-			<span class="tag">Introductions</span>
-			<span class="tag">T-Shirts</span>
-		</div>
+		<h2>How do you say... Question ID: {{question._id}}</h2>
+		<div class="row">
 
-		
-	</div>
-
-	<div class="comment-container">
-			<div>
-				<h3>Comments</h3>
+			<div class="col-md-2">
+					<a href="#" class="profile">
+						<span class="timestamp">timestamp{{question.timestamp}}</span>
+						<img src="/images/profile-default.jpg">
+						<span class="username"> username </span>
+					</a>
 			</div>
 
+			<div class="col-md-6">
 
-			<div class="comment right speech-bubble">
+				<div>
+					<div class="quote">
+						<h1>{{question.text}}</h1>
+					</div>
+				</div>
 				
-				<p class="left">Did you ever think of putting something else on a t-shirt?</p>
-				<div class="right">
-					<a href="#">
-						<img src="/images/profile-default.jpg">
-					</a>
-				</div>
-			</div>
+				<p>{{question.context}}</p>
 
-			<div class="comment left">
-				<div class="left">
-					<a href="#">
-						<img src="/images/profile-default.jpg">
-					</a>
+
+				<div class="tags">
+					<span class="tag tag-language">Latin</span> to
+					<span class="tag tag-language">English</span> |
+					<span class="tag">Introductions</span>
+					<span class="tag">T-Shirts</span>
 				</div>
-				<p "right"> never thought of that... No</p>
+
 				
 			</div>
 
-			<a href="#">Add Comment</a>
-			
+			<div class="col-md-4">
+				<ul class="stats">
+					<li><span class="badge">10</span> Score</li>
+					<li><span class="badge">7</span> Proposed Translations</li>
+					<li><span class="badge">3</span> Comments</li>
+				</ul>
+			</div>
+
 		</div>
-		
-	
-	<div class="answers">
+
+		<div>
+			<h3>Comments</h3>
+		</div>
+		<div class="row">
+			<div class="col-md-9">
+				<p>Did you ever think of putting something else on a t-shirt?</p>
+			</div>
+			<div class="col-md-1">
+				<a href="#" class="profile">
+					<img src="/images/profile-default.jpg">
+				</a>
+			</div>
+
+		</div>
+		<div class="row">
+
+			<div class="col-md-1">
+				<a href="#" class="profile">
+					<img src="/images/profile-default.jpg">
+				</a>
+			</div>
+			<div class="col-md-9">
+				<p> never thought of that... No</p>
+			</div>		
+		</div>
+
+		<div class="row">
+			<user-comment></user-comment>
+		</div>
+
 		answers...
-		<div class="user right">
-			<a href="#">
-				<span class="timestamp">10 Minutes Ago</span>
-				<img src="/images/profile-default.jpg">
-				<span class="username"> Andrew Jensen </span>
-			</a>
+		<div class="answers" ng-repeat="answer in question.answers">
+			
+	<!-- 		<div class="user right">
+				<a href="#">
+					<span class="timestamp">10 Minutes Ago</span>
+					<img src="/images/profile-default.jpg">
+					<span class="username"> Andrew Jensen </span>
+				</a>
+
+			</div> -->
+				<!-- ANSWER -->
+			<div class="row">
+				
+				<div class="answer col-md-8">
+
+					<!-- Translation -->
+						<div class="quote">
+							<p>{{answer.translation}}</p>
+						</div>
+
+					<!-- Tags -->
+						<div class="tags">
+								<span class="tag tag-language">Latin</span> to
+								<span class="tag tag-language">English</span> |
+								<span class="tag">Introductions</span>
+								<span class="tag">T-Shirts</span>
+						</div>
+					</div>
+
+					<!-- Badges -->
+					<div class="col-md-3">
+						<ul class="stats">
+							<li><span class="badge">10</span> Score</li>
+							<li><span class="badge">7</span> Proposed Translations</li>
+							<li><span class="badge">3</span> Comments</li>
+						</ul>
+					</div>
+
+				<!-- Profile -->
+				<div class="profile subtle col-md-1">
+					<span class="timestamp">10 Minutes Ago</span>
+					<profile-pic></profile-pic>
+					<span class="username"> {{answer._id}} </span>
+				</div>
+			</div>
+
 
 		</div>
 	</div>
-</div>
+</section>
