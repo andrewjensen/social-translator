@@ -9,10 +9,8 @@ var userSchema = new mongoose.Schema({
 	firstName		: String,
 	lastName		: String,
 	email			: String,
-	username		: String,
-	salt			: String,
-	hash			: String,
-	nativeLanguage	: {type: ObjectId, ref: 'languages'},
+	photoUrl		: {type: String, default: null},
+	nativeLanguage	: {type: ObjectId, ref: 'languages', default: null},
 	bio				: {type: String, default: ""},
 	score			: {type: Number, default: 0},
 	followers		: [{type: ObjectId, ref: 'users'}],
@@ -38,7 +36,9 @@ userSchema.statics.findOrCreateFaceBookUser = function(profile, done) {
 			done(null, user);
 		} else {
 			User.create({
-				email : profile.emails[0].value,
+				email		: profile.emails[0].value,
+				name		: profile.displayName,
+				photoUrl	: profile.photos[0].value,
 				facebook : {
 					id:    profile.id,
 					email: profile.emails[0].value,

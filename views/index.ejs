@@ -26,13 +26,13 @@
 
 							<div class="profile">
 								<a href="#/profile/<%=user._id%>">
-									<img src="/images/profile-default.jpg" alt="Profile image" />
+									<img src="http://graph.facebook.com/<%= user.facebook.id %>/picture?type=square" alt="Profile image" />
 									<span><%=user.facebook.name%></span>
 								</a>
 							</div>
 
 						<% } else { %>
-							<a href="#/login/">Login or register</a>
+							<a href="/auth/facebook">Login with Facebook</a>
 						<% } %>
 					</nav>
 				</div>

@@ -25,9 +25,10 @@ module.exports = function (passport, config) {
 	}));
 
 	passport.use(new FacebookStrategy({
-		clientID: config.auth.facebook.clientID,
-		clientSecret: config.auth.facebook.clientSecret,
-		callbackURL: config.auth.facebook.callbackURL
+		profileFields:	['id', 'displayName', 'emails', 'photos'],
+		clientID:		config.auth.facebook.clientID,
+		clientSecret:	config.auth.facebook.clientSecret,
+		callbackURL:	config.auth.facebook.callbackURL
 	},
 	function(accessToken, refreshToken, profile, done) {
 		console.log("DEBUG: inside passport.use");
