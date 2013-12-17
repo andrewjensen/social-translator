@@ -75,38 +75,31 @@ exports.translationPage = function(req, res) {
 	var questionID = req.params.questionID;
 	
 	Question.findOne({_id: questionID})
-		.populate('language', '_id name')
-		.populate('tags')
-		.populate('answers')
-		.populate('author', '_id name')
-		.exec(function(err, question) {
-			if (err)
-				res.send(err);
+	.populate('fromLanguage', '_id name')
+	.populate('toLanguage', '_id name')
+	.populate('tags')
+	.populate('author', '_id name facebook')
+	.populate('answers')
+	.exec(function(err, question) {
+		if (err)
+			res.end(err);
 
-			var options = {
-				path: 'answers.comments.userID',
-				model: 'users',
-				select: '_id name'
+		Question.populateCommentAuthors(question, function(err, question) {
+
+		Question.populateAnswerAuthors(question, function(err, question) {
+
+		Question.populateAnswerCommentAuthors(question, function(err, question) {
+
+			var pageData = {
+				title		: 'Question | Social translator',
+				question    : question
 			};
-			Question.populate(question, options, function (err, question1){
-
-				if (err)
-					res.send(err);
-
-				var newoptions = {
-					path: 'answers.author',
-					model: 'users',
-					select: '_id name'
-				}
-				Question.populate(question1, newoptions, function(err, question2){
-					var pageData = {
-						title		: 'Question | Social translator',
-						question    : question2
-					};
-					res.json(pageData);
-				});
-			});
+			res.json(pageData);
 		});
+		});
+		});
+
+	});
 };
 
 exports.createQuestion = function(req, res) {
