@@ -1,119 +1,114 @@
 
 <section class="profile-full">
 
-<div class="container">
+	<div class="profile-header">
+		<div class="container">
+			<div class="row">
 
-	<div class="profile-header profile-section">
-		
+				<div class="col-md-2">
+					<div class="profile">
+						<img src="http://graph.facebook.com/{{user.facebook.id}}/picture?width=200&height=200" alt="Profile Picture" />
+					</div>
+				</div>
 
+				<div class="col-md-6">
+					<h1> {{ user.name }} </h1>
+					<ul class="stats">
+						<li><span class="badge"> {{ user.questions.length }} 	</span> Questions Asked</li>
+						<li><span class="badge"> {{ user.answers.length }} 		</span> Translations Proposed</li>
+						<li><span class="badge"> {{ user.followingTags.length }}</span> Following Tags</li>
+						<li><span class="badge"> {{ user.followingUsers.length}}</span> Following People</li>
+						<li><span class="badge"> {{ user.followers.length }}	</span> Followers</li>
+					</ul>
+				</div>
+
+				<div class="col-md-4">
+					<div class="score-card">
+						<h3>Score: {{ user.score }}</h3>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div><!-- end .profile-header -->
+
+
+
+	<div class="container">
 		<div class="row">
 
-			<div class="col-md-2">
-				<div class="profile">
-					<img src="http://graph.facebook.com/{{user.facebook.id}}/picture?type=square" alt="Profile Picture" />
-				</div>
-			</div>
+			<div class="col-md-8">
+				<div class="profile-bio profile-section">
+					<h3>Bio</h3>
 
-			<div class="col-md-6">
-				<h1> {{ user.facebook.name }} </h1>
-				<ul class="stats">
-					<li><span class="badge"> {{ user.questions.length }} 	</span> Questions Asked</li>
-					<li><span class="badge"> {{ user.answers.length }} 		</span> Translations Proposed</li>
-					<li><span class="badge"> {{ user.followingTags.length }}</span> Following Tags</li>
-					<li><span class="badge"> {{ user.followingUsers.length}}</span> Following People</li>
-					<li><span class="badge"> {{ user.followers.length }}	</span> Followers</li>
-				</ul>
+					<p> {{ user.bio }} </p>
+				</div>
+
+
+
+				<div class="profile-questions profile-section">
+					<h3>Questions Asked <span class="badge">{{ user.questions.length }}</span></h3>
+
+					<div class="profile-stories">
+						<div ng-repeat="story in user.questions">
+							<story></story>
+						</div>
+					</div>
+				
+					<div class="profile-stories-more">
+						<a href="#">...</a>
+					</div>
+				</div>
+
+
+
+				<div class="profile-answers profile-section">
+					<h3>Translations Proposed <span class="badge">{{ user.answers.length }}</span></h3>
+					
+					<div class="profile-stories">
+
+						<div ng-repeat="story in user.answers">
+							<story></story>
+						</div>
+					</div>
+				
+					<div class="profile-stories-more">
+						<a href="#">...</a>
+					</div>
+				</div>
 			</div>
 
 			<div class="col-md-4">
-				<div class="score-card">
-					<h3>Score: {{ user.score }}</h3>
+
+				<div class="profile-following-tags profile-section">
+					<h3>Following Tags <span class="badge">{{ user.followingTags.length }} </span></h3>
+
+					<div class="tags">
+							<span class="<%= classTag %>">TODO</span>
+					</div>
+				</div>
+
+				<div class="profile-following-people profile-section">
+					<h3>Following People 	<span class="badge"> {{user.followingUsers.length}} </span></h3>
+					<div class="profiles">
+						<span ng-repeat="user in user.followingUsers">
+							<profile-pic></profile-pic>
+						</span>
+					</div>
+				</div>
+
+				<div class="profile-followers profile-section">
+					<h3>Followers 			<span class="badge"> {{user.followers.length}} </span></h3>
+
+					<div class="profiles">
+						<span ng-repeat="user in user.followers">
+							<profile-pic></profile-pic>
+						</span>
+					</div>
 				</div>
 			</div>
 
 		</div>
 	</div>
-
-
-
-	<div class="row">
-
-		<div class="col-md-8">
-			<div class="profile-bio profile-section">
-				<h3>Bio</h3>
-
-				<p> {{ user.bio }} </p>
-			</div>
-
-
-
-			<div class="profile-questions profile-section">
-				<h3>Questions Asked <span class="badge">{{ user.questions.length }}</span></h3>
-
-				<div class="profile-stories">
-					<div ng-repeat="story in user.questions">
-						<story></story>
-					</div>
-				</div>
-			
-				<div class="profile-stories-more">
-					<a href="#">...</a>
-				</div>
-			</div>
-
-
-
-			<div class="profile-answers profile-section">
-				<h3>Translations Proposed <span class="badge">{{ user.answers.length }}</span></h3>
-				
-				<div class="profile-stories">
-
-					<div ng-repeat="story in user.answers">
-						<story></story>
-					</div>
-				</div>
-			
-				<div class="profile-stories-more">
-					<a href="#">...</a>
-				</div>
-			</div>
-		</div>
-
-		<div class="col-md-4">
-
-			<div class="profile-following-tags profile-section">
-				<h3>Following Tags <span class="badge">{{ user.followingTags.length }} </span></h3>
-
-				<div class="tags">
-						<span class="<%= classTag %>">TODO</span>
-				</div>
-			</div>
-
-			<div class="profile-following-people profile-section">
-				<h3>Following People 	<span class="badge"> {{user.followingUsers.length}} </span></h3>
-				<div class="profiles">
-					<span ng-repeat="user in user.followingUsers">
-						<profile-pic></profile-pic>
-					</span>
-				</div>
-			</div>
-
-			<div class="profile-followers profile-section">
-				<h3>Followers 			<span class="badge"> {{user.followers.length}} </span></h3>
-
-				<div class="profiles">
-					<span ng-repeat="user in user.followers">
-						<profile-pic></profile-pic>
-					</span>
-				</div>
-			</div>
-		</div>
-
-	</div>
-	
-
-
-</div>
-
 
 </section>

@@ -1,3 +1,10 @@
+#translation-header {
+	background-color: @bg-panel;
+
+	padding: @spacing-layout 0;
+}
+
+
 .question {
 
 	text-align: center;
@@ -24,7 +31,7 @@
 	}
 
 	img {
-		height: 7em;
+		// height: 7em;
 		display: block;
 	}
 
@@ -34,27 +41,57 @@
 }
 
 .comment-container {
-	overflow: hidden;
-	width: 65%;
+	padding-top: @spacing-smaller;
+	// overflow: hidden;
+	width: 60%;
+}
+
+.comment {
+	height: 3rem;
+	font-size: @font-size-smaller;
+
+	
+
+	.profile {
+		float: left;
+	}
+
+	a:active, a:hover, a:focus { text-decoration: none; }
 
 	img {
-		width: 35px;
-		height: 35px;
-		display: block;
+		width: 2rem;
+		display: inline-block;
 		background-color: #f5f5f1;
-		-moz-border-radius: 50%;
-		-webkit-border-radius: 50%;
-		border-radius: 50%;
+		.round-image;
 	}
 
-	.comment {
-		clear:both;
-		margin: .5em 0 0 0;
-		height: 3rem;
-		width:30em;
+	p, div {
+		margin-left: 2.5rem;
 	}
 
+	input[type="text"] {
 
+		.border-box();
+		width: 100%;
+		height: auto;
+		display: block;
+
+		padding: 0.2rem 0.5rem;
+		font-size: @font-size-smaller;
+		
+		//Make the user comment box fade in on hover!!
+		opacity: 0.5;
+		.transition();
+		&:active, &:hover, &:focus { opacity: 1.0; }
+	}
+}
+
+.user-comment {
+	a {
+		.transition();
+	}
+	a:link, a:visited { opacity: 0.5; }
+	a:active, a:hover, a:focus { opacity: 1.0; }
 }
 
 

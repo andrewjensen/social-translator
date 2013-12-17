@@ -66,11 +66,8 @@ header .profile img {
 #main {
   padding-bottom: 8rem;
 }
-#main > :first-child {
-  margin-top: 3rem;
-}
 #main > :last-child {
-  margin-bottom: 3rem;
+  padding-bottom: 3rem;
 }
 footer {
   position: absolute;
@@ -255,7 +252,9 @@ section.profile-full h3 .badge {
   vertical-align: middle;
 }
 .profile-header {
-  /* background-color: @bg-panel; */
+  margin: 0 auto 3rem;
+  padding: 3rem 0;
+  background-color: #d9eefc;
 }
 .profile-header .stats {
   list-style-type: none;
@@ -306,4 +305,100 @@ section.profile-full h3 .badge {
 .profile-stories-more a:hover,
 .profile-stories-more a:active {
   background-color: #cbe8fb;
+}
+#translation-header {
+  background-color: #d9eefc;
+  padding: 3rem 0;
+}
+.question {
+  text-align: center;
+}
+.question-context {
+  min-height: 10em;
+  text-align: center;
+}
+.question-context p {
+  min-height: 7em;
+  max-width: 30em;
+  margin: 0 auto;
+  text-align: center;
+}
+.user img {
+  display: block;
+}
+.comment-container {
+  padding-top: 1.5rem;
+  width: 60%;
+}
+.comment {
+  height: 3rem;
+  font-size: 12px;
+}
+.comment .profile {
+  float: left;
+}
+.comment a:active,
+.comment a:hover,
+.comment a:focus {
+  text-decoration: none;
+}
+.comment img {
+  width: 2rem;
+  display: inline-block;
+  background-color: #f5f5f1;
+  -webkit-border-radius: 999px;
+  -moz-border-radius: 999px;
+  -o-border-radius: 999px;
+  border-radius: 999px;
+  background-clip: padding-box;
+}
+.comment p,
+.comment div {
+  margin-left: 2.5rem;
+}
+.comment input[type="text"] {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -o-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 100%;
+  height: auto;
+  display: block;
+  padding: 0.2rem 0.5rem;
+  font-size: 12px;
+  opacity: 0.5;
+  -webkit-transition: all 0.15s ease-in-out;
+  -moz-transition: all 0.15s ease-in-out;
+  -ms-transition: all 0.15s ease-in-out;
+  transition: all 0.15s ease-in-out;
+}
+.comment input[type="text"]:active,
+.comment input[type="text"]:hover,
+.comment input[type="text"]:focus {
+  opacity: 1.0;
+}
+.user-comment a {
+  -webkit-transition: all 0.15s ease-in-out;
+  -moz-transition: all 0.15s ease-in-out;
+  -ms-transition: all 0.15s ease-in-out;
+  transition: all 0.15s ease-in-out;
+}
+.user-comment a:link,
+.user-comment a:visited {
+  opacity: 0.5;
+}
+.user-comment a:active,
+.user-comment a:hover,
+.user-comment a:focus {
+  opacity: 1.0;
+}
+.left {
+  float: left;
+}
+.right {
+  float: right;
+}
+.answers {
+  border: 1px solid black;
+  min-height: 4em;
 }

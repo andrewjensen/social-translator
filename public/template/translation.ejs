@@ -1,83 +1,70 @@
-<section class="profile-full">
+<section class="translation">
+
+	<div id="translation-header">
+		<div class="container">
+
+			<div class="row">
+				<div class="col-md-2">
+					<a href="#/profile/{{question.author._id}}" class="profile">
+						<span class="timestamp">timestamp: {{question.timestamp}}</span>
+						<img src="http://graph.facebook.com/{{question.author.facebook.id}}/picture?width=200&amp;height=200">
+						<span class="username">{{question.author.name}}</span>
+					</a>
+				</div>
+
+				<div class="col-md-6">
+
+					<div>
+						<h2>How do you say...</h2>
+						<div class="quote">
+							<h1>{{question.text}}</h1>
+						</div>
+					</div>
+					
+					<p class="context">{{question.context}}</p>
+
+					<div class="tags">
+						<span class="tag tag-language">{{question.fromLanguage.name}}</span> to
+						<span class="tag tag-language">{{question.toLanguage.name}}</span>
+					</div>
+
+				</div>
+
+				<div class="col-md-4">
+					<ul class="stats">
+						<li><span class="badge">{{question.score}}</span> Score</li>
+						<li><span class="badge">{{question.answers.length}}</span> Proposed Translations</li>
+						<li><span class="badge">{{question.comments.length}}</span> Comments</li>
+					</ul>
+				</div>
+			</div><!-- end .row -->
+
+
+			<div class="comment-container">
+				<h3>Comments</h3>
+
+				<div class="comment" ng-repeat="comment in question.comments">
+
+					<a href="#/profile/{{comment.author._id}}" class="profile">
+						<img src="http://graph.facebook.com/{{comment.author.facebook.id}}/picture?type=square">
+					</a>
+					<p>{{comment.text}}</p>
+
+				</div>
+
+				<user-comment></user-comment>
+			</div><!-- end .comment-container -->
+
+		</div>
+	</div><!-- end #translation-header -->
+
+
+
 	<div class="container">
 
-
-		<h2>How do you say... Question ID: {{question._id}}</h2>
-		<div class="row">
-
-			<div class="col-md-2">
-					<a href="#" class="profile">
-						<span class="timestamp">timestamp{{question.timestamp}}</span>
-						<img src="/images/profile-default.jpg">
-						<span class="username"> username </span>
-					</a>
-			</div>
-
-			<div class="col-md-6">
-
-				<div>
-					<div class="quote">
-						<h1>{{question.text}}</h1>
-					</div>
-				</div>
-				
-				<p>{{question.context}}</p>
-
-
-				<div class="tags">
-					<span class="tag tag-language">Latin</span> to
-					<span class="tag tag-language">English</span> |
-					<span class="tag">Introductions</span>
-					<span class="tag">T-Shirts</span>
-				</div>
-
-				
-			</div>
-
-			<div class="col-md-4">
-				<ul class="stats">
-					<li><span class="badge">10</span> Score</li>
-					<li><span class="badge">7</span> Proposed Translations</li>
-					<li><span class="badge">3</span> Comments</li>
-				</ul>
-			</div>
-
-		</div>
-
-		<div>
-			<h3>Comments</h3>
-		</div>
-		<div class="row">
-			<div class="col-md-9">
-				<p>Did you ever think of putting something else on a t-shirt?</p>
-			</div>
-			<div class="col-md-1">
-				<a href="#" class="profile">
-					<img src="/images/profile-default.jpg">
-				</a>
-			</div>
-
-		</div>
-		<div class="row">
-
-			<div class="col-md-1">
-				<a href="#" class="profile">
-					<img src="/images/profile-default.jpg">
-				</a>
-			</div>
-			<div class="col-md-9">
-				<p> never thought of that... No</p>
-			</div>		
-		</div>
-
-		<div class="row">
-			<user-comment></user-comment>
-		</div>
-
-		answers...
 		<div class="answers" ng-repeat="answer in question.answers">
 			
-	<!-- 		<div class="user right">
+			<!-- <div class="user right">
 				<a href="#">
 					<span class="timestamp">10 Minutes Ago</span>
 					<img src="/images/profile-default.jpg">
@@ -85,43 +72,36 @@
 				</a>
 
 			</div> -->
-				<!-- ANSWER -->
+
+			<!-- ANSWER -->
 			<div class="row">
 				
 				<div class="answer col-md-8">
 
 					<!-- Translation -->
-						<div class="quote">
-							<p>{{answer.translation}}</p>
-						</div>
+					<div class="quote">
+						<p>{{answer.translation}}</p>
+					</div>
 
 					<!-- Tags -->
-						<div class="tags">
-								<span class="tag tag-language">Latin</span> to
-								<span class="tag tag-language">English</span> |
-								<span class="tag">Introductions</span>
-								<span class="tag">T-Shirts</span>
-						</div>
+					<div class="tags">
+							<span class="tag tag-language">Latin</span> to
+							<span class="tag tag-language">English</span> |
+							<span class="tag">Introductions</span>
+							<span class="tag">T-Shirts</span>
 					</div>
-
-					<!-- Badges -->
-					<div class="col-md-3">
-						<ul class="stats">
-							<li><span class="badge">10</span> Score</li>
-							<li><span class="badge">7</span> Proposed Translations</li>
-							<li><span class="badge">3</span> Comments</li>
-						</ul>
-					</div>
+				</div>
 
 				<!-- Profile -->
 				<div class="profile subtle col-md-1">
 					<span class="timestamp">10 Minutes Ago</span>
 					<profile-pic></profile-pic>
-					<span class="username"> {{answer._id}} </span>
+					<span class="username">{{answer._id}}</span>
 				</div>
 			</div>
 
 
 		</div>
-	</div>
+
+	</div><!-- end .container -->
 </section>

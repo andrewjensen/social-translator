@@ -14,6 +14,20 @@
 	.rounded(999px);
 }
 
+.transition(@time: 0.15s) {	
+	-webkit-transition: all @time ease-in-out;
+	   -moz-transition: all @time ease-in-out;
+	    -ms-transition: all @time ease-in-out;
+	        transition: all @time ease-in-out;
+}
+
+.border-box() {
+	-webkit-box-sizing: border-box;
+	   -moz-box-sizing: border-box;
+	     -o-box-sizing: border-box;
+	        box-sizing: border-box;
+}
+
 .unstyled-list {
 	list-style-type: none;
 	margin: 0;

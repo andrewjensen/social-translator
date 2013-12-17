@@ -35,11 +35,11 @@ angular.module('components', [])
 		return {
 			restrict: 'E',
 			template: 
-			'<div class="row">' + 
-				'<profile-pic class="col-md-1"></profile-pic>' +
-				'<div class="col-md-6">' +
-				'<input type="text" class="form-control" value="" placeholder="Write a comment..."/>' +
-				'</div>' + 
+			'<div class="comment user-comment">' + 
+				'<profile-pic></profile-pic>' +
+				'<div>' +
+					'<input type="text" class="form-control" value="" placeholder="Write a comment..."/>' +
+				'</div>' +
 			'</div>',
 			replace: true
 		}
