@@ -3,5 +3,9 @@
 # the Node Forever module does not
 # need to watch for changes.
 
+# Ignore the whole .git directory.
+.git/
+
 # Ignore the whole public directory.
 public/
+
