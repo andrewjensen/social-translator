@@ -4,6 +4,7 @@ var Tag = require('../models/tag.js');
 var User = require('../models/user.js');
 var Language = require('../models/language.js');
 var Story = require('../models/story.js');
+var ObjectId = require('mongoose').Schema.Types.ObjectId;
 
 /** Language Calls */
 exports.languagelist = function(req, res) {
@@ -18,19 +19,32 @@ exports.languagelist = function(req, res) {
 
 exports.searchPage = function(req, res) {
 
-	var phrase = req.body.phrase;
-	var fromLanguage = req.body.fromLanguage;
-	var toLanguage = req.body.toLanguage;
+	var phrase = req.params.phrase;      // This is the string to search for
+	var language = req.params.languageID;  // This is the TO-language
 
 	// TODO, change to getting the questions with the top-scored answers that match the text
-	Question.Find({text: new RegExp('^'+phrase+'$', "i")}, function(err, questions) {
+	Question.Find({$and: [{text: new RegExp('^'+phrase+'$', "i")}, {toLanguage: language}]}, function(err, questions) {
 
+		var numQuestions = questions.length;
+		var questionStories = [];
+		for (var i = 0; i < questions.length; i++)
+		{
+			Story.createFromQuestionId(user.questions[i], function(err, story) {
 
+				questionStories.push(story);
+				complete();
+			});
+		}
+		function complete() {
+			if (questionStories.length != numQuestions)
+				return;
+			res.json(questionStories);
+		}
 	});
 };
 
 // TODO, populate the newsfeedpage for a given user using timestamps
-// (I don't know what the newsfeed page uses)
+// (I don't know what the newsfeed page wants to display)
 exports.newsfeedPage = function(req, res) {
 
 
@@ -64,7 +78,7 @@ exports.translationPage = function(req, res) {
 		.populate('language', '_id name')
 		.populate('tags')
 		.populate('answers')
-		.populate('author', '_id username')
+		.populate('author', '_id name')
 		.exec(function(err, question) {
 			if (err)
 				res.send(err);
@@ -72,7 +86,7 @@ exports.translationPage = function(req, res) {
 			var options = {
 				path: 'answers.comments.userID',
 				model: 'users',
-				select: '_id username'
+				select: '_id name'
 			};
 			Question.populate(question, options, function (err, question1){
 
@@ -82,7 +96,7 @@ exports.translationPage = function(req, res) {
 				var newoptions = {
 					path: 'answers.author',
 					model: 'users',
-					select: '_id username'
+					select: '_id name'
 				}
 				Question.populate(question1, newoptions, function(err, question2){
 					var pageData = {
@@ -96,15 +110,20 @@ exports.translationPage = function(req, res) {
 };
 
 exports.createQuestion = function(req, res) {
-	console.log('GOT HERE: ', req.body.text);
+
+	// Insert all the question's tags as ObjectId's
+	var mytags = [];
+	for (x in req.body.tags)
+		mytags.push(new ObjectId(req.body.tags[x]));
+
 	Question.create({
-		author 		: req.body.author,
+		author 		: new ObjectId(req.body.author),
 		text   		: req.body.text,
 		context		: req.body.context,
 		timestamp   : Math.round(new Date().getTime() / 1000),
-		tags        : req.body.tags,
-		fromLanguage: req.body.fromLanguage,
-		toLanguage  : req.body.toLanguage,
+		tags        : mytags,
+		fromLanguage: new ObjectId(req.body.fromLanguage),
+		toLanguage  : new ObjectId(req.body.toLanguage),
 		answers 	: [],
 		topAnswer	: null,
 		score  		: 0,
@@ -133,8 +152,8 @@ exports.createQuestion = function(req, res) {
 exports.createAnswer = function(req, res) {
 
 	Answer.create({
-		author			: req.body.author,
-		question		: req.body.questionID,
+		author			: new ObjectId(req.body.author),
+		question		: new ObjectId(req.body.questionID),
 		translation 	: req.body.translation,
 		supplementary	: req.body.supplementary,
 		upvotes			: 0,
@@ -161,7 +180,7 @@ exports.createAnswer = function(req, res) {
 exports.createComment = function(req, res) {
 
 	var type = req.params.type;
-	var parentID = req.params.id;
+	var parentID = new ObjectId(req.params.id);
 	var ParentType;
 	if (type == "question")
 		ParentType = Question;
@@ -173,7 +192,7 @@ exports.createComment = function(req, res) {
 			{comments: {
 				text		: req.body.text,
 				timestamp	: Math.round(new Date().getTime() / 1000),
-				userID 		: req.body.userID
+				userID 		: new ObjectId(req.body.userID)
 				}
 			}
 		}, function(err, comment){
@@ -233,8 +252,8 @@ exports.profilePage = function(req, res) {
 	var userID = req.params.userID;
 
 	User.findOne({_id: userID})
-		.populate('followers', '_id username')
-		.populate('followingUsers', '_id username')
+		.populate('followers', '_id name')
+		.populate('followingUsers', '_id name')
 		.populate('followingTags')
 		.populate('languages')
 		.populate('nativeLanguage')
@@ -243,14 +262,21 @@ exports.profilePage = function(req, res) {
 			if (err)
 				res.send(err);	//TODO: handle error better
 
+			// Get the number of questions for comparison later
+			var numQuestions = (user.questions.length < 3 ? user.questions.length : 3);
+			var numAnswers = (user.answers.length < 3 ? user.answers.length : 3);
+			
 			// Get stories for only the last three questions and answers
 			var questionStories = [];
 			for (var i = user.questions.length - 3; i < user.questions.length; i++)
 			{
 				if (i < 0)
 					continue;
-				questionStories.push(Story.createFromQuestionId(user.questions[i]));
-				console.log('question: ', user.questions[i]);
+				Story.createFromQuestionId(user.questions[i], function(err, story) {
+
+					questionStories.push(story);
+					complete();
+				});
 			}
 
 			var answerStories = [];
@@ -258,17 +284,30 @@ exports.profilePage = function(req, res) {
 			{
 				if (i < 0)
 					continue;
-				answerStories.push(Story.createFromAnswerId(user.answers[i]));
-				console.log('answer: ', user.answers[i]);
-			}
+				Story.createFromAnswerId(user.answers[i], function(err, story) {
 
-			var pageData = {
-				title			: 'Profile | Social Translator',
-				user			: user,
-				questionStories	: questionStories,
-				answerStories	: answerStories
+					answerStories.push(story);
+					complete();
+				});
+			}
+			// We should only arrive here if there are no questions or answers
+			console.log('No Questions or Answers for this user, tell complete() we\'re done');
+			complete();
+
+			// Gets called anywhere from 0 to 6 times to check if we're finished and then return the results
+			function complete() {
+
+				// Do not go on until we have the expected number of stories
+				if (questionStories.length != numQuestions || answerStories.length != numAnswers)
+					return;
+				var pageData = {
+					title			: 'Profile | Social Translator',
+					user			: user,
+					questionStories	: questionStories,
+					answerStories	: answerStories
+				};
+				res.json(pageData);
 			};
-			res.json(pageData);
 		});
 };
 
@@ -309,27 +348,12 @@ exports.facebookAuthCallback = function(req, res) {
 }
 
 /**
- * Get a user by their username.
+ * Get a user by their ID.
  */
 exports.getByID = function(req, res) {
 	var userID = req.params.userID;
 
 	User.findOne({_id: userID}, function(err, user) {
-
-		if (err)
-			res.send(err);
-
-		res.json(user);
-	});
-};
-
-/**
- * Get a user by their username.
- */
-exports.getByUsername = function(req, res) {
-	var username = req.params.username;
-
-	User.findOne({username: username}, function(err, user) {
 
 		if (err)
 			res.send(err);
@@ -366,7 +390,6 @@ exports.addFollower = function(req, res) {
 	User.update({_id: userFollowedID}, {
 		$push: {followers: followerID}
 	});
-
 };
 
 // When the current logged in user (followerID) unfollowers someone else

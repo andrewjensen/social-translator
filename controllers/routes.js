@@ -40,7 +40,7 @@ module.exports = function(app, passport) {
 	// GET API's for each page
 	app.get('/api/profile/:userID', api.profilePage);
 	app.get('/api/question/:questionID', api.translationPage);
-	app.get('/api/search/', api.searchPage);
+	app.get('/api/search/:languageID/:phrase', api.searchPage);
 	app.get('/api/newsfeed/:userID', api.newsfeedPage);
 
 	// POST API's for each page

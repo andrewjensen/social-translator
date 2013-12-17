@@ -19,38 +19,48 @@ var Story = {
 	 */
 
 	create : function(question, answer) {
-		console.log("Story.create()");
 
-		/** TODO, handle the answer being null (in case the question has no answers) */
+		// Sometimes the question has no topAnswer, or the answer points to a null question
+		// (The latter shouldn't happen) 
 
-		//Create basic info about the question.
+		var storyQuestion;
+		var answerQuestion;
 
-		var storyQuestion = {
-			"_id"			: question._id,
-			"text"			: question.text,
-			"context"		: question.context,
-			"fromLanguage"	: question.language,		//TODO: add a toLanguage as well
-			"toLanguage"	: null,
-			"author"		: Story.createUserData(question.author),
-			"tags"			: question.tags,
-			"score"			: question.score,
-			"comments"		: question.comments.length,
-			"answers"		: question.answers.length,
-			"timestamp"		: question.timestamp
-		};
+		if (question == null)
+			storyQuestion = null;
+		else
+		{
+			storyQuestion = {
+				"_id"			: question._id,
+				"text"			: question.text,
+				"context"		: question.context,
+				"fromLanguage"	: question.language,		//TODO: add a toLanguage as well
+				"toLanguage"	: null,
+				"author"		: Story.createUserData(question.author),
+				"tags"			: question.tags,
+				"score"			: question.score,
+				"comments"		: question.comments.length,
+				"answers"		: question.answers.length,
+				"timestamp"		: question.timestamp
+			};
+		}
 
 
 		//Now create basic info about the answer.
 
-		var storyAnswer = {
-			"_id"			: answer._id,
-			"translation"	: answer.translation,
-			"supplementary"	: answer.supplementary,
-			"author" 		: Story.createUserData(answer.author),
-			"score"			: (answer.upvotes - answer.downvotes),
-			"timestamp"		: answer.timestamp,
-		};
-
+		if (answer == null)
+			storyAnswer = null;
+		else
+		{
+			var storyAnswer = {
+				"_id"			: answer._id,
+				"translation"	: answer.translation,
+				"supplementary"	: answer.supplementary,
+				"author" 		: Story.createUserData(answer.author),
+				"score"			: (answer.upvotes - answer.downvotes),
+				"timestamp"		: answer.timestamp,
+			};
+		}
 
 		//Put the info together into a story and return it.
 
@@ -78,12 +88,6 @@ var Story = {
 				callback(err, null);
 			} else {
 
-				// console.log("Here is my question:");
-				// console.log(question);
-
-				console.log('question: ', question);
-				console.log('question.topAnswer: ', question.topAnswer);
-
 				callback(null, Story.create(question, question.topAnswer));
 			}
 
@@ -106,9 +110,6 @@ var Story = {
 				callback(err, null);
 			} else {
 
-				// console.log("Here is my answer:");
-				// console.log(answer);
-
 				callback(null, Story.create(answer.question, answer));
 			}
 		});
@@ -127,8 +128,9 @@ var Story = {
 			return null;
 
 		return {
-			"_id"	: user._id,
-			"name"	: (user.facebook == null ? null : user.facebook.name)
+			"_id"			: user._id,
+			"name"			: user.name,
+			"facebookID"	: (user.facebook == null ? null : user.facebook.id)
 		};
 	}
 
