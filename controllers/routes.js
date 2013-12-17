@@ -82,4 +82,35 @@ module.exports = function(app, passport) {
 		});
 	});
 
+	/****************************************
+	 * SERVER MAINTENANCE FUNCTIONS
+	 */
+
+	app.get('/server/update/', function(req, res) {
+
+		//Create a shell.
+		var spawn = require('child_process').spawn;
+		var shell = spawn("git", ["pull"]);
+
+		var hasError = false;
+		var output = "";
+
+		console.log("Updating source code...");
+
+		shell.stdout.on('data', function (data) {
+			output = output + data + "\n";
+		});
+
+		shell.stderr.on('data', function (data) {
+			output = output + data + "\n";
+			hasError = true;
+		});
+
+		shell.on('close', function (code) {
+			var statusCode = (hasError ? 500 : 200);
+			res.send(statusCode, output);
+		});
+
+	})
+
 };

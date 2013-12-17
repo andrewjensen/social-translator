@@ -1,0 +1,7 @@
+######################################
+# .foreverignore - all the files that
+# the Node Forever module does not
+# need to watch for changes.
+
+# Ignore the whole public directory.
+public/
