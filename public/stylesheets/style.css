@@ -64,7 +64,7 @@ header .profile img {
   height: 3rem;
 }
 #main {
-  padding-bottom: 8rem;
+  padding-bottom: 0rem;
 }
 #main > :last-child {
   padding-bottom: 3rem;
@@ -73,7 +73,7 @@ footer {
   position: absolute;
   bottom: 0;
   width: 100%;
-  height: 8rem;
+  height: 0rem;
   box-sizing: border-box;
   padding: 1rem;
   background-color: #7ac4f5;
@@ -310,6 +310,22 @@ section.profile-full h3 .badge {
   background-color: #d9eefc;
   padding: 3rem 0;
 }
+#translation-header .stats {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+#translation-header .stats,
+#translation-header .tags {
+  margin-bottom: 1.5rem;
+}
+#translation-header .profile span {
+  display: block;
+  text-align: center;
+}
+#translation-header .comment-list {
+  width: 70%;
+}
 .question {
   text-align: center;
 }
@@ -326,9 +342,58 @@ section.profile-full h3 .badge {
 .user img {
   display: block;
 }
-.comment-container {
+#answer-list {
+  padding: 3rem 0;
+}
+#answer-list h2 .badge {
+  font-size: 16px;
+}
+.answer-container {
+  padding: 1.5rem 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+.answer-container:last-child {
+  border-bottom: none;
+}
+.answer-container .answer .quote {
+  font-size: 24px;
+}
+.answer-container .profile span {
+  font-size: 12px;
+}
+.answer-container .comment-list {
+  width: 70%;
+}
+.answer-container .voting .answer-score {
+  display: block;
+  font-size: 28px;
+  text-align: center;
+}
+.answer-container .voting .button-upvote {
+  display: block;
+  margin: 0 auto;
+  width: 70%;
+  height: 2rem;
+  text-indent: -9999px;
+  background: transparent url('/images/btn-upvote.png') 50% 100% no-repeat scroll;
+  background-size: contain;
+  cursor: pointer;
+}
+.answer-container .voting .button-downvote {
+  display: block;
+  margin: 0 auto;
+  width: 70%;
+  height: 2rem;
+  text-indent: -9999px;
+  background: transparent url('/images/btn-downvote.png') 50% 0% no-repeat scroll;
+  background-size: contain;
+  cursor: pointer;
+}
+.comment-list {
   padding-top: 1.5rem;
-  width: 60%;
+}
+.comment-list h3 {
+  font-size: 18px;
 }
 .comment {
   height: 3rem;
@@ -392,13 +457,14 @@ section.profile-full h3 .badge {
 .user-comment a:focus {
   opacity: 1.0;
 }
+#user-answer-container #user-answer,
+#user-answer-container #user-supplementary {
+  height: auto;
+  margin-bottom: 1.5rem;
+}
 .left {
   float: left;
 }
 .right {
   float: right;
-}
-.answers {
-  border: 1px solid black;
-  min-height: 4em;
 }

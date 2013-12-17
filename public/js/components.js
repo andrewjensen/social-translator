@@ -7,20 +7,6 @@ angular.module('components', [])
       		templateUrl: '/template/story.ejs',
 	    };
 	})
-	.directive('profilePic', function () {
-		// body...
-		return {
-			restrict: 'E',
-      		controller: function($scope, $element){
-				$scope.story._id;
-			},
-      		template: 
-      			'<a href="#/profile/{{user._id}}" class="profile">' + 
-				'<img src="/images/profile-default.jpg">' +
-				'</a>',
-      		replace: true
-	    };
-	})
 	.directive('tag', function () {
 		return {
 			restrict: 'E',
@@ -38,9 +24,22 @@ angular.module('components', [])
 			'<div class="comment user-comment">' + 
 				'<profile-pic></profile-pic>' +
 				'<div>' +
-					'<input type="text" class="form-control" value="" placeholder="Write a comment..."/>' +
+					'<input type="text" class="form-control" ng-enter="postComment()" value="" placeholder="Write a comment..."/>' +
 				'</div>' +
 			'</div>',
 			replace: true
 		}
+	})
+	.directive('ngEnter', function() {
+		return function(scope, element, attrs) {
+			element.bind("keydown keypress", function(event) {
+				if(event.which === 13) {
+					scope.$apply(function(){
+						scope.$eval(attrs.ngEnter);
+					});
+
+					event.preventDefault();
+				}
+			});
+		};
 	});

@@ -89,6 +89,10 @@ hubControllers.controller('TranslationCtrl', ['$scope', '$http', '$routeParams',
 			// .error(function(data) {
 				
 			// });
+
+		$scope.postComment = function() {
+			console.log("You posted a comment!");
+		};
 	}]
 );
 

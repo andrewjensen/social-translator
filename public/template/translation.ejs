@@ -6,7 +6,6 @@
 			<div class="row">
 				<div class="col-md-2">
 					<a href="#/profile/{{question.author._id}}" class="profile">
-						<span class="timestamp">timestamp: {{question.timestamp}}</span>
 						<img src="http://graph.facebook.com/{{question.author.facebook.id}}/picture?width=200&amp;height=200">
 						<span class="username">{{question.author.name}}</span>
 					</a>
@@ -23,85 +22,137 @@
 					
 					<p class="context">{{question.context}}</p>
 
-					<div class="tags">
-						<span class="tag tag-language">{{question.fromLanguage.name}}</span> to
-						<span class="tag tag-language">{{question.toLanguage.name}}</span>
-					</div>
+					<div class="comment-list">
+						<h3>Comments</h3>
+
+						<div class="comment" ng-repeat="comment in question.comments">
+
+							<a href="#/profile/{{comment.author._id}}" class="profile">
+								<img src="http://graph.facebook.com/{{comment.author.facebook.id}}/picture?type=square">
+							</a>
+							<p>{{comment.text}}</p>
+
+						</div>
+
+						<user-comment></user-comment>
+					</div><!-- end .comment-container -->
+
 
 				</div>
 
 				<div class="col-md-4">
+
 					<ul class="stats">
 						<li><span class="badge">{{question.score}}</span> Score</li>
 						<li><span class="badge">{{question.answers.length}}</span> Proposed Translations</li>
 						<li><span class="badge">{{question.comments.length}}</span> Comments</li>
 					</ul>
+
+					<div class="tags">
+						<span class="tag tag-language">{{question.fromLanguage.name}}</span> to
+						<span class="tag tag-language">{{question.toLanguage.name}}</span>
+					</div>
+
+					<div class="timestamp">timestamp: {{question.timestamp}}</div>
+
 				</div>
 			</div><!-- end .row -->
-
-
-			<div class="comment-container">
-				<h3>Comments</h3>
-
-				<div class="comment" ng-repeat="comment in question.comments">
-
-					<a href="#/profile/{{comment.author._id}}" class="profile">
-						<img src="http://graph.facebook.com/{{comment.author.facebook.id}}/picture?type=square">
-					</a>
-					<p>{{comment.text}}</p>
-
-				</div>
-
-				<user-comment></user-comment>
-			</div><!-- end .comment-container -->
 
 		</div>
 	</div><!-- end #translation-header -->
 
 
 
-	<div class="container">
+	<div id="answer-list">
+		<div class="container">
 
-		<div class="answers" ng-repeat="answer in question.answers">
-			
-			<!-- <div class="user right">
-				<a href="#">
-					<span class="timestamp">10 Minutes Ago</span>
-					<img src="/images/profile-default.jpg">
-					<span class="username"> Andrew Jensen </span>
-				</a>
-
-			</div> -->
+			<h2>Answers <span class="badge">{{question.answers.length}}</span></h2>
 
 			<!-- ANSWER -->
-			<div class="row">
+			<div class="answer-container" ng-repeat="answer in question.answers">
 				
-				<div class="answer col-md-8">
+				<div class="row">
 
-					<!-- Translation -->
-					<div class="quote">
-						<p>{{answer.translation}}</p>
+					<div class="voting col-md-1">
+						<a class="button-upvote">vote up</a>
+
+						<span class="answer-score">{{answer.score}}</span>
+
+						<a class="button-downvote">vote down</a>
 					</div>
 
-					<!-- Tags -->
-					<div class="tags">
-							<span class="tag tag-language">Latin</span> to
-							<span class="tag tag-language">English</span> |
-							<span class="tag">Introductions</span>
-							<span class="tag">T-Shirts</span>
+					<div class="answer col-md-8">
+
+						<!-- Translation -->
+						<div class="quote">
+							<p>{{answer.translation}}</p>
+						</div>
+
+						<p>{{answer.supplementary}}</p>
+
+						<div class="comment-list">
+							<div class="comment" ng-repeat="comment in answer.comments">
+								<a href="#/profile/{{comment.author._id}}" class="profile">
+									<img ng-src="http://graph.facebook.com/{{comment.author.facebook.id}}/picture?type=square" alt="{{comment.author.name}}" />
+								</a>
+								<p>{{comment.text}}</p>
+							</div>
+							<user-comment></user-comment>
+						</div>
+
+					</div>
+
+					<!-- Profile -->
+					<div class="profile col-md-1">
+						<span class="timestamp">{{answer.timestamp}}</span>
+						<a href="#/profile/{{answer.author._id}}" class="profile">
+							<img ng-src="http://graph.facebook.com/{{answer.author.facebook.id}}/picture?type=square" alt="{{answer.author.name}}" />
+						</a>
+						<span class="username">{{answer.author.name}}</span>
 					</div>
 				</div>
 
-				<!-- Profile -->
-				<div class="profile subtle col-md-1">
-					<span class="timestamp">10 Minutes Ago</span>
-					<profile-pic></profile-pic>
-					<span class="username">{{answer._id}}</span>
+			</div>
+
+			<div id="user-answer-container" class="answer-container">
+				<div class="row">
+
+					<div class="col-md-1"></div>
+
+					<div class="answer col-md-8">
+
+						<h3>Post a translation</h3>
+
+						<!-- Translation -->
+						<div>
+							<label for="user-answer">Translation Text:</label>
+							<input type="text" class="form-control quote" id="user-answer" name="user-answer" value="" placeholer="" />
+						</div>
+
+						<div>
+							<label for="user-supplementary">Explanation for your translation:</label>
+							<input type="text" class="form-control supplementary" id="user-supplementary" name="user-supplementary" value="" placeholder="" />
+						</div>
+
+						<div>
+							<input type="submit" class="btn btn-primary" id="answer-submit" name="answer-submit" value="Post" />
+						</div>
+
+					</div>
+
+					<!-- Profile -->
+					<div class="profile col-md-1">
+						<a href="#/profile/{{user._id}}" class="profile">
+							<img ng-src="http://graph.facebook.com/{{user.facebook.id}}/picture?type=square" alt="{{user.name}}" />
+						</a>
+						<span class="username">{{user.name}}</span>
+					</div>
+
+
 				</div>
 			</div>
 
-
 		</div>
+	</div><!-- end #answer-list -->
 
-	</div><!-- end .container -->
 </section>

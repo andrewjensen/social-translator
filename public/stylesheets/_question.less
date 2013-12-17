@@ -2,6 +2,26 @@
 	background-color: @bg-panel;
 
 	padding: @spacing-layout 0;
+
+
+	.stats {
+		.unstyled-list();
+	}
+
+	.stats, .tags {
+		margin-bottom: @spacing-smaller;
+	}
+
+	.profile {
+		span {
+			display: block;
+			text-align: center;
+		}
+	}
+
+	.comment-list {
+		width: 70%;
+	}
 }
 
 
@@ -40,17 +60,84 @@
 	}
 }
 
-.comment-container {
+#answer-list {
+	padding: @spacing-layout 0;
+
+
+
+
+	h2 .badge { font-size: 16px; }
+}
+
+.answer-container {
+	padding: @spacing-smaller 0;
+	border-bottom: 1px solid @color-divider;
+
+	&:last-child { border-bottom: none; }
+
+	.answer .quote {
+		font-size: 24px;
+	}
+
+	.profile {
+		span {
+			font-size: @font-size-smaller;
+		}
+	}
+
+	.comment-list {
+		width: 70%;
+		// float: right;
+		// &:after {
+		// 	clear: both;
+		// }
+	}
+}
+
+.voting-button(@background-image, @background-image-active, @vertical-placement) {
+	display: block;
+	margin: 0 auto;
+	width: 70%;
+	height: 2rem;
+
+	text-indent: -9999px;
+	background: transparent url(@background-image) 50% @vertical-placement no-repeat scroll;
+	background-size: contain;
+	cursor: pointer;
+
+	// &:active, &:hover, &:focus {
+	// 	background: transparent url(@background-image-active) 50% @vertical-placement no-repeat scroll;
+	// }
+}
+
+.answer-container .voting {
+
+	.answer-score {
+		display: block;
+		font-size: 28px;
+		text-align: center;
+	}
+
+	.button-upvote {
+		.voting-button('/images/btn-upvote.png', '/images/btn-upvote-active.png', 100%);
+	}
+
+	.button-downvote {
+		.voting-button('/images/btn-downvote.png', '/images/btn-downvote-active.png', 0%);
+	}
+}
+
+.comment-list {
 	padding-top: @spacing-smaller;
-	// overflow: hidden;
-	width: 60%;
+
+	h3 {
+		font-size: @font-size-larger;
+	}
 }
 
 .comment {
 	height: 3rem;
 	font-size: @font-size-smaller;
-
-	
 
 	.profile {
 		float: left;
@@ -95,6 +182,13 @@
 }
 
 
+#user-answer-container {
+	#user-answer, #user-supplementary {
+		height: auto;
+		margin-bottom: @spacing-smaller;
+	}
+}
+
 .left {
 	float: left;
 }
@@ -103,9 +197,5 @@
 	float: right;
 }
 
-.answers {
-	border: 1px solid black;
-	min-height: 4em;
 
-}
 
