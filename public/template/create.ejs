@@ -4,24 +4,50 @@
 
 		<h1>Ask how to say:</h1>
 
-		<form>
 
-			<input type="text" id="searchbar-question" name="searchbar-question" class="form-control" value="" placeholder="" ng-model="formData.text"/>
+		<input type="text" id="searchbar-question" name="searchbar-question" class="form-control" value="" placeholder="Your question here..." ng-model="formData.text" ng-required="true"/>
 
-			Context
-			<input type="text" id="searchbar-question" name="searchbar-question" class="form-control" value="" placeholder="" ng-model="formData.context"/>
-
-			Tags: 
-			...
-
-			<div>
-
-				<button type="submit" class="btn btn-primary" ng-click="createQuestion()">Add</button>
-
+		<div class="row">
+			<div class="col-md-1">
+				Context
 			</div>
-		</form>
+			<div class="col-md-6">
+				<input type="text" id="searchbar-question" name="searchbar-question" class="form-control" value="" placeholder="I will use this for..." ng-model="formData.context" ng-required="true"/>
+			</div>
+		</div>
 
-		<user-comment></user-comment>
+
+		<div class="row">
+			<div class="col-md-1">
+				From
+			</div>
+			<div class="col-md-3">
+				<select class="form-control" ng-options="l.name for l in languages" 
+				ng-model="formData.fromLanguage">
+				</select>
+			</div>
+
+			<div class="col-md-1">
+				To
+			</div>
+			<div class="col-md-3">
+				<select class="form-control" ng-options="l.name for l in languages" 
+				ng-model="formData.toLanguage">
+				</select>
+			</div>
+		</div>
+
+
+		<div class="row"></div>
+		Tags: 
+		<div>
+			...
+		</div>
+		
+
+		<div>
+			<button type="submit" class="btn btn-primary" ng-click="createQuestion()">Submit</button>
+		</div>
 		
 	</div>
 </section>

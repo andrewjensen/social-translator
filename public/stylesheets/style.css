@@ -215,31 +215,31 @@ section.box {
   vertical-align: middle;
   padding: 0 0.5rem;
 }
-.feed-story {
-  padding: 2rem 0;
-  border-bottom: 1px solid #e0e0e0;
+.search-results-header {
+  background: #d9eefc;
+  padding: 2em 0 1em 0;
+  margin: 0 0 2em;
 }
-.feed-story:first-child {
-  border-top: 1px solid #e0e0e0;
+.story .row {
+  padding-bottom: 2em;
 }
-.feed-story .profile {
-  text-align: center;
-  font-size: 12px;
-}
-.feed-story .context {
-  font-size: 12px;
-}
-.feed-story .tags {
-  font-size: 12px;
-}
-.feed-story .stats {
-  font-size: 12px;
+.story .stats {
   list-style-type: none;
   margin: 0;
   padding: 0;
 }
-.feed-story .stats .badge {
-  font-size: 12px;
+.story .question {
+  font-size: 36px;
+  text-align: left;
+}
+.story {
+  border-bottom: 1px solid darkgrey;
+}
+.story .answer {
+  text-align: right;
+}
+.story .tags-row {
+  text-align: center;
 }
 section.profile-full .profiles img {
   display: inline-block;

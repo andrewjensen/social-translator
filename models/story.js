@@ -30,6 +30,7 @@ var Story = {
 			storyQuestion = null;
 		else
 		{
+			console.log('question----------------------');
 			storyQuestion = {
 				"_id"			: question._id,
 				"text"			: question.text,
@@ -88,7 +89,9 @@ var Story = {
 				callback(err, null);
 			} else {
 
-				callback(null, Story.create(question, question.topAnswer));
+				Answer.populateAnswerAuthors(question.topAnswer, function(err, a) {
+					callback(null, Story.create(question, a));
+				});
 			}
 
 		});
@@ -126,7 +129,9 @@ var Story = {
 	createUserData : function(user) {
 		if (user == null)
 			return null;
-
+		// console.log('user: ' + user);
+		console.log('user._id: ' + user._id);
+		console.log('user.facebook: ' + user.facebook);
 		return {
 			"_id"			: user._id,
 			"name"			: user.name,

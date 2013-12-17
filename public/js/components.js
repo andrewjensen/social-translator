@@ -11,8 +11,15 @@ angular.module('components', [])
 		return {
 			restrict: 'E',
 			template:
-				'<div class="tags" ng-repeat="tag in story.tags">' +
-						'<span class="tag">{{tag}}</span>' +
+				'<div>' +
+					'<div class="tags">' +
+							'<span class="tag tag-language"></span> to' +
+							'<span class="tag tag-language">{{story.question.toLanguage}}</span> |' +
+					'</div>' +
+
+					'<div class="tags" ng-repeat="tag in story.tags">' +
+							'<span class="tag">{{tag}}</span>' +
+					'</div>' +
 				'</div>',
 			replace: true
 		};

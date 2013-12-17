@@ -24,4 +24,15 @@ var answerSchema = new mongoose.Schema({
 	} ]
 });
 
+answerSchema.statics.populateAnswerAuthors = function(answer, callbackFunction) {
+	var options = {
+		path: 'author',
+		model: 'users',
+		select: '_id name facebook.id'
+	};
+	this.populate(answer, options, function (err, expandedAnswer){
+		callbackFunction(err, expandedAnswer);
+	});
+};
+
 module.exports = mongoose.model('answers', answerSchema);

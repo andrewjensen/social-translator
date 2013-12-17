@@ -29,7 +29,7 @@ questionSchema.statics.populateCommentAuthors = function(question, callbackFunct
 		select: '_id name facebook.id'
 	};
 	this.populate(question, options, function (err, expandedQuestion){
-		callbackFunction(err, expandedQuestion)
+		callbackFunction(err, expandedQuestion);
 	});
 };
 

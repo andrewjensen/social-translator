@@ -21,7 +21,7 @@ hubControllers.controller('SearchCtrl', ['$scope', '$http', '$routeParams',
 	function ($scope, $http, $routeParams) {
 		var phrase = $routeParams.phrase;
 
-		$http.get('/api/feed/search/' + phrase)
+		$http.get('/api/search/52ab55bfde63fb1250282e75/' + phrase)
 			.success(function(data) {
 				$scope.stories = data;
 				$scope.page = {title : "Results"};
@@ -102,14 +102,14 @@ hubControllers.controller('CreateQuestionCtrl', ['$scope', '$http',
 
 	function ($scope, $http) {
 		//TODO: write the api and conect it
-		$http.get('')
+		$http.get('/api/languages/')
 			.success(function(data) {
-
+				$scope.languages = data;
 			});
 			// .error(function(data) {
 				
 			// });
-
+		
 		$scope.createQuestion = function() {
 			$http.post('api/question/create', $scope.formData)
 			.success(function(data){

@@ -1,24 +1,22 @@
 <!-- This could probably be used for both the NewsFeed and for Search Results -->
 <section class="profile-full">
 
-	<div class="container">
-		<div>
-			<h2>{{page.title}}</h2>
+	
+	<div class="search-results-header">
+		<div class="container">
+			<h1>{{page.title}}</h1>
 		</div>
+	</div>
 
-
-		Key Words: <input ng-model="query">
+	<div class="container">
+<!-- 		Narrow Results with Key Words: <input ng-model="query">
 
 		<select ng-model="orderProp">
 			<option value="text">		question</option>
 			<option value="context">	Context </option>
-			<!-- <option value="timestamp">	Date	</option>
-			<option value="username">	User 	</option> -->
-		</select>
-		 
-		<div>
-			<p>{{user.username}}</p>
-		</div>
+			<option value="timestamp">	Date	</option>
+			<option value="username">	User 	</option>
+		</select>  -->
 
 		<div>
 			  <div ng-repeat="story in stories | filter:query | orderBy:orderProp">

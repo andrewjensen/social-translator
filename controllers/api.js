@@ -21,15 +21,26 @@ exports.searchPage = function(req, res) {
 
 	var phrase = req.params.phrase;      // This is the string to search for
 	var language = req.params.languageID;  // This is the TO-language
-
+	console.log('phrase', phrase);
+	console.log('language', language);
 	// TODO, change to getting the questions with the top-scored answers that match the text
-	Question.Find({$and: [{text: new RegExp('^'+phrase+'$', "i")}, {toLanguage: language}]}, function(err, questions) {
+	//, toLanguage: language
+	Question.find({$and : [{text: new RegExp(phrase, "i")}, {toLanguage: language}]}, function(err, questions) {
 
+		if (err)
+		{
+			res.send(err);
+			return;
+		}
+		// console.log(questions);
 		var numQuestions = questions.length;
+		if (numQuestions == 0) res.json();
 		var questionStories = [];
 		for (var i = 0; i < questions.length; i++)
 		{
-			Story.createFromQuestionId(user.questions[i], function(err, story) {
+			Story.createFromQuestionId(questions[i], function(err, story) {
+				if (err)
+					console.log("There's an error!");
 
 				questionStories.push(story);
 				complete();
