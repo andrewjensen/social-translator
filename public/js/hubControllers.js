@@ -111,12 +111,18 @@ hubControllers.controller('CreateQuestionCtrl', ['$scope', '$http',
 			// });
 		
 		$scope.createQuestion = function() {
+			console.log($scope.formData);
+			//TODO remove this
+			$scope.formData.author = "52b099007dffc8760c000003";
 			$http.post('api/question/create', $scope.formData)
 			.success(function(data){
 				//Redirect them to the translation page
+				console.log(data);
+				questionId = data._id;
+				window.location.href = '#/translation/' + questionId;
 			});
 			// .error(function(data) {
-				//It did not save sorry
+			// 	// TODO tell the user
 			// });
 	    }
 	}]

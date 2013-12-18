@@ -26,7 +26,11 @@
 					<li><span class="badge">{{story.question.answers}}</span> Proposed Translations</li>
 					<li><span class="badge">{{story.question.comments}}</span> Comments</li>
 				</ul>
-				<tag></tag>
+				
+				<div class="tags">
+					<span class="tag tag-language">{{story.question.fromLanguage.name}}</span> to
+					<span class="tag tag-language">{{story.question.toLanguage.name}}</span>
+				</div>
 			</div>
 		</a>
 

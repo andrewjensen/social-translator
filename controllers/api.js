@@ -116,32 +116,31 @@ exports.translationPage = function(req, res) {
 exports.createQuestion = function(req, res) {
 
 	// Insert all the question's tags as ObjectId's
-	var mytags = [];
-	for (x in req.body.tags)
-		mytags.push(new ObjectId(req.body.tags[x]));
+	// TODO implement tags
 
-	Question.create({
-		author 		: new ObjectId(req.body.author),
+	console.log(req.body);
+	var data = {
+		author 		: req.body.author,
 		text   		: req.body.text,
 		context		: req.body.context,
 		timestamp   : Math.round(new Date().getTime() / 1000),
-		tags        : mytags,
-		fromLanguage: new ObjectId(req.body.fromLanguage),
-		toLanguage  : new ObjectId(req.body.toLanguage),
+		// tags        : mytags,
+		fromLanguage: req.body.fromLanguage._id,
+		toLanguage  : req.body.toLanguage._id,
 		answers 	: [],
 		topAnswer	: null,
 		score  		: 0,
 		comments  	: []
-	}, function(err, question){
+	};
+	console.log(data);
+	Question.create(data, function(err, question){
 
 		if (err)
 			res.send(err);
 
 		console.log('SUCCESS in creating question');
-		User.update({_id : question.author}, 
-		{$push: 
-			{questions: question._id}
-		}, 
+		console.log(question);
+		User.update({_id : question.author}, {$push: {questions: question._id}}, 
 		function(err, questionID){
 			if (err)
 			{

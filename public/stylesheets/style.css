@@ -220,6 +220,9 @@ section.box {
   padding: 2em 0 1em 0;
   margin: 0 0 2em;
 }
+.story a {
+  color: black;
+}
 .story .row {
   padding-bottom: 2em;
 }
@@ -467,4 +470,15 @@ section.profile-full h3 .badge {
 }
 .right {
   float: right;
+}
+.create div {
+  margin: 0 0 2em 0;
+}
+.create h1 {
+  margin: 1em 0 0 0;
+}
+.create .main-text {
+  font-size: 24px;
+  height: inherit;
+  margin: 1em 0 0 0;
 }

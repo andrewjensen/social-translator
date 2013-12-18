@@ -31,12 +31,13 @@ var Story = {
 		else
 		{
 			console.log('question----------------------');
+			console.log(question);
 			storyQuestion = {
 				"_id"			: question._id,
 				"text"			: question.text,
 				"context"		: question.context,
-				"fromLanguage"	: question.language,		//TODO: add a toLanguage as well
-				"toLanguage"	: null,
+				"fromLanguage"	: question.fromLanguage,
+				"toLanguage"	: question.toLanguage,
 				"author"		: Story.createUserData(question.author),
 				"tags"			: question.tags,
 				"score"			: question.score,
@@ -81,6 +82,8 @@ var Story = {
 
 		Question.findOne({_id: questionId})
 		.populate('author')
+		.populate('fromLanguage', '_id name')
+		.populate('toLanguage', '_id name')
 		.populate('tags')
 		.populate('topAnswer')	//Here's where we get the answer!
 		.exec(function(err, question) {

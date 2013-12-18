@@ -1,53 +1,68 @@
 <section class="profile-full">
+	<div class="search-results-header">
+		
+		<div class="container">
 
+			<div class="row">
+				<div class="col-md-2">
+					<a href="#/profile/{{question.author._id}}" class="profile">
+						<img src="http://graph.facebook.com/{{question.author.facebook.id}}/picture?width=200&amp;height=200">
+						<span class="username">{{question.author.name}}</span>
+					</a>
+				</div>
+				<div class="col-md-8">
+					
+					<div class="create">
+						<h1>Ask How to Say...</h1>
+						<!-- <label for="text-bar">Text: </label> -->
+						<input id="text" type="text" id="text-bar" name="text-bar" class="form-control main-text" value="" placeholder="" ng-model="formData.text" ng-required="true"/>
+					</div>
+				</div>
+				
+			</div>
+
+			<div class="row">
+				<div class="col-md-2"></div>
+				<div class="col-md-8 ">
+					
+				</div>
+
+			</div>
+		</div>
+	</div>
 	<div class="container">
 
-		<h1>Ask how to say:</h1>
-
-
-		<input type="text" id="searchbar-question" name="searchbar-question" class="form-control" value="" placeholder="Your question here..." ng-model="formData.text" ng-required="true"/>
-
 		<div class="row">
-			<div class="col-md-1">
-				Context
+
+			<div class="col-md-2"></div>
+
+			<div class="col-md-8 create">
+				
+
+				<div>
+					<label for="context-bar">Briefly Explain the Context Where You Would Use This </label>
+					<input id="context" type="text" id="context-bar" name="context-bar" class="form-control" value="" placeholder="" ng-model="formData.context" ng-required="true"/>
+				</div>
+
+				<div class="col-md-6">
+					<label for="fromLanguage">From: </label>
+					<select id="fromLanguage" class="form-control" ng-options="l.name for l in languages" 
+					ng-model="formData.fromLanguage">
+					</select>
+				</div>
+
+				<div class="col-md-6">
+					<label for="toLanguage">To: </label>
+					<select id="toLanguage" class="form-control" ng-options="l.name for l in languages" 
+					ng-model="formData.toLanguage">
+					</select>
+				</div>
+
+				<div>
+					<button type="submit" class="btn btn-primary" ng-click="createQuestion()">Submit</button>
+				</div>
 			</div>
-			<div class="col-md-6">
-				<input type="text" id="searchbar-question" name="searchbar-question" class="form-control" value="" placeholder="I will use this for..." ng-model="formData.context" ng-required="true"/>
-			</div>
+			
 		</div>
-
-
-		<div class="row">
-			<div class="col-md-1">
-				From
-			</div>
-			<div class="col-md-3">
-				<select class="form-control" ng-options="l.name for l in languages" 
-				ng-model="formData.fromLanguage">
-				</select>
-			</div>
-
-			<div class="col-md-1">
-				To
-			</div>
-			<div class="col-md-3">
-				<select class="form-control" ng-options="l.name for l in languages" 
-				ng-model="formData.toLanguage">
-				</select>
-			</div>
-		</div>
-
-
-		<div class="row"></div>
-		Tags: 
-		<div>
-			...
-		</div>
-		
-
-		<div>
-			<button type="submit" class="btn btn-primary" ng-click="createQuestion()">Submit</button>
-		</div>
-		
 	</div>
 </section>
