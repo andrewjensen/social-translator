@@ -58,7 +58,42 @@ exports.searchPage = function(req, res) {
 // (I don't know what the newsfeed page wants to display)
 exports.newsfeedPage = function(req, res) {
 
+User.findOne({_id: req.params.userID}, function(err, user) {
+	console.log(user.languages);
+	Question.find({$or: [
+		{fromLanguage: {$in: user.languages}}, 
+		{toLanguage: {$in: user.languages}}, 
+		{author: {$in: user.followingUsers}}]})
+		.sort({timestamp: -1})
+		.exec(function(err, questions) {
 
+			var numQuestions = questions.length;
+			var questionStories = [];
+			for (i in questions)
+			{
+				Story.createFromQuestionId(questions[i], function(err, story) {
+
+					questionStories.push(story);
+					complete();
+				});
+			}
+			complete();
+			function complete() {
+
+				console.log('questionStories.length: ', questionStories.length);
+				console.log('numQuestions: ', numQuestions);
+				console.log('');
+				// Do not go on until we have the expected number of stories
+				if (questionStories.length < numQuestions)
+					return;
+				var pageData = {
+					title			: 'Profile | Social Translator',
+					questionStories	: questionStories
+				};
+				res.json(pageData);
+			};
+		});
+	});
 };
 
 /** FROM answers.js */
