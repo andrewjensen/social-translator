@@ -156,27 +156,45 @@ exports.createQuestion = function(req, res) {
 
 exports.createAnswer = function(req, res) {
 
-	Answer.create({
-		author			: new ObjectId(req.body.author),
-		question		: new ObjectId(req.body.questionID),
-		translation 	: req.body.translation,
+	//TODO: remove
+	console.log(req.body);
+
+	var author = req.body.author;
+	console.log("Author: ", author);
+
+	var data = {
+		author			: req.body.author,
+		question		: req.body.question,
+		translation		: req.body.translation,
 		supplementary	: req.body.supplementary,
 		upvotes			: 0,
 		downvotes		: 0,
-		score 			: 0,
+		score			: 0,
 		timestamp		: Math.round(new Date().getTime() / 1000),
 		comments		: []
-	}, function(err, answer) {
+	};
+	Answer.create(data, function(err, answer) {
 
 		if (err)
+		{
+			console.log("Error creating answer: ", err);
 			res.send(err);
-		User.update({_id : answer.author},
-			{$push: {answers: answer._id}
+			return;
+		}
+
+		User.addAnswer(answer.author, answer._id, function(err, answerID) {
+			Question.addAnswer(answer.question, answer._id, function(err, answerID) {
+
+
+				res.json(answer);
+
+				// TODO:  When we return it, we need to populate the author info too!
+				// answer.populate('author', '_id name facebook', function(err, answer) {
+				// 	//stuff...
+				// });
+
+			});
 		});
-		Question.update({_id : answer.question}, 
-			{$push: {answers: answer._id}
-		});
-		res.json(answer);
 	});
 }
 

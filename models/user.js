@@ -49,4 +49,19 @@ userSchema.statics.findOrCreateFaceBookUser = function(profile, done) {
 	});	
 }
 
+userSchema.statics.addAnswer = function(userID, answerID, callbackFunction) {
+	//Make sure we have ObjectIds to work with.
+	if (typeof(userID) == "string")
+		userID = new ObjectId(userID);
+	if (typeof(answerID) == "string")
+		answerID = new ObjectId(answerID);
+
+	//Push the data.
+	this.update({_id : userID}, {$push: {answers: answerID}}, function(err, answerID){
+
+		//Run the callback.
+		callbackFunction(err, answerID);
+	});
+};
+
 module.exports = mongoose.model('users', userSchema);

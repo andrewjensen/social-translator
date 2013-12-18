@@ -1,8 +1,8 @@
-/**
- * Question model
- */
 var mongoose = require('mongoose');
 var ObjectId = mongoose.Schema.Types.ObjectId;
+
+/*************************
+ * SCHEMA DEFINITION */
 
 var questionSchema = new mongoose.Schema({
 	author      : {type: ObjectId, ref: 'users', default: null},
@@ -21,6 +21,9 @@ var questionSchema = new mongoose.Schema({
 		author    : {type: ObjectId, ref: 'users'}
 	}]
 });
+
+/*************************
+ * GETTERS */
 
 questionSchema.statics.populateCommentAuthors = function(question, callbackFunction) {
 	var options = {
@@ -54,5 +57,27 @@ questionSchema.statics.populateAnswerCommentAuthors = function(question, callbac
 		callbackFunction(err, expandedQuestion);
 	});
 };
+
+/*************************
+ * SETTERS */
+
+questionSchema.statics.addAnswer = function(questionID, answerID, callbackFunction) {
+	//Make sure we have ObjectIds to work with.
+	if (typeof(questionID) == "string")
+		questionID = new ObjectId(questionID);
+	if (typeof(answerID) == "string")
+		answerID = new ObjectId(answerID);
+
+	//Push the data.
+	this.update({_id : questionID}, {$push: {answers: answerID}}, function(err, answerID){
+
+		//Run the callback.
+		callbackFunction(err, answerID);
+	});
+};
+
+
+/*************************
+ * EXPORT THE MODEL */
 
 module.exports = mongoose.model('questions', questionSchema);

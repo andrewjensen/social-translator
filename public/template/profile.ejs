@@ -7,7 +7,7 @@
 
 				<div class="col-md-2">
 					<div class="profile">
-						<img src="http://graph.facebook.com/{{user.facebook.id}}/picture?width=200&height=200" alt="Profile Picture" />
+						<img src="http://graph.facebook.com/{{user.facebook.id}}/picture?width=200&amp;height=200" alt="Profile Picture" />
 					</div>
 				</div>
 
@@ -50,14 +50,12 @@
 					<h3>Questions Asked <span class="badge">{{ user.questions.length }}</span></h3>
 
 					<div class="profile-stories">
-						<div ng-repeat="story in user.questions">
-							<story></story>
-						</div>
+						<story ng-repeat="story in questionStories"></story>
 					</div>
 				
-					<div class="profile-stories-more">
+					<!-- <div class="profile-stories-more">
 						<a href="#">...</a>
-					</div>
+					</div> -->
 				</div>
 
 
@@ -67,14 +65,12 @@
 					
 					<div class="profile-stories">
 
-						<div ng-repeat="story in user.answers">
-							<story></story>
-						</div>
+						<story ng-repeat="story in answerStories"></story>
 					</div>
 				
-					<div class="profile-stories-more">
+					<!-- <div class="profile-stories-more">
 						<a href="#">...</a>
-					</div>
+					</div> -->
 				</div>
 			</div>
 

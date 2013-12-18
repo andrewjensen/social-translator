@@ -5,9 +5,9 @@
 
 			<div class="row">
 				<div class="col-md-2">
-					<a href="#/profile/{{question.author._id}}" class="profile">
-						<img src="http://graph.facebook.com/{{question.author.facebook.id}}/picture?width=200&amp;height=200">
-						<span class="username">{{question.author.name}}</span>
+					<a href="#/profile/{{currentUser._id}}" class="profile">
+						<img src="http://graph.facebook.com/{{currentUser.facebook.id}}/picture?width=200&amp;height=200">
+						<span class="username">{{currentUser.name}}</span>
 					</a>
 				</div>
 				<div class="col-md-8">
@@ -44,19 +44,22 @@
 					<input id="context" type="text" id="context-bar" name="context-bar" class="form-control" value="" placeholder="" ng-model="formData.context" ng-required="true"/>
 				</div>
 
-				<div class="col-md-6">
-					<label for="fromLanguage">From: </label>
-					<select id="fromLanguage" class="form-control" ng-options="l.name for l in languages" 
-					ng-model="formData.fromLanguage">
-					</select>
+				<div class="row">
+					<div class="col-md-6">
+						<label for="fromLanguage">From: </label>
+						<select id="fromLanguage" class="form-control" ng-options="l.name for l in languages" 
+						ng-model="formData.fromLanguage">
+						</select>
+					</div>
+
+					<div class="col-md-6">
+						<label for="toLanguage">To: </label>
+						<select id="toLanguage" class="form-control" ng-options="l.name for l in languages" 
+						ng-model="formData.toLanguage">
+						</select>
+					</div>
 				</div>
 
-				<div class="col-md-6">
-					<label for="toLanguage">To: </label>
-					<select id="toLanguage" class="form-control" ng-options="l.name for l in languages" 
-					ng-model="formData.toLanguage">
-					</select>
-				</div>
 
 				<div>
 					<button type="submit" class="btn btn-primary" ng-click="createQuestion()">Submit</button>

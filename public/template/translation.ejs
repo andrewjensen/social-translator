@@ -123,29 +123,35 @@
 
 						<h3>Post a translation</h3>
 
-						<!-- Translation -->
-						<div>
-							<label for="user-answer">Translation Text:</label>
-							<input type="text" class="form-control quote" id="user-answer" name="user-answer" value="" placeholer="" />
-						</div>
+						<form ng-submit="postAnswer()">
 
-						<div>
-							<label for="user-supplementary">Explanation for your translation:</label>
-							<input type="text" class="form-control supplementary" id="user-supplementary" name="user-supplementary" value="" placeholder="" />
-						</div>
+							<input type="hidden" id="questionID" name="questionID" value="{{question._id}}" />
 
-						<div>
-							<input type="submit" class="btn btn-primary" id="answer-submit" name="answer-submit" value="Post" />
-						</div>
+							<!-- Translation -->
+							<div>
+								<label for="user-answer">Translation Text:</label>
+								<input type="text" class="form-control quote" id="user-answer" name="user-answer" value="" placeholer=""ng-model="formData.translation" ng-required="true" />
+							</div>
+
+							<div>
+								<label for="user-supplementary">Explanation for your translation:</label>
+								<input type="text" class="form-control supplementary" id="user-supplementary" name="user-supplementary" value="" placeholder=""ng-model="formData.supplementary" ng-required="true" />
+							</div>
+
+							<div>
+								<input type="submit" class="btn btn-primary" id="answer-submit" name="answer-submit" value="Post" />
+							</div>
+						</form>
+
 
 					</div>
 
 					<!-- Profile -->
 					<div class="profile col-md-1">
-						<a href="#/profile/{{user._id}}" class="profile">
-							<img ng-src="http://graph.facebook.com/{{user.facebook.id}}/picture?type=square" alt="{{user.name}}" />
+						<a href="#/profile/{{currentUser._id}}" class="profile">
+							<img ng-src="http://graph.facebook.com/{{currentUser.facebook.id}}/picture?type=square" alt="{{currentUser.name}}" />
 						</a>
-						<span class="username">{{user.name}}</span>
+						<span class="username">{{currentUser.name}}</span>
 					</div>
 
 

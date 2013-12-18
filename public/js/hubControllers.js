@@ -170,6 +170,31 @@ hubControllers.controller('TranslationCtrl', ['$scope', '$http', '$routeParams',
 		$scope.postComment = function() {
 			console.log("You posted a comment!");
 		};
+
+		$scope.postAnswer = function() {
+
+			//Prepare form data.
+			$scope.formData.question	= $scope.question._id;
+			$scope.formData.author		= auth.currentUser()._id;
+			//TODO: remove debugging
+			console.log("Form data:", $scope.formData);
+
+			//Submit the form.
+			$http.post('api/answer/create', $scope.formData)
+			.success(function(data) {
+
+				//TODO: Make this better!
+
+				//Redirect them back to the translation page
+				console.log("Received this data from the server: ", data);
+				// window.location.href = '#/translation/' + $scope.question._id;
+
+				var newAnswer = data;
+				newAnswer.author = auth.currentUser();
+				$scope.question.answers.push(newAnswer);
+			});
+
+		};
 	}]
 );
 
