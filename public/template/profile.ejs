@@ -16,8 +16,8 @@
 					<ul class="stats">
 						<li><span class="badge"> {{ user.questions.length }} 	</span> Questions Asked</li>
 						<li><span class="badge"> {{ user.answers.length }} 		</span> Translations Proposed</li>
-						<li><span class="badge"> {{ user.followingTags.length }}</span> Following Tags</li>
-						<li><span class="badge"> {{ user.followingUsers.length}}</span> Following People</li>
+						<!-- <li><span class="badge"> {{ user.followingTags.length }}</span> Following Tags</li> -->
+						<li><span class="badge"> {{ user.followingUsers.length}}</span> Following</li>
 						<li><span class="badge"> {{ user.followers.length }}	</span> Followers</li>
 					</ul>
 				</div>
@@ -80,20 +80,22 @@
 
 			<div class="col-md-4">
 
+				<!--
 				<div class="profile-following-tags profile-section">
 					<h3>Following Tags <span class="badge">{{ user.followingTags.length }} </span></h3>
 
 					<div class="tags">
-							<span class="<%= classTag %>">TODO</span>
+						<span class="tag">TODO</span>
 					</div>
 				</div>
+				-->
 
 				<div class="profile-following-people profile-section">
 					<h3>Following People 	<span class="badge"> {{user.followingUsers.length}} </span></h3>
 					<div class="profiles">
-						<span ng-repeat="user in user.followingUsers">
-							<profile-pic></profile-pic>
-						</span>
+						<div class="profile" ng-repeat="user in user.followingUsers">
+							<img src="http://graph.facebook.com/{{user.facebook.id}}/picture?type=square" />
+						</div>
 					</div>
 				</div>
 
@@ -101,11 +103,12 @@
 					<h3>Followers 			<span class="badge"> {{user.followers.length}} </span></h3>
 
 					<div class="profiles">
-						<span ng-repeat="user in user.followers">
-							<profile-pic></profile-pic>
-						</span>
+						<div class="profile" ng-repeat="user in user.followers">
+							<img src="http://graph.facebook.com/{{user.facebook.id}}/picture?type=square" />
+						</div>
 					</div>
 				</div>
+
 			</div>
 
 		</div>

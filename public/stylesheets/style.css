@@ -244,10 +244,12 @@ section.box {
 .story .tags-row {
   text-align: center;
 }
-section.profile-full .profiles img {
+section.profile-full .profiles .profile {
   display: inline-block;
+  margin-right: 0.5rem;
+}
+section.profile-full .profiles .profile img {
   width: 2.5rem;
-  margin-right: 0.25rem;
 }
 section.profile-full h3 .badge {
   font-size: 15px;

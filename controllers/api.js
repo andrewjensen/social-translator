@@ -255,8 +255,8 @@ exports.profilePage = function(req, res) {
 	var userID = req.params.userID;
 
 	User.findOne({_id: userID})
-		.populate('followers', '_id name')
-		.populate('followingUsers', '_id name')
+		.populate('followers', '_id name facebook')
+		.populate('followingUsers', '_id name facebook')
 		.populate('followingTags')
 		.populate('languages')
 		.populate('nativeLanguage')

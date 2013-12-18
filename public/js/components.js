@@ -29,7 +29,9 @@ angular.module('components', [])
 			restrict: 'E',
 			template: 
 			'<div class="comment user-comment">' + 
-				'<profile-pic></profile-pic>' +
+				'<a class="profile" href="#/profile/{{user._id}}">' +
+					'<img src="http://graph.facebook.com/{{user.facebook.id}}/picture?type=square" />' +
+				'</a>' +
 				'<div>' +
 					'<input type="text" class="form-control" ng-enter="postComment()" value="" placeholder="Write a comment..."/>' +
 				'</div>' +
