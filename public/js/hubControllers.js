@@ -1,11 +1,73 @@
 var hubControllers = angular.module('hubControllers', []);
 
+
+
+hubControllers.factory('auth', ['$cookies', '$cookieStore', function($cookies, $cookieStore) {
+	var currentUser = null;
+
+	return {
+
+		login: function() {
+			currentUser = {
+				_id:			$cookies.userID,
+				name:			$cookies.name,
+				accessToken:	$cookies.accessToken,
+				facebook:		{
+					id : $cookies.facebookID
+				}
+			};
+			return currentUser;
+		},
+
+		logout: function() {
+			//clear the user object
+			currentUser = null;
+
+			//delete the authentication cookies.
+			$cookieStore.remove("userID");
+			$cookieStore.remove("name");
+			$cookieStore.remove("accessToken");
+			$cookieStore.remove("facebookID");
+
+			// $cookies.userID = "";
+			// $cookies.name = "";
+			// $cookies.accessToken = "";
+			// $cookies.facebookID = "";
+		},
+
+		isLoggedIn: function() {
+			return (currentUser != null);
+		},
+
+		currentUser: function() { return currentUser; }
+	};
+}]);
+
+
 /** Login */
 hubControllers.controller('LoginCtrl', ['$scope', '$http', 
 
 	function ($scope, $http) {
 		//TODO: write the api and conect it
-	$http.get('')
+		$http.get('')
+			.success(function(data) {
+
+			});
+			// .error(function(data) {
+				
+			// });
+	}]
+);
+
+hubControllers.controller('LogoutCtrl', ['$scope', '$http', 'auth',
+
+	function ($scope, $http, auth) {
+
+		console.log("Logging out.");
+		auth.logout();
+		console.log(auth.currentUser());
+
+		$http.get('')
 			.success(function(data) {
 
 			});
@@ -59,14 +121,27 @@ hubControllers.controller('NewsFeedCtrl', ['$scope', '$http', '$routeParams',
 
 
 /**	Profile Page */
-hubControllers.controller('ProfileCtrl', ['$scope', '$http', '$routeParams',
+hubControllers.controller('ProfileCtrl', ['$scope', '$http', '$routeParams', 'auth',
 
-	function ($scope, $http, $routeParams) {
+	function ($scope, $http, $routeParams, auth) {
 		var userid = $routeParams.userid;
-		//TODO: write the api and conect it
+
+		$scope.currentUser = auth.login();
+
+		console.log($scope);
+
+		// console.log(auth.login());
+		
 		$http.get('api/profile/' + userid)
 			.success(function(data) {
+
+				//TODO: remove debugging
+				console.log("Received data!");
+				console.log(data);
+
 				$scope.user = data.user;
+				$scope.questionStories = data.questionStories;
+				$scope.answerStories = data.answerStories;
 				//$scope.followers = data.user.followers;
 			});
 			// .error(function(data) {
@@ -77,11 +152,13 @@ hubControllers.controller('ProfileCtrl', ['$scope', '$http', '$routeParams',
 
 
 /** Translation Page */
-hubControllers.controller('TranslationCtrl', ['$scope', '$http', '$routeParams',
+hubControllers.controller('TranslationCtrl', ['$scope', '$http', '$routeParams', 'auth',
 
-	function ($scope, $http, $routeParams) {
+	function ($scope, $http, $routeParams, auth) {
 		var questionid = $routeParams.questionid;
-		//TODO: write the api and conect it
+
+		$scope.currentUser = auth.login();
+
 		$http.get('/api/question/' + questionid)
 			.success(function(data) {
 				$scope.question = data.question;
@@ -98,9 +175,12 @@ hubControllers.controller('TranslationCtrl', ['$scope', '$http', '$routeParams',
 
 
 /**	Create question Page */
-hubControllers.controller('CreateQuestionCtrl', ['$scope', '$http',
+hubControllers.controller('CreateQuestionCtrl', ['$scope', '$http', 'auth',
 
-	function ($scope, $http) {
+	function ($scope, $http, auth) {
+
+		$scope.currentUser = auth.login();
+
 		//TODO: write the api and conect it
 		$http.get('/api/languages/')
 			.success(function(data) {
@@ -113,7 +193,10 @@ hubControllers.controller('CreateQuestionCtrl', ['$scope', '$http',
 		$scope.createQuestion = function() {
 			console.log($scope.formData);
 			//TODO remove this
-			$scope.formData.author = "52b099007dffc8760c000003";
+
+			var author = auth.currentUser()._id;
+			$scope.formData.author = author;
+
 			$http.post('api/question/create', $scope.formData)
 			.success(function(data){
 				//Redirect them to the translation page

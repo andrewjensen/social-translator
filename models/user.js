@@ -20,7 +20,8 @@ var userSchema = new mongoose.Schema({
 	answers			: [{type: ObjectId, ref: 'answers'}],
 	facebook		: {
 		id	: {type: Number, default: null}
-	}
+	},
+	accessToken		: {type: String, default: null}
 });
 
 userSchema.statics.findOrCreateFaceBookUser = function(profile, done) {

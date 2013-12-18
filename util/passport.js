@@ -7,10 +7,20 @@ var User				= require('../models/user.js');
 module.exports = function (passport, config) {
 
 	passport.serializeUser(function(user, done) {
-		done(null, user.id);
+		// console.log("serializeUser");
+		// console.log(user);
+
+		// console.log("Saving back into the database...");
+		user.save(function (err, user, numberAffected) {
+			if (err)
+				throw err;
+
+			done(null, user.id);
+		});
 	});
 
 	passport.deserializeUser(function(id, done) {
+		// console.log("deserializeUser");
 		User.findOne({ _id: id }, function (err, user) {
 			done(err, user);
 		});
@@ -31,7 +41,17 @@ module.exports = function (passport, config) {
 		callbackURL:	config.auth.facebook.callbackURL
 	},
 	function(accessToken, refreshToken, profile, done) {
-		console.log("DEBUG: inside passport.use");
-		User.findOrCreateFaceBookUser(profile, done);
+		
+		// console.log("DEBUG: inside passport.use");
+		// console.log("accessToken: ", accessToken);
+
+		User.findOrCreateFaceBookUser(profile, function(err, user) {
+			if (user)
+			{
+				// console.log("Adding user token...", accessToken);
+				user.accessToken = accessToken;
+			}
+			done(err, user);
+		});
 	}));
 }

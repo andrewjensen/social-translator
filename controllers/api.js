@@ -93,7 +93,10 @@ exports.translationPage = function(req, res) {
 	.populate('answers')
 	.exec(function(err, question) {
 		if (err)
-			res.end(err);
+		{
+			console.log("Error sending Translation page data: ", err);
+			res.send(err);
+		}
 
 		Question.populateCommentAuthors(question, function(err, question) {
 
@@ -140,8 +143,7 @@ exports.createQuestion = function(req, res) {
 
 		console.log('SUCCESS in creating question');
 		console.log(question);
-		User.update({_id : question.author}, {$push: {questions: question._id}}, 
-		function(err, questionID){
+		User.update({_id : question.author}, {$push: {questions: question._id}}, function(err, questionID){
 			if (err)
 			{
 				console.log('ERROR in updating User by adding their questionID');

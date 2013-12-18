@@ -4,34 +4,41 @@ function search() {
 }
 
 var translationApp = angular.module('translationApp', [
-  'ngRoute',
-  'ngAnimate',
-  'components',
-  'hubControllers'
+	'ngRoute',
+	'ngAnimate',
+	'ngCookies',
+	'components',
+	'hubControllers'
 ]);
 
-translationApp.config(['$routeProvider', function ($routeProvider, $routeParams) {
+
+
+translationApp.config(['$routeProvider', function ($routeProvider, $routeParams, auth) {
 	$routeProvider.
 	//	login
 	when('/login', {
 		templateUrl: '/template/login.ejs',
-        controller: 'LoginCtrl'
+		controller: 'LoginCtrl'
+	}).
+	//	logout
+	when('/logout', {
+		templateUrl: '/template/login.ejs',
+		controller: 'LogoutCtrl'
 	}).
 	//	search
 	when('/search/:phrase', {
 		templateUrl: '/template/story-container.ejs',
-        controller: 'SearchCtrl'
+		controller: 'SearchCtrl'
 	}).
 	//	newsfeed
 	when('/newsfeed/:userid', {
 		templateUrl: '/template/story-container.ejs',
-        controller: 'NewsFeedCtrl'
+		controller: 'NewsFeedCtrl'
 	}).
 	//	profile
-	when(
-		'/profile/:userid', {
-			templateUrl: '/template/profile.ejs',
-			controller: 'ProfileCtrl'
+	when('/profile/:userid', {
+		templateUrl: '/template/profile.ejs',
+		controller: 'ProfileCtrl'
 	}).
 	//	translation
 	when(
