@@ -92,12 +92,13 @@ hubControllers.controller('SearchCtrl', ['$scope', '$http', '$routeParams',
 
 	function ($scope, $http, $routeParams) {
 		var phrase = $routeParams.phrase;
+		var language = $routeParams.language;
 
-		$http.get('/api/search/52ab55bfde63fb1250282e75/' + phrase)
+		$http.get('/api/search/' + language + '/' + phrase)
 			.success(function(data) {
 				$scope.stories = data;
 				$scope.page = {
-					title : "Results For ",
+					title : "Results For How to Say",
 					phrase: phrase,
 				};
 			});

@@ -1,6 +1,7 @@
 function search() {
 	var searchPhrase = $("#searchbar-question").val();
-	window.location.href = '#/search/' + searchPhrase;
+	var language = $("#searchbar-language").val();
+	window.location.href = '#/search/' + language + '/' + searchPhrase;
 }
 
 var translationApp = angular.module('translationApp', [
@@ -26,7 +27,7 @@ translationApp.config(['$routeProvider', function ($routeProvider, $routeParams,
 		controller: 'LogoutCtrl'
 	}).
 	//	search
-	when('/search/:phrase', {
+	when('/search/:language/:phrase', {
 		templateUrl: '/template/story-container.ejs',
 		controller: 'SearchCtrl'
 	}).
