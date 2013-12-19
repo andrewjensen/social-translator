@@ -76,6 +76,22 @@ questionSchema.statics.addAnswer = function(questionID, answerID, callbackFuncti
 	});
 };
 
+/**
+ * Post a comment on a question.
+ * @return the comment that was created.
+ */
+questionSchema.statics.postComment = function(questionID, comment, callbackFunction) {
+	this.update({_id : questionID}, {$push: {comments: comment } }, function(err, commentID) {
+		if (err) {
+			callbackFunction(err, null);
+			return;
+		}
+
+		//Return the comment itself.
+		callbackFunction(null, comment);
+	});
+};
+
 
 /*************************
  * EXPORT THE MODEL */

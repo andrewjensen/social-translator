@@ -39,7 +39,17 @@ hubControllers.factory('auth', ['$cookies', '$cookieStore', function($cookies, $
 			return (currentUser != null);
 		},
 
-		currentUser: function() { return currentUser; }
+		currentUser: function() {
+
+			/*
+			TODO: check to see if the  user is null.
+			if not null, return it.
+			if null, try to create it from the cookies before
+			returning it.
+			*/
+
+			return currentUser;
+		}
 	};
 }]);
 
@@ -174,8 +184,38 @@ hubControllers.controller('TranslationCtrl', ['$scope', '$http', '$routeParams',
 				
 			// });
 
-		$scope.postComment = function() {
-			console.log("You posted a comment!");
+		$scope.postComment = function(elementType, elementID, text) {
+			// console.log("You posted a comment!");
+			// console.log($scope);
+
+			var formData = {
+				type:		elementType,
+				parentID:	elementID,
+				author:		auth.currentUser()._id,
+				text:		text
+			};
+			$http.post('/api/comment/create', formData)
+			.success(function(data) {
+
+				console.log("Success!");
+
+				//Clear the text box
+				$scope.comment = "";
+
+				//Create the comment
+				var comment = data;
+				comment.author = auth.currentUser();
+
+				//TODO: make it work for answers
+				if (elementType == "question") {
+					$scope.question.comments.push(data);
+				} else if (elementType == "answer") {
+					
+					for (answer in $scope.question.answers)
+						if ($scope.question.answers[answer]._id == elementID)
+							$scope.question.answers[answer].comments.push(comment);
+				}
+			});
 		};
 
 		$scope.postAnswer = function() {
@@ -187,8 +227,11 @@ hubControllers.controller('TranslationCtrl', ['$scope', '$http', '$routeParams',
 			console.log("Form data:", $scope.formData);
 
 			//Submit the form.
-			$http.post('api/answer/create', $scope.formData)
+			$http.post('/api/answer/create', $scope.formData)
 			.success(function(data) {
+
+				$scope.formData.translation = "";
+				$scope.formData.supplementary = "";
 
 				//TODO: Make this better!
 

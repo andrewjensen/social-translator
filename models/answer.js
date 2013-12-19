@@ -1,8 +1,8 @@
-/**
- * Answer model
- */
 var mongoose = require('mongoose');
 var ObjectId = mongoose.Schema.Types.ObjectId;
+
+/*************************
+ * SCHEMA DEFINITION */
 
 var answerSchema = new mongoose.Schema({
 	author			: {type: ObjectId, ref: 'users', default: null},
@@ -24,6 +24,9 @@ var answerSchema = new mongoose.Schema({
 	} ]
 });
 
+/*************************
+ * GETTERS */
+
 answerSchema.statics.populateAnswerAuthors = function(answer, callbackFunction) {
 	var options = {
 		path: 'author',
@@ -34,5 +37,29 @@ answerSchema.statics.populateAnswerAuthors = function(answer, callbackFunction) 
 		callbackFunction(err, expandedAnswer);
 	});
 };
+
+/*************************
+ * SETTERS */
+
+/**
+ * Post a comment on a question.
+ * @return the comment that was created.
+ */
+answerSchema.statics.postComment = function(answerID, comment, callbackFunction) {
+	this.update({_id : answerID}, {$push: {comments: comment } }, function(err, commentID) {
+		if (err) {
+			callbackFunction(err, null);
+			return;
+		}
+
+		//Return the comment itself.
+		callbackFunction(null, comment);
+	});
+};
+
+
+
+/*************************
+ * EXPORT THE MODEL */
 
 module.exports = mongoose.model('answers', answerSchema);

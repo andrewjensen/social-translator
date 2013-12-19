@@ -237,31 +237,45 @@ exports.createAnswer = function(req, res) {
 
 exports.createComment = function(req, res) {
 
-	var type = req.params.type;
-	var parentID = new ObjectId(req.params.id);
-	var ParentType;
-	if (type == "question")
-		ParentType = Question;
-	else if (type == "answer")
-		ParentType = Answer;
+	console.log("createComment()");
 
-	ParentType.update({_id : parentID}, 
-		{$push: 
-			{comments: {
-				text		: req.body.text,
-				timestamp	: Math.round(new Date().getTime() / 1000),
-				userID 		: new ObjectId(req.body.userID)
-				}
-			}
-		}, function(err, comment){
+	var type = req.body.type;
+	// var parentID = new ObjectId(req.body.parentID);
+	var parentID = req.body.parentID;
 
-			if (err)
-			{
-				console.log('ERROR in creating comment: ' + err);
-				res.send(err);
-			}
-			res.send('200');
-	});
+	var comment = {
+		text		: req.body.text,
+		timestamp	: Math.round(new Date().getTime() / 1000),
+		author 		: req.body.author
+	}
+
+
+	console.log(type);
+	console.log(comment);
+
+	var createCommentCallback = function(err, comment) {
+		if (err) {
+			console.log('ERROR in creating comment: ' + err);
+			res.send(err);
+		} else {
+			console.log(comment);
+			res.send(comment);
+		}
+	};
+
+	if (type == "question") {
+
+		console.log("Creating a question comment...");
+		Question.postComment(parentID, comment, createCommentCallback);
+	}
+	else if (type == "answer") {
+
+		console.log("Creating an answer comment...");
+		Answer.postComment(parentID, comment, createCommentCallback);
+	}
+
+
+
 };
 
 /**
