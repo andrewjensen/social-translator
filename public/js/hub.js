@@ -4,6 +4,10 @@ function search() {
 	window.location.href = '#/search/' + language + '/' + searchPhrase;
 }
 
+function logoutMenu () {
+	 $("#menu").is(":visible") ? $("#menu").hide() : $("#menu").show();
+}
+
 var translationApp = angular.module('translationApp', [
 	'ngRoute',
 	'ngAnimate',

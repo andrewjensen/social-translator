@@ -47,6 +47,7 @@ module.exports = function(app, passport) {
 	app.post('/api/question/create', api.createQuestion);
 	app.post('/api/answer/create', api.createAnswer);
 	app.post('/api/comment/create', api.createComment);
+	app.post('/api/answer/vote', api.voteOnAnswer);
 
 	// Update methods for profile page
 	app.post('/api/profile/addFollower', api.addFollower);

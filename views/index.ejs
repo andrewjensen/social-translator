@@ -26,12 +26,14 @@
 
 							<div class="profile">
 								<a href="#/profile/<%=user._id%>">
-									<img src="http://graph.facebook.com/<%= user.facebook.id %>/picture?type=square" alt="Profile image" />
 									<span><%=user.name%></span>
+								</a>
+								<a href="" onClick="logoutMenu()">
+									<img src="http://graph.facebook.com/<%= user.facebook.id %>/picture?type=square" alt="Profile image" />
 								</a>
 							</div>
 
-							<a href="/logout/">Logout</a>
+							<a id="menu" href="/logout/">Logout</a>
 
 						<% } else { %>
 							<a href="/auth/facebook">Login with Facebook</a>

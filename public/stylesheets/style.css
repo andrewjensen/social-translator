@@ -220,6 +220,12 @@ section.box {
   vertical-align: middle;
   padding: 0 0.5rem;
 }
+#menu {
+  display: none;
+}
+#searchbar-wrapper {
+  margin-top: 3px;
+}
 .search-results-header {
   background: #d9eefc;
   padding: 2em 0 1em 0;
@@ -329,6 +335,9 @@ section.profile-full h3 .badge {
   list-style-type: none;
   margin: 0;
   padding: 0;
+}
+#translation-header .tags {
+  font-size: 18px;
 }
 #translation-header .stats,
 #translation-header .tags {

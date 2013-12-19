@@ -151,6 +151,38 @@ exports.translationPage = function(req, res) {
 	});
 };
 
+exports.voteOnAnswer = function(req, res) {
+	console.log(req.body);
+	Answer.findOne({_id: '52afcec3618b701535f12df0'}, function(err, answer) {
+		if(err)
+		{
+			console.log(err);
+			res.send(err);
+		}
+		console.log('BEFORE_______________');
+		console.log('downvotes', downvotes);
+		console.log('upvotes',   upvotes);
+		console.log('score',   	 score);
+			
+		var upvotes 	= answer.upvotes;
+		var downvotes 	= answer.downvotes;
+		var score 		= answer.score;
+
+		//TODO change all of the votes and the score :)
+
+		console.log('AFTER_________________');
+		console.log('downvotes', downvotes);
+		console.log('upvotes',   upvotes);
+		console.log('score',   	 score);
+
+		Answer.findOneAndUpdate({_id: '52afcec3618b701535f12df0'}, {upvotes: upvotes, downvotes: downvotes, score: score}, function(err, answer) {
+			console.log(answer);
+		})
+
+		res.send(200);
+	});
+}
+
 exports.createQuestion = function(req, res) {
 
 	// Insert all the question's tags as ObjectId's
