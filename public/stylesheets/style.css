@@ -112,9 +112,14 @@ h6 {
  * MAJOR BLOCK-LEVEL ELEMENTS */
 section.box {
   max-width: 40rem;
-  margin: 0 auto;
+  margin: 3rem auto;
   padding: 1rem;
-  background-color: #7ac4f5;
+  background-color: #d9eefc;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  background-clip: padding-box;
 }
 /***********************************
  * SMALL REPEATING ELEMENTS */
@@ -221,7 +226,7 @@ section.box {
   margin: 0 0 2em;
 }
 .story a {
-  color: black;
+  color: #3A3A3A;
 }
 .story .row {
   padding-bottom: 2em;
@@ -232,16 +237,21 @@ section.box {
   padding: 0;
 }
 .story .question {
-  font-size: 36px;
-  text-align: left;
+  text-align: center;
+  line-height: 1.5em;
 }
 .story {
-  border-bottom: 1px solid darkgrey;
+  border-bottom: 1px solid #eaeaea;
+  margin-bottom: 1em;
 }
 .story .answer {
   text-align: right;
 }
 .story .tags-row {
+  text-align: center;
+}
+.create-question {
+  margin: 3em;
   text-align: center;
 }
 section.profile-full .profiles .profile {
@@ -377,7 +387,7 @@ section.profile-full h3 .badge {
 .answer-container .voting .button-upvote {
   display: block;
   margin: 0 auto;
-  width: 70%;
+  width: 60%;
   height: 2rem;
   text-indent: -9999px;
   background: transparent url('/images/btn-upvote.png') 50% 100% no-repeat scroll;
@@ -387,7 +397,7 @@ section.profile-full h3 .badge {
 .answer-container .voting .button-downvote {
   display: block;
   margin: 0 auto;
-  width: 70%;
+  width: 60%;
   height: 2rem;
   text-indent: -9999px;
   background: transparent url('/images/btn-downvote.png') 50% 0% no-repeat scroll;
@@ -447,20 +457,9 @@ section.profile-full h3 .badge {
 .comment input[type="text"]:focus {
   opacity: 1.0;
 }
-.user-comment a {
-  -webkit-transition: all 0.15s ease-in-out;
-  -moz-transition: all 0.15s ease-in-out;
-  -ms-transition: all 0.15s ease-in-out;
-  transition: all 0.15s ease-in-out;
-}
 .user-comment a:link,
 .user-comment a:visited {
-  opacity: 0.5;
-}
-.user-comment a:active,
-.user-comment a:hover,
-.user-comment a:focus {
-  opacity: 1.0;
+  opacity: 0.8;
 }
 #user-answer-container #user-answer,
 #user-answer-container #user-supplementary {
@@ -483,4 +482,7 @@ section.profile-full h3 .badge {
   font-size: 24px;
   height: inherit;
   margin: 1em 0 0 0;
+}
+.create .language-ddl {
+  width: 45%;
 }

@@ -4,8 +4,19 @@
 	
 	<div class="search-results-header">
 		<div class="container">
-			<h1>{{page.title}}</h1>
+			<h1>{{page.title}} "{{page.phrase}}"</h1>
+
+<!-- 
+			<div>
+				<h3>Can't Find a Similar Question?</h3>
+				<form ng-submit="createQuestion()">
+					<input type="submit" class="btn btn-primary" id="create-question" name="create-question" value="Ask Question" />
+				</form>
+			</div> -->
 		</div>
+
+
+
 	</div>
 
 	<div class="container">
@@ -19,13 +30,20 @@
 		</select>  -->
 
 		<div>
-			  <div ng-repeat="story in stories | filter:query | orderBy:orderProp">
+			  <div ng-repeat="story in stories ">  <!-- | filter:query | orderBy:orderProp -->
 			    
 			  	<story></story>
 
 			  </div>
 		</div>
 
+		<div class="row create-question">
+
+			<h3>Can't Find a Close Question?</h3>
+				<form ng-submit="createQuestion()">
+					<input type="submit" class="btn btn-primary" id="create-question" name="create-question" value="Ask Question" />
+				</form>
+		</div>
 
 	</div>
 

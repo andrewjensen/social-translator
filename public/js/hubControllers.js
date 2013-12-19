@@ -86,7 +86,10 @@ hubControllers.controller('SearchCtrl', ['$scope', '$http', '$routeParams',
 		$http.get('/api/search/52ab55bfde63fb1250282e75/' + phrase)
 			.success(function(data) {
 				$scope.stories = data;
-				$scope.page = {title : "Results"};
+				$scope.page = {
+					title : "Results For ",
+					phrase: phrase,
+				};
 			});
 			// .error(function(data) {
 				
@@ -94,6 +97,10 @@ hubControllers.controller('SearchCtrl', ['$scope', '$http', '$routeParams',
 
 		//TODO use this effectively or get rid of it
 		$scope.orderProp = 'text';
+
+		$scope.createQuestion = function () {
+			window.location.href = "#/create";
+		}
 	}]
 );
 

@@ -1,6 +1,9 @@
 <div class="story"> <!-- class="profile-story"> -->
 	<!-- QUESTION -->
 	<div class="row">
+
+		<div class="col-md-1"></div>
+
 		<!-- Profile -->
 		<div class="profile col-md-1">
 			<a ng-href="#/profile/{{story.question.author._id}}">
@@ -11,19 +14,19 @@
 		
 		<a ng-href="#/translation/{{story.question._id}}">
 			<!-- Question Asked -->
-			<div class="question col-md-8">
+			<div class="col-md-7">
 
 				<div class="question quote">
-					<p>{{story.question.text}}</p>
+					<h1>{{story.question.text}}</h1>
 				</div>
 
 			</div>
 
 			<!-- Badges -->
-			<div class="col-md-3">
+			<div class="col-md-2">
 				<ul class="stats">
 					<li><span class="badge">{{story.question.score}}</span> Score</li>
-					<li><span class="badge">{{story.question.answers}}</span> Proposed Translations</li>
+					<li><span class="badge">{{story.question.answers}}</span> Answers</li>
 					<li><span class="badge">{{story.question.comments}}</span> Comments</li>
 				</ul>
 				
@@ -37,13 +40,16 @@
 	</div>
 
 	<!-- ANSWER -->
-	<div class="row">
+	<div class="row" ng-if="story.answer != null">
+		<div class="col-md-1"></div>
 		
-		<div class="col-md-8">
-			Answer
+		<div class="col-md-7" >
+		<!-- <h2>Answers <span class="badge">{{story.question.answers}}</span></h2> -->
+		<!-- <h4><span class="badge">{{story.question.answers}}</span> Answers </h4> -->
+		<a ng-href="#/profile/{{story.question.author._id}}"><h4> {{story.question.answers}} Answers </h4></a>
 		
 		<!-- Translation -->
-			<div class="answer quote">
+			<div class="answer">
 				<p>{{story.answer.translation}}</p>
 			</div>
 		</div>
@@ -56,12 +62,19 @@
 		</div>
 
 
-		<div class="col-md-3">
+		<div class="col-md-2">
 				<ul class="stats">
 					<li><span class="badge">{{story.answer.score}}</span> Score</li>
 					<!-- <li><span class="badge">{{story.answer.comments.length}}</span> Comments</li> -->
 				</ul>
 			</div>
+	</div>
+	<div class="row" ng-if="story.answer == null">
+		<div class="col-md-1"></div>
+
+		<div class="col-md-11">
+			<a ng-href="#/translation/{{story.question._id}}"><h4>0 Answers</h4></a>
+		</div>
 	</div>
 
 </div>
