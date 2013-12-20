@@ -8,15 +8,8 @@ hubControllers.factory('auth', ['$cookies', '$cookieStore', function($cookies, $
 	return {
 
 		login: function() {
-			currentUser = {
-				_id:			$cookies.userID,
-				name:			$cookies.name,
-				accessToken:	$cookies.accessToken,
-				facebook:		{
-					id : $cookies.facebookID
-				}
-			};
-			return currentUser;
+			console.log("Redirecting to login page");
+			window.location.href = '#/login/';
 		},
 
 		logout: function() {
@@ -36,19 +29,35 @@ hubControllers.factory('auth', ['$cookies', '$cookieStore', function($cookies, $
 		},
 
 		isLoggedIn: function() {
-			return (currentUser != null);
+			return (this.currentUser() != null);
 		},
 
 		currentUser: function() {
 
-			/*
-			TODO: check to see if the  user is null.
-			if not null, return it.
-			if null, try to create it from the cookies before
-			returning it.
-			*/
+			if (currentUser != null) {
 
-			return currentUser;
+				//We've already created the user.
+				return currentUser;
+
+			} else if ($cookies.userID != null && $cookies.accessToken != null) {
+
+				//We have cookies, so create the user and return it.
+				currentUser = {
+					_id:			$cookies.userID,
+					name:			$cookies.name,
+					accessToken:	$cookies.accessToken,
+					facebook:		{
+						id : $cookies.facebookID
+					}
+				};
+				return currentUser;
+
+			} else {
+
+				//The user has no cookies, so it isn't logged in.
+				return null;
+
+			}
 		}
 	};
 }]);
@@ -164,12 +173,10 @@ hubControllers.controller('ProfileCtrl', ['$scope', '$http', '$routeParams', 'au
 	function ($scope, $http, $routeParams, auth) {
 		var userid = $routeParams.userid;
 
-		$scope.currentUser = auth.login();
+		$scope.currentUser = auth.currentUser();
 
 		console.log($scope);
 
-		// console.log(auth.login());
-		
 		$http.get('api/profile/' + userid)
 			.success(function(data) {
 
@@ -195,7 +202,7 @@ hubControllers.controller('TranslationCtrl', ['$scope', '$http', '$routeParams',
 	function ($scope, $http, $routeParams, auth) {
 		var questionid = $routeParams.questionid;
 
-		$scope.currentUser = auth.login();
+		$scope.currentUser = auth.currentUser();
 
 		$http.get('/api/question/' + questionid)
 			.success(function(data) {
@@ -209,6 +216,12 @@ hubControllers.controller('TranslationCtrl', ['$scope', '$http', '$routeParams',
 			// console.log("You posted a comment!");
 			// console.log($scope);
 
+			//Redirect to login if the user hasn't authenticated
+			if (!auth.isLoggedIn()) {
+				auth.login();
+				return;
+			}
+			
 			var formData = {
 				type:		elementType,
 				parentID:	elementID,
@@ -240,6 +253,12 @@ hubControllers.controller('TranslationCtrl', ['$scope', '$http', '$routeParams',
 		};
 
 		$scope.postAnswer = function() {
+
+			//Redirect to login if the user hasn't authenticated
+			if (!auth.isLoggedIn()) {
+				auth.login();
+				return;
+			}
 
 			//Prepare form data.
 			$scope.formData.question	= $scope.question._id;
@@ -275,7 +294,7 @@ hubControllers.controller('CreateQuestionCtrl', ['$scope', '$http', 'auth',
 
 	function ($scope, $http, auth) {
 
-		$scope.currentUser = auth.login();
+		$scope.currentUser = auth.currentUser();
 
 		//TODO: write the api and conect it
 		$http.get('/api/languages/')
@@ -289,6 +308,12 @@ hubControllers.controller('CreateQuestionCtrl', ['$scope', '$http', 'auth',
 		$scope.createQuestion = function() {
 			console.log($scope.formData);
 			//TODO remove this
+
+			//Redirect to login if the user hasn't authenticated
+			if (!auth.isLoggedIn()) {
+				auth.login();
+				return;
+			}
 
 			var author = auth.currentUser()._id;
 			$scope.formData.author = author;
