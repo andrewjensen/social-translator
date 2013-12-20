@@ -53,7 +53,7 @@
 						<span class="tag tag-language">{{question.toLanguage.name}}</span>
 					</div>
 
-					<div class="timestamp">{{question.timestamp | date:'MMMM dd'}}</div>
+					<div class="timestamp">{{(question.timestamp*1000) | date:'MMMM dd'}}</div>
 
 				</div>
 			</div><!-- end .row -->
@@ -104,7 +104,7 @@
 
 					<!-- Profile -->
 					<div class="profile col-md-1">
-						<span class="timestamp">{{answer.timestamp | date:'MMM dd'}}</span>
+						<span class="timestamp">{{(answer.timestamp*1000) | date:'MMM dd'}}</span>
 						<a href="#/profile/{{answer.author._id}}" class="profile">
 							<img ng-src="http://graph.facebook.com/{{answer.author.facebook.id}}/picture?type=square" alt="{{answer.author.name}}" />
 						</a>
