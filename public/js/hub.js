@@ -57,6 +57,10 @@ translationApp.config(['$routeProvider', function ($routeProvider, $routeParams,
 		templateUrl: '/template/create.ejs',
 		controller: 'CreateQuestionCtrl'
 	}).
+	when ( '/', {
+		templateUrl: '/template/index.ejs',
+		controller: 'WelcomeCntrl'
+	}).
 	//	homepage
 	otherwise ({
 		redirectTo: '/'

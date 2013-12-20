@@ -226,6 +226,17 @@ section.box {
 #searchbar-wrapper {
   margin-top: 3px;
 }
+.welcome-page {
+  text-align: center;
+  margin: 4em;
+}
+.fa {
+  width: 40px;
+}
+.recent-activity img {
+  height: 5em;
+  width: 5em;
+}
 .search-results-header {
   background: #d9eefc;
   padding: 2em 0 1em 0;

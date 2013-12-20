@@ -33,6 +33,7 @@ module.exports = function(app, passport) {
 	app.get('/api/questions/', api.questionlist);
 	app.get('/api/answers/', api.answerlist);
 	app.get('/api/languages/', api.languagelist);
+	app.get('/api/stories/', api.recentStories);
 
 	app.get('/api/users/:userID', api.getByID);
 	app.get('/api/feed/:type/:condition', api.getStories);
@@ -47,7 +48,7 @@ module.exports = function(app, passport) {
 	app.post('/api/question/create', api.createQuestion);
 	app.post('/api/answer/create', api.createAnswer);
 	app.post('/api/comment/create', api.createComment);
-	app.post('/api/answer/vote', api.voteOnAnswer);
+	app.get('/api/answer/vote', api.voteOnAnswer);
 
 	// Update methods for profile page
 	app.post('/api/profile/addFollower', api.addFollower);

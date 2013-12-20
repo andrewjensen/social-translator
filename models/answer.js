@@ -12,10 +12,14 @@ var answerSchema = new mongoose.Schema({
 	timestamp		: {type: Number, default: null},
 
 	score			: {type: Number, default: 0},
-	upvotes			: {type: Number, default: 0},
-	downvotes		: {type: Number, default: 0},
-	upvoteAuthors	: [ {type: ObjectId, ref: 'users'} ],
-	downvoteAuthors	: [ {type: ObjectId, ref: 'users'} ],
+	// upvotes			: {type: Number, default: 0},
+	// downvotes		: {type: Number, default: 0},
+	// upvoteAuthors	: [ {type: ObjectId, ref: 'users'} ],
+	// downvoteAuthors	: [ {type: ObjectId, ref: 'users'} ],
+	votes			: [ {
+		author 		: {type: ObjectId, ref: 'users', default: null},
+		direction	: String	
+	}],
 
 	comments		: [ {
 		text		: String,

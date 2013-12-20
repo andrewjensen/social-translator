@@ -53,16 +53,30 @@ hubControllers.factory('auth', ['$cookies', '$cookieStore', function($cookies, $
 	};
 }]);
 
+/** Welcome */
+hubControllers.controller('WelcomeCntrl', ['$scope', '$http', 
+
+	function ($scope, $http) {
+		$http.get('/api/users/')
+			.success(function(data) {
+				$scope.users = data;
+				console.log('users', $scope.users);
+			});
+		
+		// $http.get('/api/')
+	}]
+);
+
 
 /** Login */
 hubControllers.controller('LoginCtrl', ['$scope', '$http', 
 
 	function ($scope, $http) {
 		//TODO: write the api and conect it
-		$http.get('')
-			.success(function(data) {
+		// $http.get('')
+		// 	.success(function(data) {
 
-			});
+			//});
 			// .error(function(data) {
 				
 			// });

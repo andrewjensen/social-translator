@@ -17,6 +17,29 @@ exports.languagelist = function(req, res) {
 	});
 };
 
+exports.recentStories = function(req, res) {
+	var numQuestions = 0;
+	var questionStories = [];
+	Question.find(function(err, questions) {
+		numQuestions = questions.length;
+		for (i in questions)
+		{
+			Story.createFromQuestionId(questions[i], function(err, story) {
+				questionStories.push(story);
+				complete();
+			});	
+		}
+	});
+
+	function complete() {
+		// Do not go on until we have the expected number of stories
+		if (questionStories.length != numQuestions)
+			return;
+
+		res.json(questionStories);
+	};
+};
+
 exports.searchPage = function(req, res) {
 
 	var phrase = req.params.phrase;      // This is the string to search for
@@ -160,22 +183,24 @@ exports.voteOnAnswer = function(req, res) {
 			res.send(err);
 		}
 		console.log('BEFORE_______________');
-		console.log('downvotes', downvotes);
-		console.log('upvotes',   upvotes);
-		console.log('score',   	 score);
+		console.log('votes', votes);
+		console.log('score', score);
+
+		var v = {
+			author: '52b099007dffc8760c000003',
+			direction: 'up'
+		};
 			
-		var upvotes 	= answer.upvotes;
-		var downvotes 	= answer.downvotes;
 		var score 		= answer.score;
+		var votes 		= answer.votes;
 
 		//TODO change all of the votes and the score :)
 
 		console.log('AFTER_________________');
-		console.log('downvotes', downvotes);
-		console.log('upvotes',   upvotes);
-		console.log('score',   	 score);
+		console.log('votes', votes);
+		console.log('score', score);
 
-		Answer.findOneAndUpdate({_id: '52afcec3618b701535f12df0'}, {upvotes: upvotes, downvotes: downvotes, score: score}, function(err, answer) {
+		Answer.findOneAndUpdate({_id: '52afcec3618b701535f12df0'}, {score: score, votes: votes}, function(err, answer) {
 			console.log(answer);
 		})
 
@@ -234,11 +259,12 @@ exports.createAnswer = function(req, res) {
 		question		: req.body.question,
 		translation		: req.body.translation,
 		supplementary	: req.body.supplementary,
-		upvotes			: 0,
-		downvotes		: 0,
+		// upvotes			: 0,
+		// downvotes		: 0,
 		score			: 0,
 		timestamp		: Math.round(new Date().getTime() / 1000),
-		comments		: []
+		comments		: [],
+		votes 			: []
 	};
 	Answer.create(data, function(err, answer) {
 
