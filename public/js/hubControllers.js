@@ -62,6 +62,12 @@ hubControllers.controller('WelcomeCntrl', ['$scope', '$http',
 				$scope.users = data;
 				console.log('users', $scope.users);
 			});
+
+		$http.get('/api/stories/')
+			.success(function(data) {
+				$scope.stories = data;
+				console.log('stories', $scope.stories);
+			});
 		
 		// $http.get('/api/')
 	}]

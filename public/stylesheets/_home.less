@@ -1,6 +1,76 @@
 
 @font-size-searchbar: @font-size-body + 2px;
 
+#homepage {
+
+	#homepage-header {
+		background-color: @bg-panel;
+		padding: @spacing-layout 0;
+		text-align: center;
+	}
+
+	.homepage-section {
+		
+		padding: @spacing-layout 0 0;
+
+		.container {
+			padding-bottom: @spacing-smaller;
+			border-bottom: 1px solid @color-divider;
+
+		}
+
+		&:last-child .container {
+			border-bottom: none;
+		}
+
+	}
+
+	//font awesome icons
+	.fa {
+		width: 40px;
+	}
+
+	.profile {
+		display: inline-block;
+		margin-right: @spacing-smallest;
+		position: relative;
+
+		@height-profile-img-home: 5rem;
+
+		img {
+			width: @height-profile-img-home;
+		}
+		// .username {
+		// 	display: none;
+		// 	position: absolute;
+		// 	z-index: 100;
+		// 	top: (@height-profile-img-home / 2);
+		// 	width: 20rem;
+
+		// 	padding: 2px 4px;
+		// 	background-color: white;
+
+		// 	font-size: @font-size-smaller;
+		// 	font-weight: bold;
+		// }
+
+		// &:hover, &.active, &.focus {
+		// 	.username {
+		// 		display: block;
+		// 	}
+		// }
+	}
+
+	.recent-activity {
+
+	}
+
+	.recent-activity img{
+		width: 5em;
+	}
+}
+
+
 .searchbar {
 
 	text-align: center;
@@ -36,23 +106,4 @@
 
 #searchbar-wrapper {
 	margin-top: 3px;
-}
-
-
-.welcome-page {
-	text-align: center;
-	margin: 4em;
-}
-
-.fa {
-	width: 40px;
-}
-
-.recent-activity {
-
-}
-
-.recent-activity img{
-	height: 5em;
-	width: 5em;
 }

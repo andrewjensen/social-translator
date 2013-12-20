@@ -7,7 +7,7 @@
 
 				<div class="col-md-2">
 					<div class="profile">
-						<img src="http://graph.facebook.com/{{user.facebook.id}}/picture?width=200&amp;height=200" alt="Profile Picture" />
+						<img ng-src="http://graph.facebook.com/{{user.facebook.id}}/picture?width=200&amp;height=200" alt="Profile Picture" />
 					</div>
 				</div>
 
@@ -23,9 +23,9 @@
 				</div>
 
 				<div class="col-md-4">
-					<div class="score-card">
+					<!-- <div class="score-card">
 						<h3>Score: {{ user.score }}</h3>
-					</div>
+					</div> -->
 				</div>
 
 			</div>
@@ -90,7 +90,7 @@
 					<h3>Following People 	<span class="badge"> {{user.followingUsers.length}} </span></h3>
 					<div class="profiles">
 						<div class="profile" ng-repeat="user in user.followingUsers">
-							<img src="http://graph.facebook.com/{{user.facebook.id}}/picture?type=square" />
+							<img ng-src="http://graph.facebook.com/{{user.facebook.id}}/picture?type=square" />
 						</div>
 					</div>
 				</div>
@@ -100,7 +100,7 @@
 
 					<div class="profiles">
 						<div class="profile" ng-repeat="user in user.followers">
-							<img src="http://graph.facebook.com/{{user.facebook.id}}/picture?type=square" />
+							<img ng-src="http://graph.facebook.com/{{user.facebook.id}}/picture?type=square" />
 						</div>
 					</div>
 				</div>
