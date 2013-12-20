@@ -34,6 +34,9 @@ module.exports = function(app, passport) {
 	app.get('/api/answers/', api.answerlist);
 	app.get('/api/languages/', api.languagelist);
 	app.get('/api/stories/', api.recentStories);
+	// app.get('/api/stories/', function(req, res) {
+	// 	api.recentStories(req, res);
+	// });
 
 	app.get('/api/users/:userID', api.getByID);
 	app.get('/api/feed/:type/:condition', api.getStories);

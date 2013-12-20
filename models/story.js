@@ -116,7 +116,18 @@ var Story = {
 				callback(err, null);
 			} else {
 
-				callback(null, Story.create(answer.question, answer));
+				//Get the author and languages of the question.
+				answer.question.populate('author', '_id name facebook', function(err, q) {
+					q.populate('fromLanguage', function(err, q) {
+						q.populate('toLanguage', function(err, q) {
+							callback(null, Story.create(q, answer));
+						});
+					});
+				});
+				// Question.populateAuthor(answer.question, function(err, q) {
+				// 	callback(null, Story.create(q, answer));
+				// });
+				
 			}
 		});
 	},

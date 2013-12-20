@@ -25,6 +25,17 @@ var questionSchema = new mongoose.Schema({
 /*************************
  * GETTERS */
 
+questionSchema.statics.populateAuthor = function(question, callbackFunction) {
+	var options = {
+		path: 'author',
+		model: 'users',
+		select: '_id name facebook.id'
+	};
+	this.populate(question, options, function (err, expandedQuestion){
+		callbackFunction(err, expandedQuestion);
+	});
+};
+
 questionSchema.statics.populateCommentAuthors = function(question, callbackFunction) {
 	var options = {
 		path: 'comments.author',
